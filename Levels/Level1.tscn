@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://b23p7r2gq6qw8"]
 
 [ext_resource type="Script" path="res://Levels/Level1.gd" id="1_agrjr"]
-[ext_resource type="TileSet" uid="uid://c31esy5sp1u1d" path="res://Levels/main_tileset.tres" id="2_ynaex"]
+[ext_resource type="TileSet" uid="uid://bej453papco5y" path="res://Levels/main_tileset.tres" id="2_ynaex"]
 [ext_resource type="PackedScene" uid="uid://c7ytsxqxq0nwg" path="res://Player/Bullet.tscn" id="3_4sx4y"]
 [ext_resource type="PackedScene" uid="uid://hkt5mjqrsf6d" path="res://Objects/Handgun.tscn" id="4_2fpmr"]
 

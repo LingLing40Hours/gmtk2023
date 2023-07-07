@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bgx8i4cujks2"
-path="res://.godot/imported/wall2.png-5d521693a021ddf3171b1dc72b000532.ctex"
+uid="uid://gsflwduqneqd"
+path="res://.godot/imported/wall2.png-9b0cf150a27ad2859861d6390dde783c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Aesprites/wall2.png"
-dest_files=["res://.godot/imported/wall2.png-5d521693a021ddf3171b1dc72b000532.ctex"]
+source_file="res://Sprites/wall2.png"
+dest_files=["res://.godot/imported/wall2.png-9b0cf150a27ad2859861d6390dde783c.ctex"]
 
 [params]
 
@@ -25,7 +25,7 @@ mipmaps/generate=false
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""
-process/fix_alpha_border=true
+process/fix_alpha_border=false
 process/premult_alpha=false
 process/normal_map_invert_y=false
 process/hdr_as_srgb=false

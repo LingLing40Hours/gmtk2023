@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://b23p7r2gq6qw8"]
+[gd_scene load_steps=3 format=3 uid="uid://b23p7r2gq6qw8"]
 
 [ext_resource type="Script" path="res://Levels/Level1.gd" id="1_agrjr"]
+[ext_resource type="TileSet" uid="uid://c31esy5sp1u1d" path="res://Levels/main_tileset.tres" id="2_ynaex"]
 
 [node name="Level1" type="Node2D"]
 script = ExtResource("1_agrjr")
@@ -9,3 +10,7 @@ script = ExtResource("1_agrjr")
 offset_right = 640.0
 offset_bottom = 480.0
 color = Color(0.729412, 0.729412, 0.729412, 1)
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = ExtResource("2_ynaex")
+format = 2

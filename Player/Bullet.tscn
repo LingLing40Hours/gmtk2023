@@ -6,7 +6,8 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_spvwu"]
 size = Vector2(2, 12)
 
-[node name="Bullet" type="CharacterBody2D"]
+[node name="Bullet" type="CharacterBody2D" groups=["player"]]
+motion_mode = 1
 script = ExtResource("1_x85wi")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

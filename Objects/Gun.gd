@@ -1,7 +1,6 @@
 class_name Gun
-extends Node2D
+extends CharacterBody2D
 
+var MU_AIR:float = 0.01;
 
-var damage:float;
-var speed:float;
 

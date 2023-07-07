@@ -1,19 +1,23 @@
 extends CharacterBody2D
 
+@export var initial_angle:float = 0;
+const SPEED_ROLL = 20.0
+const SPEED_YAW = 3;
+const MU_GROUND:float = 0.1;
 
-const H_SPEED = 300.0
-const gravity = 200;
+func _ready():
+	rotation_degrees = initial_angle;
 
 func _physics_process(delta):
-	#gravity.
-	if not is_on_floor():
-		velocity.y += gravity * delta
-
-	#roll
+	#left/right movement
 	var direction = Input.get_axis("ui_left", "ui_right")
 	if direction:
-		velocity.x = direction * SPEED
-	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
+		if Input.is_action_pressed("arc"): #yaw
+			rotation_degrees += SPEED_YAW * direction;
+		else: #roll
+			velocity += direction * SPEED_ROLL * Vector2(cos(rotation), sin(rotation));
+
+	#friction
+	velocity *= 1 - MU_GROUND;
 
 	move_and_slide()

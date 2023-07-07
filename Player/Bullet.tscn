@@ -9,6 +9,7 @@ size = Vector2(2, 12)
 [node name="Bullet" type="CharacterBody2D" groups=["player"]]
 motion_mode = 1
 script = ExtResource("1_x85wi")
+initial_angle = null
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.02, 0.1)
@@ -16,3 +17,15 @@ texture = ExtResource("1_1tkdg")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_spvwu")
+
+[node name="Left" type="Area2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Left"]
+polygon = PackedVector2Array(-1, -6, -2, -4, -2, 4, -1, 6)
+
+[node name="Right" type="Area2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Right"]
+polygon = PackedVector2Array(1, -6, 2, -4, 2, 4, 1, 6)
+
+[connection signal="body_entered" from="Left" to="." method="_on_left_body_entered"]

@@ -17,23 +17,20 @@ func _physics_process(delta):
 				#code to give soldier the gun here
 				queue_free();
 			else: #damage and bounce off soldier
-				collider.health -= DAMAGE;
+				if velocity.length() > collider.HARMFUL_SPEED:
+					collider.health -= DAMAGE;
 				velocity = velocity.bounce(collision_info.get_normal());
 		else: #bounce off wall
 			velocity = velocity.bounce(collision_info.get_normal());
 
-	
-func _on_loading_area_body_entered(body):
-	if body.is_in_group("player") and not get_parent().is_in_group("player"):
-		body.pickup(self);
-
 func fire():
-	#change parent
+	#set position, velocity
 	position += get_parent().position;
+	var angle = get_parent().rotation_degrees - 180;
+	var dir = Vector2(cos(angle), sin(angle));
+	velocity += SPEED * dir;
+	
+	#change parent
 	get_parent().call_deferred("remove_child", self);
 	game.current_level.call_deferred("add_child", self);
 	
-	#set speed and dir
-	var angle = get_parent().rotation_degrees - 90;
-	var dir = Vector2(cos(angle), sin(angle));
-	velocity += SPEED * dir;

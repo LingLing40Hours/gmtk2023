@@ -2,7 +2,11 @@
 
 importer="texture"
 type="CompressedTexture2D"
+<<<<<<< HEAD
 uid="uid://bcf8pk0colggx"
+=======
+uid="uid://c7nft3upund1q"
+>>>>>>> b19c9d2 (progress on firing)
 path="res://.godot/imported/Soldier-run-Sheet.png-9241434719448a871cc568e3dbc15eb9.ctex"
 metadata={
 "vram_texture": false

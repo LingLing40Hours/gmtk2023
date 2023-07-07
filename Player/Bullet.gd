@@ -5,9 +5,9 @@ extends CharacterBody2D
 const SPEED_ROLL = 20.0
 const SPEED_YAW = 3;
 const MU_GROUND:float = 0.1;
+var SEP_STEP:float = 0.2; #separate guns slightly so they don't obstruct movement
 
-var guns_left:Array[Gun];
-var guns_right:Array[Gun];
+var guns:Array[Gun];
 
 
 func _ready():
@@ -15,16 +15,22 @@ func _ready():
 
 func _physics_process(delta):
 	#shooting
-	if Input.is_action_just_pressed("fire_left") and guns_left.size():
-		for gun in guns_left:
-			gun.fire();
-		game.change_ammo(GV.ammo - guns_left.size());
-		guns_left.clear();
-	if Input.is_action_just_pressed("fire_right") and guns_right.size():
-		for gun in guns_right:
-			gun.fire();
-		game.change_ammo(GV.ammo - guns_right.size());
-		guns_right.clear();
+	if Input.is_action_just_pressed("fire_left") and guns:
+		var count = 0;
+		for i in range(guns.size()-1, -1, -1):
+			if guns[i].left:
+				guns[i].call_deferred("fire");
+				guns.remove_at(i);
+				count += 1;
+		game.change_ammo(GV.ammo - count);
+	if Input.is_action_just_pressed("fire_right") and guns:
+		var count = 0;
+		for i in range(guns.size()-1, -1, -1):
+			if not guns[i].left:
+				guns[i].call_deferred("fire");
+				guns.remove_at(i);
+				count += 1;
+		game.change_ammo(GV.ammo - count);
 	
 	#left/right movement
 	var direction = Input.get_axis("ui_left", "ui_right")
@@ -37,20 +43,32 @@ func _physics_process(delta):
 	#friction
 	velocity *= 1 - MU_GROUND;
 
-	move_and_slide()
+	var collision = move_and_collide(velocity * delta)
+	if collision:
+		var collider = collision.get_collider();
+		if collider is Gun:
+			collider.position += SEP_STEP * collider.fire_dir();
+		else:
+			velocity = velocity.slide(collision.get_normal())
 
 func pickup(g:Node2D):
-	game.change_ammo(GV.ammo+1);
 	g.position -= position;
-	g.get_parent().call_deferred("remove_child", g);
-	call_deferred("add_child", g);
-	gun = g;
-
-func _on_loading_area_body_entered(body):
-	if body.is_in_group("player") and not get_parent().is_in_group("player"):
-		body.pickup(self);
-
+	g.get_parent().remove_child(g);
+	g.get_node("GunCollider").disabled = true;
+	add_child(g);
+	#g.get_parent().call_deferred("remove_child", g);
+	#call_deferred("add_child", g);
 
 func _on_left_body_entered(body):
-	if body is Gun:
-		pickup(body);
+	if body is Gun and body.state == body.States.IDLE:
+		guns.append(body);
+		game.change_ammo(GV.ammo+1);
+		body.state = body.States.LOADED;
+		call_deferred("pickup", body);
+		
+func _on_right_body_entered(body):
+	if body is Gun and body.state == body.States.IDLE:
+		guns.append(body);
+		game.change_ammo(GV.ammo+1);
+		body.state = body.States.LOADED;
+		call_deferred("pickup", body);

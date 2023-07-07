@@ -11,5 +11,5 @@ script = ExtResource("1_0t60d")
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("2_ncm81")
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+[node name="GunCollider" type="CollisionPolygon2D" parent="."]
 polygon = PackedVector2Array(-13, -13, 13, -13, 13, -5, -3, -5, -3, 13, -13, 13)

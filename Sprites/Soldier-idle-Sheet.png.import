@@ -2,11 +2,7 @@
 
 importer="texture"
 type="CompressedTexture2D"
-<<<<<<< HEAD
-uid="uid://by4yk2fyoxusq"
-=======
-uid="uid://e4r3eaph2k57"
->>>>>>> b19c9d2 (progress on firing)
+uid="uid://c57m2mw1g1dyl"
 path="res://.godot/imported/Soldier-idle-Sheet.png-844b2e108684d26b0ba4f773919551d7.ctex"
 metadata={
 "vram_texture": false

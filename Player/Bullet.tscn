@@ -9,7 +9,6 @@ size = Vector2(2, 12)
 [node name="Bullet" type="CharacterBody2D" groups=["player"]]
 motion_mode = 1
 script = ExtResource("1_x85wi")
-initial_angle = null
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.02, 0.1)
@@ -29,3 +28,4 @@ polygon = PackedVector2Array(-1, -6, -2, -4, -2, 4, -1, 6)
 polygon = PackedVector2Array(1, -6, 2, -4, 2, 4, 1, 6)
 
 [connection signal="body_entered" from="Left" to="." method="_on_left_body_entered"]
+[connection signal="body_entered" from="Right" to="." method="_on_right_body_entered"]

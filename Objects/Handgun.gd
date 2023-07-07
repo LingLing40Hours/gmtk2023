@@ -27,6 +27,7 @@ func _physics_process(delta):
 			var collision_info = move_and_collide(velocity * delta)
 			if collision_info:
 				var collider = collision_info.get_collider();
+				print(collider);
 				if collider.is_in_group("enemy"):
 					if not GV.rng.randi_range(0, 9): #soldier catches gun
 						#code to give soldier the gun here
@@ -41,6 +42,9 @@ func _physics_process(delta):
 
 func fire():
 	state = States.FIRED;
+	#enable collider
+	$GunCollider.disabled = false;
+	
 	#find firing parameters
 	var new_pos = position + get_parent().position;
 	var new_rot_deg = get_parent().rotation_degrees;
@@ -57,8 +61,6 @@ func fire():
 	rotation_degrees = new_rot_deg;
 	velocity += SPEED * dir;
 	state = States.IDLE;
-	
-	print(velocity);
 
 func fire_dir() -> Vector2:
 	if not get_parent().is_in_group("player"):

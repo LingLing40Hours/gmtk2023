@@ -5,9 +5,10 @@ extends CharacterBody2D
 const SPEED_ROLL = 20.0
 const SPEED_YAW = 3;
 const MU_GROUND:float = 0.1;
-var SEP_STEP:float = 0.2; #separate guns slightly so they don't obstruct movement
+
 
 var guns:Array[Gun];
+var gun_colliders:Array[CollisionPolygon2D];
 
 
 func _ready():
@@ -21,6 +22,8 @@ func _physics_process(delta):
 			if guns[i].left:
 				guns[i].call_deferred("fire");
 				guns.remove_at(i);
+				call_deferred("remove_child", gun_colliders[i]);
+				gun_colliders.remove_at(i);
 				count += 1;
 		game.change_ammo(GV.ammo - count);
 	if Input.is_action_just_pressed("fire_right") and guns:
@@ -29,6 +32,8 @@ func _physics_process(delta):
 			if not guns[i].left:
 				guns[i].call_deferred("fire");
 				guns.remove_at(i);
+				call_deferred("remove_child", gun_colliders[i]);
+				gun_colliders.remove_at(i);
 				count += 1;
 		game.change_ammo(GV.ammo - count);
 	
@@ -43,32 +48,37 @@ func _physics_process(delta):
 	#friction
 	velocity *= 1 - MU_GROUND;
 
-	var collision = move_and_collide(velocity * delta)
-	if collision:
-		var collider = collision.get_collider();
-		if collider is Gun:
-			collider.position += SEP_STEP * collider.fire_dir();
-		else:
-			velocity = velocity.slide(collision.get_normal())
+	move_and_slide();
 
 func pickup(g:Node2D):
+	print("PICKUP");
+	#steal collider from gun
+	var col_shape = g.get_node("GunCollider");
+	var temp_col_shape = col_shape.duplicate();
+	col_shape.disabled = true;
+	temp_col_shape.position = g.position - position;
+	add_child(temp_col_shape);
+	gun_colliders.append(temp_col_shape);
+	
+	#steal gun from level
 	g.position -= position;
 	g.get_parent().remove_child(g);
-	g.get_node("GunCollider").disabled = true;
 	add_child(g);
+	guns.append(g);
 	#g.get_parent().call_deferred("remove_child", g);
 	#call_deferred("add_child", g);
+	
+	#update ammo
+	game.change_ammo(GV.ammo+1);
 
 func _on_left_body_entered(body):
 	if body is Gun and body.state == body.States.IDLE:
-		guns.append(body);
-		game.change_ammo(GV.ammo+1);
 		body.state = body.States.LOADED;
+		body.left = true;
 		call_deferred("pickup", body);
 		
 func _on_right_body_entered(body):
 	if body is Gun and body.state == body.States.IDLE:
-		guns.append(body);
-		game.change_ammo(GV.ammo+1);
 		body.state = body.States.LOADED;
+		body.left = false;
 		call_deferred("pickup", body);

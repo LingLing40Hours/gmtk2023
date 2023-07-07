@@ -4,7 +4,7 @@ var LEVEL_COUNT:int = 6;
 var current_level_index:int = 0;
 var level_scores = [];
 
-var TILE_WIDTH:float = 40; #px
+var ammo:int = 0;
 
 var rng = RandomNumberGenerator.new();
 

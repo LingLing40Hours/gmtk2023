@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://b23p7r2gq6qw8"]
+[gd_scene load_steps=6 format=3 uid="uid://b23p7r2gq6qw8"]
 
 [ext_resource type="Script" path="res://Levels/Level1.gd" id="1_agrjr"]
-[ext_resource type="TileSet" uid="uid://c31esy5sp1u1d" path="res://Levels/main_tileset.tres" id="2_ynaex"]
+[ext_resource type="TileSet" uid="uid://bej453papco5y" path="res://Levels/main_tileset.tres" id="2_ynaex"]
 [ext_resource type="PackedScene" uid="uid://c7ytsxqxq0nwg" path="res://Player/Bullet.tscn" id="3_4sx4y"]
 [ext_resource type="PackedScene" uid="uid://hkt5mjqrsf6d" path="res://Objects/Handgun.tscn" id="4_2fpmr"]
+[ext_resource type="PackedScene" uid="uid://dxqmqoc6up15h" path="res://Enemy/Soldier1.tscn" id="5_wc0jh"]
 
 [node name="Level1" type="Node2D"]
 script = ExtResource("1_agrjr")
@@ -20,7 +21,9 @@ layer_0/tile_data = PackedInt32Array(0, 0, 0, 1, 0, 0, 2, 0, 0, 3, 0, 0, 4, 0, 0
 
 [node name="Bullet" parent="." instance=ExtResource("3_4sx4y")]
 position = Vector2(288, 307)
-initial_angle = 0.0
 
 [node name="Handgun" parent="." instance=ExtResource("4_2fpmr")]
 position = Vector2(264, 315)
+
+[node name="Soldier1" parent="." instance=ExtResource("5_wc0jh")]
+position = Vector2(115, 120)

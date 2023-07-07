@@ -1,6 +1,9 @@
-[gd_scene format=3 uid="uid://b23p7r2gq6qw8"]
+[gd_scene load_steps=2 format=3 uid="uid://b23p7r2gq6qw8"]
+
+[ext_resource type="Script" path="res://Levels/Level1.gd" id="1_agrjr"]
 
 [node name="Level1" type="Node2D"]
+script = ExtResource("1_agrjr")
 
 [node name="Background" type="ColorRect" parent="."]
 offset_right = 800.0

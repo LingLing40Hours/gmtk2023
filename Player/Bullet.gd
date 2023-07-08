@@ -15,6 +15,7 @@ func _ready():
 	rotation_degrees = initial_angle;
 
 func _physics_process(delta):
+	#print(rotation_degrees);
 	#shooting
 	if Input.is_action_just_pressed("fire_left") and guns:
 		var count = 0;

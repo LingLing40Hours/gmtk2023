@@ -14,6 +14,9 @@ func inPhysicsProcess(delta):
 	var collision_info = actor.move_and_collide(actor.velocity * delta)
 	if collision_info:
 		var collider = collision_info.get_collider();
+		print("collision with ", collider);
+		if actor.get_node("GunCollider").disabled:
+			print("DISABLED");
 		if collider.is_in_group("enemy"):
 			if not GV.rng.randi_range(0, 9): #soldier catches gun
 				#code to give soldier the gun here

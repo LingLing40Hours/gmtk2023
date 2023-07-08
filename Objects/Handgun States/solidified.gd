@@ -11,7 +11,7 @@ func inPhysicsProcess(delta):
 		actor.velocity = Vector2.ZERO;
 	
 	#move
-	var collision_info = actor.move_and_collide(actor.velocity * delta)
+	var collision_info = actor.move_and_collide(actor.velocity * delta);
 	if collision_info:
 		var collider = collision_info.get_collider();
 		if collider.is_in_group("enemy"):
@@ -22,6 +22,13 @@ func inPhysicsProcess(delta):
 				if actor.velocity.length() > collider.HARMFUL_SPEED:
 					collider.health -= actor.DAMAGE;
 				actor.velocity = actor.velocity.bounce(collision_info.get_normal());
+		elif collider is TileMap:
+			var pos = collider.local_to_map(collision_info.get_position() - collision_info.get_normal());
+			var id = collider.get_cell_source_id(0, pos);
+			if id == 0:
+				actor.velocity = actor.velocity.bounce(collision_info.get_normal());
+			elif actor.velocity.length() > actor.BREAKWOOD_SPEED:
+				collider.set_cell(0, pos, -1);
 		else: #bounce off wall
 			actor.velocity = actor.velocity.bounce(collision_info.get_normal());
 	

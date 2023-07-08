@@ -16,9 +16,9 @@ func fire():
 	velocity += SPEED * fire_dir();
 	
 	#convert to global transform
-	var br = get_parent().rotation;
+	var br = get_parent().rotation + 90;
 	position = get_parent().position + position.length() * Vector2(cos(br), sin(br));
-	rotation += br;
+	rotation += br - 90;
 	
 	#change parent
 	get_parent().remove_child(self);

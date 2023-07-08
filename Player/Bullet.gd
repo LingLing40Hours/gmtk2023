@@ -96,28 +96,24 @@ func _on_right_body_entered(body):
 func _on_animated_sprite_2d_animation_finished():
 	match $AnimatedSprite2D.animation:
 		"shoot_left":
-			var shoot_count = 0;
 			for i in range(guns.size()-1, -1, -1):
 				if guns[i].left_loaded:
 					guns[i].call_deferred("fire");
 					guns.remove_at(i);
 					call_deferred("remove_child", gun_colliders[i]);
 					gun_colliders.remove_at(i);
-					shoot_count += 1;
-			game.change_ammo(GV.ammo - shoot_count);
+			game.change_ammo(GV.ammo - left_count);
 			left_count = 0;
 			$AnimatedSprite2D.stop();
 			$AnimatedSprite2D.play("roll");
 		"shoot_right":
-			var shoot_count = 0;
 			for i in range(guns.size()-1, -1, -1):
 				if not guns[i].left_loaded:
 					guns[i].call_deferred("fire");
 					guns.remove_at(i);
 					call_deferred("remove_child", gun_colliders[i]);
 					gun_colliders.remove_at(i);
-					shoot_count += 1;
-			game.change_ammo(GV.ammo - shoot_count);
+			game.change_ammo(GV.ammo - right_count);
 			right_count = 0;
 			$AnimatedSprite2D.stop();
 			$AnimatedSprite2D.play("roll");

@@ -2,10 +2,10 @@
 
 [ext_resource type="Script" path="res://Objects/Handgun.gd" id="1_0t60d"]
 [ext_resource type="Texture2D" uid="uid://b1igmyl4q12k" path="res://Sprites/gun.png" id="2_dqdlf"]
-[ext_resource type="Script" path="res://Objects/Handgun States/Idle.gd" id="3_n18s4"]
 [ext_resource type="Script" path="res://Objects/FSM/FiniteStateMachine.gd" id="3_qqqy2"]
-[ext_resource type="Script" path="res://Objects/Handgun States/Loaded.gd" id="5_k6xbd"]
-[ext_resource type="Script" path="res://Objects/Handgun States/Fired.gd" id="6_i3mcc"]
+[ext_resource type="Script" path="res://Objects/Handgun States/idle.gd" id="4_4esi0"]
+[ext_resource type="Script" path="res://Objects/Handgun States/loaded.gd" id="5_mxegk"]
+[ext_resource type="Script" path="res://Objects/Handgun States/fired.gd" id="6_js0o1"]
 [ext_resource type="Script" path="res://Objects/Handgun States/solidified.gd" id="7_6qgn5"]
 [ext_resource type="AudioStream" uid="uid://prp340hrlcw6" path="res://Sounds/Pistol1.mp3" id="8_lpye0"]
 
@@ -23,13 +23,13 @@ polygon = PackedVector2Array(-8, -8, 8, -8, 8, 0, 0, 0, 0, 8, -8, 8)
 script = ExtResource("3_qqqy2")
 
 [node name="idle" type="Node2D" parent="FSM"]
-script = ExtResource("3_n18s4")
+script = ExtResource("4_4esi0")
 
 [node name="loaded" type="Node2D" parent="FSM"]
-script = ExtResource("5_k6xbd")
+script = ExtResource("5_mxegk")
 
 [node name="fired" type="Node2D" parent="FSM"]
-script = ExtResource("6_i3mcc")
+script = ExtResource("6_js0o1")
 
 [node name="solidified" type="Node2D" parent="FSM"]
 script = ExtResource("7_6qgn5")

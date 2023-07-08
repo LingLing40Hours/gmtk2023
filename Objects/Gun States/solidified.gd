@@ -1,5 +1,8 @@
 extends State
 	
+@onready var GV:Node = $"/root/GV";
+@onready var game:Node2D = $"/root/Game";
+
 
 func enter():
 	actor.get_node("GunCollider").disabled = false;
@@ -31,6 +34,7 @@ func inPhysicsProcess(delta):
 			elif speed > actor.BREAKWOOD_SPEED:
 				collider.set_cell(0, pos, -1);
 				actor.velocity *= 1 - actor.BREAKWOOD_SLOWDOWN/speed;
+				game.add_score(GV.BREAKWOOD_SCORE);
 		else: #bounce off wall
 			actor.velocity = actor.velocity.bounce(collision_info.get_normal());
 	#break

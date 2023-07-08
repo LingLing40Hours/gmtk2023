@@ -1,3 +1,4 @@
 extends State
 
-#pass
+func enter():
+	actor.velocity = Vector2.ZERO;

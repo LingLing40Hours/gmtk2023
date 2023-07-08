@@ -33,3 +33,39 @@ var SEP_STEP:float = 0.2; #separate guns slightly so they don't obstruct movemen
 	var new_pos = dpos.length() * Vector2(cos(new_pos_rot_rad), sin(new_pos_rot_rad));
 	var dir = fire_dir();
 '''
+
+
+''' bullet
+func _physics_process(delta):
+	if $AnimatedSprite2D.animation == "roll":
+		#rolling anim speed
+		$AnimatedSprite2D.speed_scale = velocity.length() / 30;
+		
+		#shooting
+		if Input.is_action_just_pressed("fire_left") and left_count:
+			$AnimatedSprite2D.speed_scale = 1;
+			$AnimatedSprite2D.play("shoot_left");
+		if Input.is_action_just_pressed("fire_right") and right_count:
+			$AnimatedSprite2D.speed_scale = 1;
+			$AnimatedSprite2D.play("shoot_right");
+	
+	#left/right movement
+	var direction = Input.get_axis("ui_left", "ui_right");
+	if direction:
+		if Input.is_action_pressed("arc"): #yaw
+			rotation_degrees -= SPEED_YAW * direction;
+			
+			#roll direction; right (angle left) when direction > 0
+			$AnimatedSprite2D.speed_scale = 2.2 * direction;
+		else: #roll
+			velocity += direction * SPEED_ROLL * Vector2(cos(rotation), sin(rotation));
+			
+			#roll direction
+			if direction:
+				$AnimatedSprite2D.speed_scale *= direction;
+
+	#friction
+	velocity *= 1 - MU_GROUND;
+
+	move_and_slide();
+'''

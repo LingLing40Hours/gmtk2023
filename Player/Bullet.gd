@@ -5,6 +5,7 @@ extends CharacterBody2D
 const SPEED_ROLL = 20.0
 const SPEED_YAW = 3;
 const MU_GROUND:float = 0.1;
+const SPEED_MIN = 10;
 
 
 var guns:Array[Gun];
@@ -15,39 +16,8 @@ var right_count = 0;
 
 func _ready():
 	rotation_degrees = initial_angle;
+	$FSM.setState($FSM.states["idle"]);
 
-func _physics_process(delta):
-	if $AnimatedSprite2D.animation == "roll":
-		#rolling anim speed
-		$AnimatedSprite2D.speed_scale = velocity.length() / 30;
-		
-		#shooting
-		if Input.is_action_just_pressed("fire_left") and left_count:
-			$AnimatedSprite2D.speed_scale = 1;
-			$AnimatedSprite2D.play("shoot_left");
-		if Input.is_action_just_pressed("fire_right") and right_count:
-			$AnimatedSprite2D.speed_scale = 1;
-			$AnimatedSprite2D.play("shoot_right");
-	
-	#left/right movement
-	var direction = Input.get_axis("ui_left", "ui_right")
-	if direction:
-		if Input.is_action_pressed("arc"): #yaw
-			rotation_degrees -= SPEED_YAW * direction;
-			
-			#roll direction; right (angle left) when direction > 0
-			$AnimatedSprite2D.speed_scale = 2.2 * direction;
-		else: #roll
-			velocity += direction * SPEED_ROLL * Vector2(cos(rotation), sin(rotation));
-			
-			#roll direction
-			if direction:
-				$AnimatedSprite2D.speed_scale *= direction;
-
-	#friction
-	velocity *= 1 - MU_GROUND;
-
-	move_and_slide();
 
 func pickup(g:Node2D):
 	print("PICKUP");	
@@ -117,3 +87,18 @@ func _on_animated_sprite_2d_animation_finished():
 			right_count = 0;
 			$AnimatedSprite2D.stop();
 			$AnimatedSprite2D.play("roll");
+
+func get_state() -> String:
+	return $FSM.curState.name;
+
+func change_state(s:String):
+	$FSM.setState($FSM.states[s]);
+
+
+func _on_roll_straight_finished():
+	if get_state() == "rolling":
+		$RollStraight.play();
+
+func _on_roll_turn_finished():
+	if get_state() == "arcing":
+		$RollTurn.play();

@@ -1,9 +1,18 @@
-[gd_scene load_steps=29 format=3 uid="uid://c7ytsxqxq0nwg"]
+[gd_scene load_steps=38 format=3 uid="uid://c7ytsxqxq0nwg"]
 
 [ext_resource type="Script" path="res://Player/Bullet.gd" id="1_x85wi"]
 [ext_resource type="Texture2D" uid="uid://bwivb2qg4q1jq" path="res://Sprites/bullet-Sheet.png" id="2_54q86"]
 [ext_resource type="Texture2D" uid="uid://dyb5turhv0sea" path="res://Sprites/bullet_shoot_left.png" id="2_yxxwg"]
 [ext_resource type="Texture2D" uid="uid://bqv3wud27h2qx" path="res://Sprites/bullet_shoot_right.png" id="4_elu8p"]
+[ext_resource type="AudioStream" uid="uid://bklwwo46140bq" path="res://Sounds/roll_straight.wav" id="5_4c5gj"]
+[ext_resource type="AudioStream" uid="uid://dov17s4qn4h13" path="res://Sounds/roll_turn.wav" id="6_nnfv7"]
+[ext_resource type="AudioStream" uid="uid://cjb74rebrir3x" path="res://Sounds/buildup.wav" id="7_j5lpr"]
+[ext_resource type="Script" path="res://Objects/FSM/FiniteStateMachine.gd" id="7_xnkt1"]
+[ext_resource type="Script" path="res://Player/States/idle.gd" id="8_vn43o"]
+[ext_resource type="Script" path="res://Player/States/rolling.gd" id="9_dfmdm"]
+[ext_resource type="Script" path="res://Player/States/arcing.gd" id="10_2ldx3"]
+[ext_resource type="Script" path="res://Player/States/shoot_left.gd" id="11_bxmjw"]
+[ext_resource type="Script" path="res://Player/States/shoot_right.gd" id="12_rovo4"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_d8ywm"]
 atlas = ExtResource("2_54q86")
@@ -213,6 +222,39 @@ position = Vector2(0, 16.2)
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Right"]
 polygon = PackedVector2Array(1, -7, 2, -7, 3, -6, 3, -3, 4, -2, 4, 6, 3, 7, 3, -2, 2, -3, 2, -6)
 
+<<<<<<< HEAD
+=======
+[node name="RollStraight" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_4c5gj")
+
+[node name="RollTurn" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_nnfv7")
+
+[node name="Buildup" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_j5lpr")
+volume_db = -2.0
+
+[node name="FSM" type="Node" parent="."]
+script = ExtResource("7_xnkt1")
+
+[node name="idle" type="Node2D" parent="FSM"]
+script = ExtResource("8_vn43o")
+
+[node name="rolling" type="Node2D" parent="FSM"]
+script = ExtResource("9_dfmdm")
+
+[node name="arcing" type="Node2D" parent="FSM"]
+script = ExtResource("10_2ldx3")
+
+[node name="shoot_left" type="Node2D" parent="FSM"]
+script = ExtResource("11_bxmjw")
+
+[node name="shoot_right" type="Node2D" parent="FSM"]
+script = ExtResource("12_rovo4")
+
+>>>>>>> 0013e92 (convert bullet to FSM, sync bullet sound effects)
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="body_entered" from="Left" to="." method="_on_left_body_entered"]
 [connection signal="body_entered" from="Right" to="." method="_on_right_body_entered"]
+[connection signal="finished" from="RollStraight" to="." method="_on_roll_straight_finished"]
+[connection signal="finished" from="RollTurn" to="." method="_on_roll_turn_finished"]

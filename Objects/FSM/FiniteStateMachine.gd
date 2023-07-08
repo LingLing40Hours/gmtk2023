@@ -1,7 +1,7 @@
 extends Node
 class_name FSM
 
-@onready var actor = get_parent() # the actor is the node you are giving AI to
+@onready var actor = get_parent() # the actor is the node you are giving the FSM to
 var states = {}
 var curState = null: set = setState
 var prevState = null

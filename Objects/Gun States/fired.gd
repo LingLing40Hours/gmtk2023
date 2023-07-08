@@ -1,7 +1,11 @@
 extends State
 
-var TICK_TOTAL = 4;
+@onready var GV:Node = $"/root/GV";
+@onready var game:Node2D = $"/root/Game";
+
+var TICK_TOTAL = 1;
 var ticks:int;
+
 
 func enter():
 	ticks = 0;
@@ -34,6 +38,7 @@ func inPhysicsProcess(delta):
 			elif speed > actor.BREAKWOOD_SPEED:
 				collider.set_cell(0, pos, -1);
 				actor.velocity *= 1 - actor.BREAKWOOD_SLOWDOWN/speed;
+				game.add_score(GV.BREAKWOOD_SCORE);
 		else: #bounce
 			actor.velocity = actor.velocity.bounce(collision_info.get_normal());
 			

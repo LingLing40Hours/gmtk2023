@@ -89,7 +89,6 @@ layout_mode = 2
 [node name="ScoreLabel" type="Label" parent="GUI/ColorRect/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 theme = ExtResource("2_ax7wr")
-text = "Score: 0"
 
 [node name="AmmoLabel" type="Label" parent="GUI/ColorRect/HBoxContainer/VBoxContainer"]
 layout_mode = 2

@@ -1,18 +1,12 @@
 extends CharacterBody2D
 
-<<<<<<< HEAD
-<<<<<<< HEAD
+
 @export var pathErrorMargin:float = 5
 @export var targetErrorMargin:float = 1
 @export var movementSpeed:float = 5
 
-var HEALTH:float;
-=======
+
 var health:float = 12;
->>>>>>> main
-=======
-var health:float = 12;
->>>>>>> main
 var HARMFUL_SPEED:float = 100; #take damage if gun is faster than this
 
 var version

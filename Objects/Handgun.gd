@@ -8,8 +8,6 @@ func _ready():
 	SPEED = 1200;
 	$FSM.setState($FSM.states.idle);
 
-func _physics_process(delta):
-	print(get_state());
 
 func fire():
 	change_state("fired");
@@ -21,7 +19,6 @@ func fire():
 	var new_pos = position + get_parent().position;
 	var new_rot_deg = get_parent().rotation_degrees;
 	var dir = fire_dir();
-	print(dir);
 	
 	#change parent
 	#get_parent().call_deferred("remove_child", self);
@@ -38,8 +35,10 @@ func fire_dir() -> Vector2:
 	if not get_parent().is_in_group("player"):
 		return Vector2.ZERO;
 	var angle = get_parent().rotation_degrees + 90;
+	print("parent: ",angle);
 	if left_loaded:
 		angle += 180;
+	print("self: ",angle);
 	return Vector2(cos(angle), sin(angle));
 
 func get_state() -> String:

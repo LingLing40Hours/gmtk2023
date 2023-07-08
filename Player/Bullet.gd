@@ -57,6 +57,7 @@ func pickup(g:Node2D):
 	var temp_col_shape = col_shape.duplicate();
 	col_shape.disabled = true;
 	temp_col_shape.position = g.position - position;
+	temp_col_shape.rotation_degrees = g.rotation_degrees;
 	add_child(temp_col_shape);
 	gun_colliders.append(temp_col_shape);
 	

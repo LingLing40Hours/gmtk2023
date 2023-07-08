@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://hkt5mjqrsf6d"]
+[gd_scene load_steps=9 format=3 uid="uid://hkt5mjqrsf6d"]
 
 [ext_resource type="Script" path="res://Objects/Handgun.gd" id="1_0t60d"]
 [ext_resource type="Texture2D" uid="uid://b1igmyl4q12k" path="res://Sprites/gun.png" id="2_dqdlf"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://Objects/Handgun States/Loaded.gd" id="5_k6xbd"]
 [ext_resource type="Script" path="res://Objects/Handgun States/Fired.gd" id="6_i3mcc"]
 [ext_resource type="Script" path="res://Objects/Handgun States/solidified.gd" id="7_6qgn5"]
+[ext_resource type="AudioStream" uid="uid://prp340hrlcw6" path="res://Sounds/Pistol1.mp3" id="8_lpye0"]
 
 [node name="Handgun" type="CharacterBody2D"]
 motion_mode = 1
@@ -32,3 +33,7 @@ script = ExtResource("6_i3mcc")
 
 [node name="solidified" type="Node2D" parent="FSM"]
 script = ExtResource("7_6qgn5")
+
+[node name="Pistol" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("8_lpye0")
+volume_db = -6.0

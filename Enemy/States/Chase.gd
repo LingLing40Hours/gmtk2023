@@ -1,8 +1,10 @@
 extends State
 
+var isTargetReached:bool = false
 # Called when the parent enters the state
 func enter():
-	pass 
+	actor.playAnimation("run")
+	print("yo") 
 
 # Called when parent leaves the state, most likely not necessary 
 func exit():
@@ -10,7 +12,7 @@ func exit():
 
 # Called every physics frame. 'delta' is the elapsed time since the previous frame. Run in FSM _physics_process.
 func inPhysicsProcess(delta):
-	pass
+	isTargetReached = actor.moveToTargetPosition(delta)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame. Run in FSM _process.
 func inProcess(delta):

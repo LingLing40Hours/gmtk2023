@@ -90,6 +90,9 @@ func pointPlayerSight() -> void:
 				isPlayerSpotted = false
 	else:
 		isPlayerSpotted = false
+	
+	if !isPlayerSpotted:
+		$Exclamation.hide()
 
 
 func _on_vision_cone_body_entered(body: Node2D) -> void:

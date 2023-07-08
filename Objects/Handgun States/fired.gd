@@ -25,7 +25,15 @@ func inPhysicsProcess(delta):
 				if actor.velocity.length() > collider.HARMFUL_SPEED:
 					collider.health -= actor.DAMAGE;
 				actor.velocity = actor.velocity.bounce(collision_info.get_normal());
-		else: #bounce off wall
+		elif collider is TileMap:
+			var pos = collider.world_to_map(collision_info.position - collision_info.normal);
+			var id = collider.get_cellv(pos)
+			if id == 0:
+				actor.velocity = actor.velocity.bounce(collision_info.get_normal());
+			else:
+				collider.set_cellv(pos, -1);
+				pass;
+		else: #bounce
 			actor.velocity = actor.velocity.bounce(collision_info.get_normal());
 			
 	ticks += 1;

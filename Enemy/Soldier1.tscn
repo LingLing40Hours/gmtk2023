@@ -173,8 +173,11 @@ size = Vector2(9, 16)
 
 [node name="Soldier1" type="CharacterBody2D" groups=["enemy"]]
 script = ExtResource("1_30qs2")
+<<<<<<< HEAD
 movementSpeed = 40.0
 patrolLength = 250
+=======
+>>>>>>> f35722542778e318028b1b3a60d21e78d5fc56ac
 metadata/_edit_group_ = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

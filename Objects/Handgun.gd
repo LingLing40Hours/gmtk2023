@@ -27,16 +27,13 @@ func fire():
 	position = new_pos;
 	rotation_degrees = new_rot_deg;
 	velocity += SPEED * dir;
-	print(velocity);
 
 func fire_dir() -> Vector2:
 	if not get_parent().is_in_group("player"):
 		return Vector2.ZERO;
 	var angle = get_parent().rotation_degrees;
-	print("parent: ",angle);
 	if left_loaded:
 		angle += 180;
-	print("self: ",angle);
 	angle = deg_to_rad(angle);
 	return Vector2(cos(angle), sin(angle));
 

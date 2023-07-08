@@ -2,7 +2,7 @@ extends CharacterBody2D
 
 @onready var game:Node2D = $"/root/Game";
 @export var initial_angle:float = 0;
-const SPEED_ROLL = 20.0
+const SPEED_ROLL = 15.0
 const SPEED_YAW = 3;
 const MU_GROUND:float = 0.1;
 const SPEED_MIN = 10;
@@ -16,7 +16,7 @@ var right_count = 0;
 
 func _ready():
 	rotation_degrees = initial_angle;
-	$FSM.setState($FSM.states["idle"]);
+	change_state("idle");
 
 
 func pickup(g:Node2D):

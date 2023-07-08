@@ -31,6 +31,9 @@ func playAnimation(animationName: String) -> void:
 func setMovementTarget(target: Vector2) -> void:
 	$NavigationAgent2D.target_position = target
 
+func setRelativeMovementTarget(target: Vector2) -> void:
+	$NavigationAgent2D.target_position = global_position + target
+
 # execute in physics process and returns if movement is complete 
 func moveToTargetPosition(delta:float) -> bool:
 	if $NavigationAgent2D.is_navigation_finished():
@@ -44,6 +47,12 @@ func moveToTargetPosition(delta:float) -> bool:
 	velocityVector = velocityVector*movementSpeed
 	
 	velocity = velocityVector
+	
+	if velocity.x > 0:
+		$AnimatedSprite2D.flip_v = false
+	else:
+		$AnimatedSprite2D.flip_v = true
+	
 	move_and_slide()
 	
 	return false

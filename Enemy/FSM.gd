@@ -1,5 +1,5 @@
 extends FSM
 
 func inReady():
-	setState(states.Idle)
+	setState(states.Patrol)
 

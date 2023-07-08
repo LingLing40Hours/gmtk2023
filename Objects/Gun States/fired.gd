@@ -5,7 +5,7 @@ var ticks:int;
 
 func enter():
 	ticks = 0;
-	actor.get_node("Pistol").play();
+	actor.sound.play();
 
 func inPhysicsProcess(delta):
 	#friction

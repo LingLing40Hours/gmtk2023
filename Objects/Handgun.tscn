@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://hkt5mjqrsf6d"]
 
 [ext_resource type="Script" path="res://Objects/Handgun.gd" id="1_0t60d"]
-[ext_resource type="Texture2D" uid="uid://b1igmyl4q12k" path="res://Sprites/gun.png" id="2_dqdlf"]
+[ext_resource type="Texture2D" uid="uid://cpoq48tsyi7kh" path="res://Sprites/gun1.png" id="2_nfnf2"]
 [ext_resource type="Script" path="res://Objects/FSM/FiniteStateMachine.gd" id="3_qqqy2"]
 [ext_resource type="Script" path="res://Objects/Gun States/idle.gd" id="4_fipyu"]
 [ext_resource type="Script" path="res://Objects/Gun States/loaded.gd" id="5_hj8nj"]
@@ -14,10 +14,10 @@ motion_mode = 1
 script = ExtResource("1_0t60d")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_dqdlf")
+texture = ExtResource("2_nfnf2")
 
 [node name="GunCollider" type="CollisionPolygon2D" parent="."]
-polygon = PackedVector2Array(-8, -8, 8, -8, 8, 0, 0, 0, 0, 8, -8, 8)
+polygon = PackedVector2Array(-4, -3, 3, -3, 3, 0, 0, 0, -1, 1, -1, 3, -3, 3, -3, 0, -4, 0)
 
 [node name="FSM" type="Node" parent="."]
 script = ExtResource("3_qqqy2")

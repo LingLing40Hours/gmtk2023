@@ -1,5 +1,7 @@
 extends Gun
 
+@onready var sound:AudioStreamPlayer2D = $Pistol;
+
 
 func _ready():
 	DAMAGE = 5;

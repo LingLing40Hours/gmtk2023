@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c57m2mw1g1dyl"
-path="res://.godot/imported/Soldier-idle-Sheet.png-844b2e108684d26b0ba4f773919551d7.ctex"
+uid="uid://dyb5turhv0sea"
+path="res://.godot/imported/bullet_shoot_left.png-09b6aee91dfeac003358da6d2902ff17.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/Soldier-idle-Sheet.png"
-dest_files=["res://.godot/imported/Soldier-idle-Sheet.png-844b2e108684d26b0ba4f773919551d7.ctex"]
+source_file="res://Sprites/bullet_shoot_left.png"
+dest_files=["res://.godot/imported/bullet_shoot_left.png-09b6aee91dfeac003358da6d2902ff17.ctex"]
 
 [params]
 

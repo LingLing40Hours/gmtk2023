@@ -9,41 +9,40 @@ const MU_GROUND:float = 0.1;
 
 var guns:Array[Gun];
 var gun_colliders:Array[CollisionPolygon2D];
+var left_count = 0;
+var right_count = 0;
 
 
 func _ready():
 	rotation_degrees = initial_angle;
 
 func _physics_process(delta):
-	#shooting
-	if Input.is_action_just_pressed("fire_left") and guns:
-		var count = 0;
-		for i in range(guns.size()-1, -1, -1):
-			if guns[i].left_loaded:
-				guns[i].call_deferred("fire");
-				guns.remove_at(i);
-				call_deferred("remove_child", gun_colliders[i]);
-				gun_colliders.remove_at(i);
-				count += 1;
-		game.change_ammo(GV.ammo - count);
-	if Input.is_action_just_pressed("fire_right") and guns:
-		var count = 0;
-		for i in range(guns.size()-1, -1, -1):
-			if not guns[i].left_loaded:
-				guns[i].call_deferred("fire");
-				guns.remove_at(i);
-				call_deferred("remove_child", gun_colliders[i]);
-				gun_colliders.remove_at(i);
-				count += 1;
-		game.change_ammo(GV.ammo - count);
+	if $AnimatedSprite2D.animation == "roll":
+		#rolling anim speed
+		$AnimatedSprite2D.speed_scale = velocity.length() / 30;
+		
+		#shooting
+		if Input.is_action_just_pressed("fire_left") and left_count:
+			$AnimatedSprite2D.speed_scale = 1;
+			$AnimatedSprite2D.play("shoot_left");
+		if Input.is_action_just_pressed("fire_right") and right_count:
+			$AnimatedSprite2D.speed_scale = 1;
+			$AnimatedSprite2D.play("shoot_right");
 	
 	#left/right movement
 	var direction = Input.get_axis("ui_left", "ui_right")
 	if direction:
 		if Input.is_action_pressed("arc"): #yaw
-			rotation_degrees += SPEED_YAW * direction;
+			rotation_degrees -= SPEED_YAW * direction;
+			
+			#roll direction; right (angle left) when direction > 0
+			$AnimatedSprite2D.speed_scale = 2.2 * direction;
 		else: #roll
 			velocity += direction * SPEED_ROLL * Vector2(cos(rotation), sin(rotation));
+			
+			#roll direction
+			if direction:
+				$AnimatedSprite2D.speed_scale *= direction;
 
 	#friction
 	velocity *= 1 - MU_GROUND;
@@ -82,10 +81,43 @@ func _on_left_body_entered(body):
 	if body is Gun and body.get_state() == "idle":
 		body.change_state("loaded");
 		body.left_loaded = true;
+		left_count += 1;
 		call_deferred("pickup", body);
 		
 func _on_right_body_entered(body):
 	if body is Gun and body.get_state() == "idle":
 		body.change_state("loaded");
 		body.left_loaded = false;
+		right_count += 1;
 		call_deferred("pickup", body);
+
+
+
+func _on_animated_sprite_2d_animation_finished():
+	match $AnimatedSprite2D.animation:
+		"shoot_left":
+			var shoot_count = 0;
+			for i in range(guns.size()-1, -1, -1):
+				if guns[i].left_loaded:
+					guns[i].call_deferred("fire");
+					guns.remove_at(i);
+					call_deferred("remove_child", gun_colliders[i]);
+					gun_colliders.remove_at(i);
+					shoot_count += 1;
+			game.change_ammo(GV.ammo - shoot_count);
+			left_count = 0;
+			$AnimatedSprite2D.stop();
+			$AnimatedSprite2D.play("roll");
+		"shoot_right":
+			var shoot_count = 0;
+			for i in range(guns.size()-1, -1, -1):
+				if not guns[i].left_loaded:
+					guns[i].call_deferred("fire");
+					guns.remove_at(i);
+					call_deferred("remove_child", gun_colliders[i]);
+					gun_colliders.remove_at(i);
+					shoot_count += 1;
+			game.change_ammo(GV.ammo - shoot_count);
+			right_count = 0;
+			$AnimatedSprite2D.stop();
+			$AnimatedSprite2D.play("roll");

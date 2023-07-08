@@ -47,6 +47,28 @@ func pickup(g:Node2D):
 	#update ammo
 	game.change_ammo(GV.ammo+1);
 
+
+#calls to this function must be deferred, ex.
+#bullet.call_deferred("transfer", self, gun);
+func transfer(soldier:CharacterBody2D, gun:CharacterBody2D):
+	print("TRANSFER");
+	
+	#convert gun transform
+	var sb = position - soldier.position;
+	var bg_l = gun.position.length();
+	var bg_a = gun.position.angle() + rotation;
+	var bg = bg_l * Vector2(cos(bg_a), sin(bg_a));
+	gun.position = sb + bg;
+	gun.rotation += rotation;
+	
+	#change parent
+	remove_child(gun);
+	soldier.add_child(gun);
+	guns.remove_at(guns.rfind(gun));
+	
+	#update ammo
+	game.change_ammo(GV.ammo - 1);
+
 func _on_left_body_entered(body):
 	if body is Gun and body.get_state() == "idle":
 		body.change_state("loaded");

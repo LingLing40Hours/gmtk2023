@@ -19,7 +19,7 @@ func _physics_process(delta):
 	if Input.is_action_just_pressed("fire_left") and guns:
 		var count = 0;
 		for i in range(guns.size()-1, -1, -1):
-			if guns[i].left:
+			if guns[i].left_loaded:
 				guns[i].call_deferred("fire");
 				guns.remove_at(i);
 				call_deferred("remove_child", gun_colliders[i]);
@@ -29,7 +29,7 @@ func _physics_process(delta):
 	if Input.is_action_just_pressed("fire_right") and guns:
 		var count = 0;
 		for i in range(guns.size()-1, -1, -1):
-			if not guns[i].left:
+			if not guns[i].left_loaded:
 				guns[i].call_deferred("fire");
 				guns.remove_at(i);
 				call_deferred("remove_child", gun_colliders[i]);
@@ -72,13 +72,13 @@ func pickup(g:Node2D):
 	game.change_ammo(GV.ammo+1);
 
 func _on_left_body_entered(body):
-	if body is Gun and body.state == body.States.IDLE:
-		body.state = body.States.LOADED;
-		body.left = true;
+	if body is Gun and body.get_state() == "idle":
+		body.change_state("loaded");
+		body.left_loaded = true;
 		call_deferred("pickup", body);
 		
 func _on_right_body_entered(body):
-	if body is Gun and body.state == body.States.IDLE:
-		body.state = body.States.LOADED;
-		body.left = false;
+	if body is Gun and body.get_state() == "idle":
+		body.change_state("loaded");
+		body.left_loaded = false;
 		call_deferred("pickup", body);

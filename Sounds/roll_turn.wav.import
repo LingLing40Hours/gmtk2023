@@ -2,11 +2,7 @@
 
 importer="wav"
 type="AudioStreamWAV"
-<<<<<<< HEAD
-uid="uid://f11veenxkrms"
-=======
-uid="uid://dov17s4qn4h13"
->>>>>>> main
+uid="uid://dpqdlv0b8dimf"
 path="res://.godot/imported/roll_turn.wav-d51e7ee19e99008620abaf9e584c81dc.sample"
 
 [deps]

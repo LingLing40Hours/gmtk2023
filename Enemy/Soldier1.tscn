@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://dxqmqoc6up15h"]
+[gd_scene load_steps=34 format=3 uid="uid://dxqmqoc6up15h"]
 
 [ext_resource type="Texture2D" uid="uid://c57m2mw1g1dyl" path="res://Sprites/Soldier-idle-Sheet.png" id="1_7q4jw"]
 [ext_resource type="Script" path="res://Enemy/Soldier.gd" id="1_30qs2"]
@@ -10,6 +10,11 @@
 [ext_resource type="Script" path="res://Enemy/States/Idle.gd" id="7_83nyy"]
 [ext_resource type="Script" path="res://Enemy/States/Patrol.gd" id="8_wrjsi"]
 [ext_resource type="Script" path="res://Enemy/States/Chase.gd" id="9_3e5t3"]
+[ext_resource type="Script" path="res://Enemy/States/Search.gd" id="11_n17or"]
+[ext_resource type="Script" path="res://Enemy/AttackFSM.gd" id="12_g6phb"]
+[ext_resource type="Script" path="res://Enemy/AttackStates/Idle.gd" id="13_jqrjo"]
+[ext_resource type="Script" path="res://Enemy/AttackStates/Grab.gd" id="14_er3e4"]
+[ext_resource type="Script" path="res://Enemy/AttackStates/Shoot.gd" id="15_3f5ki"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_x05he"]
 atlas = ExtResource("1_7q4jw")
@@ -223,13 +228,21 @@ script = ExtResource("8_wrjsi")
 [node name="Chase" type="Node" parent="FSM"]
 script = ExtResource("9_3e5t3")
 
+[node name="Search" type="Node" parent="FSM"]
+script = ExtResource("11_n17or")
+
 [node name="AttackFSM" type="Node" parent="."]
+script = ExtResource("12_g6phb")
 
 [node name="Idle" type="Node" parent="AttackFSM"]
+script = ExtResource("13_jqrjo")
 
 [node name="Grab" type="Node" parent="AttackFSM"]
+script = ExtResource("14_er3e4")
 
 [node name="Shoot" type="Node" parent="AttackFSM"]
+script = ExtResource("15_3f5ki")
 
 [connection signal="body_entered" from="VisionCone" to="." method="_on_vision_cone_body_entered"]
+[connection signal="body_exited" from="VisionCone" to="." method="_on_vision_cone_body_exited"]
 [connection signal="timeout" from="FSM/Idle/PatrolTimer" to="FSM/Idle" method="_on_timer_timeout"]

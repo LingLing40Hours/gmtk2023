@@ -44,6 +44,8 @@ func inProcess(delta):
 	pass
 
 func changeParentState():
+	if actor.isPlayerSpotted:
+		return states.Chase
 	if isTargetReached:
 		return states.Idle
 	return null

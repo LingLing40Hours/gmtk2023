@@ -8,13 +8,15 @@ extends CharacterBody2D
 @export var patrolLength:int = 100
 @export var playerTrackingLength:int = 100
 
-var player
+var player:Node2D
+var lastKnownPlayerPos:Vector2 = Vector2()
 
 var health:float = 12;
 var HARMFUL_SPEED:float = 100; #take damage if gun is faster than this
 
 var isGunEquiped:bool = false
 var isPlayerSpotted:bool = false
+var isPLayerInVizCone:bool = false
 var hasPlayerBeenSeen:bool = false
 
 var version
@@ -69,7 +71,6 @@ func moveToTargetPosition(delta:float) -> bool:
 	else:
 		$AnimatedSprite2D.flip_h = true
 		$VisionCone.scale.x = -1
-		
 	
 	move_and_slide()
 	
@@ -85,7 +86,10 @@ func pointPlayerSight() -> void:
 			var collisonObject:Node2D = $PlayerSight.get_collider()
 			if collisonObject.is_in_group("player"):
 				$Exclamation.show()
-				isPlayerSpotted = true
+				if not isPlayerSpotted and not isPLayerInVizCone:
+					isPlayerSpotted = false
+				else:
+					isPlayerSpotted = true
 			else:
 				isPlayerSpotted = false
 	else:
@@ -94,9 +98,13 @@ func pointPlayerSight() -> void:
 	if !isPlayerSpotted:
 		$Exclamation.hide()
 
-
 func _on_vision_cone_body_entered(body: Node2D) -> void:
 	if body.is_in_group("player"):
 		player = body.get_node("AnimatedSprite2D")
 		hasPlayerBeenSeen = true
+		isPLayerInVizCone = true
 		pointPlayerSight()
+
+func _on_vision_cone_body_exited(body: Node2D) -> void:
+	if body.is_in_group("player"):
+		isPLayerInVizCone = false

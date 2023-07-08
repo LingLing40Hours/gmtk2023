@@ -21,8 +21,8 @@ GV="*res://global_variables.gd"
 
 [display]
 
-window/size/viewport_width=640
-window/size/viewport_height=480
+window/size/viewport_width=576
+window/size/viewport_height=320
 window/stretch/mode="canvas_items"
 
 [input]

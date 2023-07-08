@@ -6,10 +6,16 @@ extends CharacterBody2D
 @export var movementSpeed:float = 5
 @export var wallComfortDistance:int = 10
 @export var patrolLength:int = 100
+@export var playerTrackingLength:int = 100
 
+var player
 
 var health:float = 12;
 var HARMFUL_SPEED:float = 100; #take damage if gun is faster than this
+
+var isGunEquiped:bool = false
+var isPlayerSpotted:bool = false
+var hasPlayerBeenSeen:bool = false
 
 var version
 
@@ -19,6 +25,7 @@ func _ready() -> void:
 	
 	$FrontVision.target_position = Vector2(wallComfortDistance, 0)
 	$RearVision.target_position = Vector2(-wallComfortDistance, 0)
+	$PlayerSight.target_position = Vector2(playerTrackingLength, 0)
 	
 	call_deferred("actorSetup")
 	
@@ -28,7 +35,10 @@ func actorSetup() -> void:
 func _enter_tree() -> void:
 	randomize()
 	version = (randi() % 2 +1) # the soldier version will either be 1 or 2
-	
+
+func _physics_process(delta: float) -> void:
+	pointPlayerSight()
+
 func playAnimation(animationName: String) -> void:
 	var animationAppendix = "_%d" % version
 	$AnimatedSprite2D.play(animationName + animationAppendix)
@@ -55,9 +65,35 @@ func moveToTargetPosition(delta:float) -> bool:
 	
 	if velocity.x > 0:
 		$AnimatedSprite2D.flip_h = false
+		$VisionCone.scale.x = 1
 	else:
 		$AnimatedSprite2D.flip_h = true
+		$VisionCone.scale.x = -1
+		
 	
 	move_and_slide()
 	
 	return false
+
+func pointPlayerSight() -> void:
+	if hasPlayerBeenSeen:
+		var playerDirection:Vector2 = player.global_position - global_position
+		playerDirection = playerDirection.normalized()*playerTrackingLength
+		$PlayerSight.target_position = playerDirection
+	
+	if $PlayerSight.is_colliding():
+			var collisonObject:Node2D = $PlayerSight.get_collider()
+			if collisonObject.is_in_group("player"):
+				$Exclamation.show()
+				isPlayerSpotted = true
+			else:
+				isPlayerSpotted = false
+	else:
+		isPlayerSpotted = false
+
+
+func _on_vision_cone_body_entered(body: Node2D) -> void:
+	if body.is_in_group("player"):
+		player = body.get_node("AnimatedSprite2D")
+		hasPlayerBeenSeen = true
+		pointPlayerSight()

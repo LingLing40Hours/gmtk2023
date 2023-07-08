@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://dxqmqoc6up15h"]
+[gd_scene load_steps=29 format=3 uid="uid://dxqmqoc6up15h"]
 
 [ext_resource type="Texture2D" uid="uid://c57m2mw1g1dyl" path="res://Sprites/Soldier-idle-Sheet.png" id="1_7q4jw"]
 [ext_resource type="Script" path="res://Enemy/Soldier.gd" id="1_30qs2"]
@@ -6,8 +6,10 @@
 [ext_resource type="Texture2D" uid="uid://dl4jqiawax5ss" path="res://Sprites/Soldier-idle-v2-Sheet.png" id="3_hl5oi"]
 [ext_resource type="Texture2D" uid="uid://cdvflmiujtlkw" path="res://Sprites/Soldier-run-v2-Sheet.png" id="5_0hnxl"]
 [ext_resource type="Script" path="res://Enemy/FSM.gd" id="6_pe3k1"]
+[ext_resource type="Texture2D" uid="uid://0uokm74ee6vu" path="res://Sprites/Exclamation_Point.png" id="6_ykuu6"]
 [ext_resource type="Script" path="res://Enemy/States/Idle.gd" id="7_83nyy"]
 [ext_resource type="Script" path="res://Enemy/States/Patrol.gd" id="8_wrjsi"]
+[ext_resource type="Script" path="res://Enemy/States/Chase.gd" id="9_3e5t3"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_x05he"]
 atlas = ExtResource("1_7q4jw")
@@ -169,23 +171,25 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_65if5"]
-size = Vector2(9, 16)
+size = Vector2(10, 16)
 
 [node name="Soldier1" type="CharacterBody2D" groups=["enemy"]]
 script = ExtResource("1_30qs2")
-<<<<<<< HEAD
 movementSpeed = 40.0
 patrolLength = 250
-=======
->>>>>>> f35722542778e318028b1b3a60d21e78d5fc56ac
 metadata/_edit_group_ = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_nhhiv")
 animation = &"idle_2"
 
+[node name="Exclamation" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(0, -13)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("6_ykuu6")
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0.5, 0)
 shape = SubResource("RectangleShape2D_65if5")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
@@ -195,6 +199,13 @@ target_position = Vector2(10, 0)
 
 [node name="RearVision" type="RayCast2D" parent="."]
 target_position = Vector2(-10, 0)
+
+[node name="PlayerSight" type="RayCast2D" parent="."]
+
+[node name="VisionCone" type="Area2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="VisionCone"]
+polygon = PackedVector2Array(3, -8, 3, 8, 80, 42, 105, 20, 105, -20, 80, -42)
 
 [node name="FSM" type="Node" parent="."]
 script = ExtResource("6_pe3k1")
@@ -210,7 +221,15 @@ one_shot = true
 script = ExtResource("8_wrjsi")
 
 [node name="Chase" type="Node" parent="FSM"]
+script = ExtResource("9_3e5t3")
 
-[node name="Attack" type="Node" parent="FSM"]
+[node name="AttackFSM" type="Node" parent="."]
 
+[node name="Idle" type="Node" parent="AttackFSM"]
+
+[node name="Grab" type="Node" parent="AttackFSM"]
+
+[node name="Shoot" type="Node" parent="AttackFSM"]
+
+[connection signal="body_entered" from="VisionCone" to="." method="_on_vision_cone_body_entered"]
 [connection signal="timeout" from="FSM/Idle/PatrolTimer" to="FSM/Idle" method="_on_timer_timeout"]

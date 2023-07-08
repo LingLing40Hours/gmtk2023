@@ -1,6 +1,5 @@
 extends State
 
-var isPlayerSpotted: bool = false
 var isAllowedToPatrol:bool = false
 
 # Called when the parent enters the state
@@ -22,7 +21,9 @@ func inProcess(delta):
 	pass
 
 func changeParentState():
-	if not isPlayerSpotted and isAllowedToPatrol:
+	if actor.isPlayerSpotted:
+		return states.Chase
+	if not actor.isPlayerSpotted and isAllowedToPatrol:
 		return states.Patrol
 	return null
 

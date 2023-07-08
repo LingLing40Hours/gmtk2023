@@ -4,6 +4,8 @@ extends CharacterBody2D
 @export var pathErrorMargin:float = 5
 @export var targetErrorMargin:float = 1
 @export var movementSpeed:float = 5
+@export var wallComfortDistance:int = 10
+@export var patrolLength:int = 100
 
 
 var health:float = 12;
@@ -14,6 +16,9 @@ var version
 func _ready() -> void:
 	$NavigationAgent2D.path_desired_distance = pathErrorMargin
 	$NavigationAgent2D.target_desired_distance = targetErrorMargin
+	
+	$FrontVision.target_position = Vector2(wallComfortDistance, 0)
+	$RearVision.target_position = Vector2(-wallComfortDistance, 0)
 	
 	call_deferred("actorSetup")
 	
@@ -49,9 +54,9 @@ func moveToTargetPosition(delta:float) -> bool:
 	velocity = velocityVector
 	
 	if velocity.x > 0:
-		$AnimatedSprite2D.flip_v = false
+		$AnimatedSprite2D.flip_h = false
 	else:
-		$AnimatedSprite2D.flip_v = true
+		$AnimatedSprite2D.flip_h = true
 	
 	move_and_slide()
 	

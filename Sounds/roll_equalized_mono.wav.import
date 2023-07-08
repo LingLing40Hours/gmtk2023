@@ -2,7 +2,11 @@
 
 importer="wav"
 type="AudioStreamWAV"
+<<<<<<< HEAD
 uid="uid://bgpj0ltki3nrq"
+=======
+uid="uid://buec160uvqgr4"
+>>>>>>> main
 path="res://.godot/imported/roll_equalized_mono.wav-361db5333da6c1ad069636e6c50d6b75.sample"
 
 [deps]

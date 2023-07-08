@@ -2,7 +2,11 @@
 
 importer="wav"
 type="AudioStreamWAV"
+<<<<<<< HEAD
 uid="uid://c57fnrh3yqb4o"
+=======
+uid="uid://bklwwo46140bq"
+>>>>>>> main
 path="res://.godot/imported/roll_straight.wav-187f87a153b5776f9f33b67ee189d0b4.sample"
 
 [deps]

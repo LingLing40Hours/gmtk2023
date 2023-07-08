@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-var HEALTH:float;
+var health:float = 12;
 var HARMFUL_SPEED:float = 100; #take damage if gun is faster than this
 
 var version

@@ -12,21 +12,18 @@ func _ready():
 func fire():
 	change_state("fired");
 	
-	#find firing parameters
-	var new_pos = position + get_parent().position;
-	var new_rot_deg = get_parent().rotation_degrees;
-	var dir = fire_dir();
+	#set firing velocity
+	velocity += SPEED * fire_dir();
+	
+	#convert to global transform
+	var br = get_parent().rotation;
+	position = get_parent().position + position.length() * Vector2(cos(br), sin(br));
+	rotation += br;
 	
 	#change parent
-	#get_parent().call_deferred("remove_child", self);
-	#game.current_level.call_deferred("add_child", self);
 	get_parent().remove_child(self);
 	game.current_level.add_child(self);
 	
-	#set position, velocity, rotation
-	position = new_pos;
-	rotation_degrees = new_rot_deg;
-	velocity += SPEED * dir;
 
 func fire_dir() -> Vector2:
 	if not get_parent().is_in_group("player"):

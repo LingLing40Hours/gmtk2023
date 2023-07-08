@@ -51,23 +51,29 @@ func _physics_process(delta):
 	move_and_slide();
 
 func pickup(g:Node2D):
-	print("PICKUP");
+	print("PICKUP");	
+	#steal gun from level
+	var dpos = g.position - position;
+	var l = dpos.length();
+	var r = dpos.angle() - rotation;
+	g.position = l * Vector2(cos(r), sin(r));
+	g.rotation -= rotation;
+	
 	#steal collider from gun
 	var col_shape = g.get_node("GunCollider");
 	var temp_col_shape = col_shape.duplicate();
 	col_shape.disabled = true;
-	temp_col_shape.position = g.position - position;
-	temp_col_shape.rotation_degrees = g.rotation_degrees;
-	add_child(temp_col_shape);
-	gun_colliders.append(temp_col_shape);
+	temp_col_shape.position = g.position;
+	temp_col_shape.rotation = g.rotation;
 	
-	#steal gun from level
-	g.position -= position;
+	#add gun
 	g.get_parent().remove_child(g);
 	add_child(g);
 	guns.append(g);
-	#g.get_parent().call_deferred("remove_child", g);
-	#call_deferred("add_child", g);
+
+	#add collider
+	add_child(temp_col_shape);
+	gun_colliders.append(temp_col_shape);
 	
 	#update ammo
 	game.change_ammo(GV.ammo+1);

@@ -2,7 +2,7 @@ extends State
 
 # Called when the parent enters the state
 func enter():
-	actor.playAnimation("idle") 
+	pass 
 
 # Called when parent leaves the state, most likely not necessary 
 func exit():

@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://b23p7r2gq6qw8"]
+[gd_scene load_steps=7 format=3 uid="uid://b23p7r2gq6qw8"]
 
 [ext_resource type="Script" path="res://Levels/Level1.gd" id="1_agrjr"]
 [ext_resource type="TileSet" uid="uid://c31esy5sp1u1d" path="res://Levels/main_tileset.tres" id="2_ynaex"]
@@ -6,8 +6,16 @@
 [ext_resource type="PackedScene" uid="uid://hkt5mjqrsf6d" path="res://Objects/Handgun.tscn" id="4_2fpmr"]
 [ext_resource type="PackedScene" uid="uid://dxqmqoc6up15h" path="res://Enemy/Soldier1.tscn" id="5_wc0jh"]
 
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_10jly"]
+vertices = PackedVector2Array(16, 16, 624, 16, 624, 464, 16, 464)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(16, 16, 624, 16, 624, 464, 16, 464)])
+
 [node name="Level1" type="Node2D"]
 script = ExtResource("1_agrjr")
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+navigation_polygon = SubResource("NavigationPolygon_10jly")
 
 [node name="Background" type="ColorRect" parent="."]
 offset_right = 640.0

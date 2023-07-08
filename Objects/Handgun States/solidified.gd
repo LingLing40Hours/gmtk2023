@@ -27,9 +27,8 @@ func inPhysicsProcess(delta):
 			var id = collider.get_cell_source_id(0, pos);
 			if id == 0:
 				actor.velocity = actor.velocity.bounce(collision_info.get_normal());
-			else:
+			elif actor.velocity.length() > actor.BREAKWOOD_SPEED:
 				collider.set_cell(0, pos, -1);
-				pass;
 		else: #bounce off wall
 			actor.velocity = actor.velocity.bounce(collision_info.get_normal());
 	

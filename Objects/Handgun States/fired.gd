@@ -26,13 +26,12 @@ func inPhysicsProcess(delta):
 					collider.health -= actor.DAMAGE;
 				actor.velocity = actor.velocity.bounce(collision_info.get_normal());
 		elif collider is TileMap:
-			var pos = collider.world_to_map(collision_info.position - collision_info.normal);
-			var id = collider.get_cellv(pos)
+			var pos = collider.local_to_map(collision_info.get_position() - collision_info.get_normal());
+			var id = collider.get_cell_source_id(0, pos);
 			if id == 0:
 				actor.velocity = actor.velocity.bounce(collision_info.get_normal());
-			else:
-				collider.set_cellv(pos, -1);
-				pass;
+			elif actor.velocity.length() > actor.BREAKWOOD_SPEED:
+				collider.set_cell(0, pos, -1);
 		else: #bounce
 			actor.velocity = actor.velocity.bounce(collision_info.get_normal());
 			

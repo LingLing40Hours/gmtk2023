@@ -18,6 +18,6 @@ func shoot(direction: Vector2):
 	
 	round1.bulletDirection(direction)
 	
-	add_child(round1)
+	get_parent().add_child(round1)
 	
 	round1.global_position = $Muzzle.global_position

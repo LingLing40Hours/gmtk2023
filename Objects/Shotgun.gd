@@ -22,9 +22,9 @@ func shoot(direction: Vector2):
 	pellet2.bulletDirection(direction + Vector2(0.5, 0.5))
 	pellet3.bulletDirection(direction + Vector2(-0.5, -0.5))
 	
-	add_child(pellet1)
-	add_child(pellet2)
-	add_child(pellet3)
+	get_parent().add_child(pellet1)
+	get_parent().add_child(pellet2)
+	get_parent().add_child(pellet3)
 	
 	pellet1.global_position = $Muzzle.global_position
 	pellet2.global_position = $Muzzle.global_position + Vector2(0, 0.5)

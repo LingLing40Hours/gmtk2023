@@ -52,7 +52,6 @@ func pickup(g:Node2D):
 #bullet.call_deferred("transfer", self, gun);
 func transfer(soldier:CharacterBody2D, gun:CharacterBody2D):
 	print("TRANSFER");
-	
 	#convert gun transform
 	var sb = position - soldier.position;
 	var bg_l = gun.position.length();
@@ -61,10 +60,19 @@ func transfer(soldier:CharacterBody2D, gun:CharacterBody2D):
 	gun.position = sb + bg;
 	gun.rotation += rotation;
 	
+	#duplicate collider to soldier
+	var collider = gun.get_node("GunCollider");
+	var new_collider = collider.duplicate();
+	collider.disabled = true;
+	new_collider.position = gun.position;
+	new_collider.rotation = gun.rotation;
+	
 	#change parent
 	remove_child(gun);
 	soldier.add_child(gun);
-	guns.remove_at(guns.rfind(gun));
+	var index = guns.rfind(gun);
+	guns.remove_at(index);
+	gun_colliders.remove_at(index);
 	
 	#update ammo
 	game.change_ammo(GV.ammo - 1);

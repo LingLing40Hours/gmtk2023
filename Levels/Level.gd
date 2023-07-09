@@ -10,11 +10,17 @@ class_name Level
 @export var ymax = 320;
 var width:float;
 var height:float;
+var xmid:float;
+var ymid:float;
+var center:Vector2;
 
 
 func _ready():
 	width = xmax - xmin;
 	height = ymax - ymin;
+	xmid = (xmin + xmax)/2;
+	ymid = (ymin + ymax)/2;
+	center = Vector2(xmid, ymid);
 
 #home and restart level changing
 func _input(event):

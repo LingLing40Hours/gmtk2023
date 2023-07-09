@@ -35,8 +35,9 @@ func change_level(n):
 	call_deferred("add_level", n);
 	GV.current_level_index = n;
 	
-	#display visibility
+	#display
 	change_ammo(0);
+	add_score(0);
 	display.visible = true if n else false;
 
 func change_level_faded(n):

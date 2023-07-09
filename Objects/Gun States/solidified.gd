@@ -31,10 +31,16 @@ func inPhysicsProcess(delta):
 			actor.durability -= speed * GV.TILE_HARDNESSES[id];
 			if id == 0:
 				actor.velocity = actor.velocity.bounce(collision_info.get_normal());
-			elif speed > actor.BREAKWOOD_SPEED:
-				collider.set_cell(0, pos, -1);
-				actor.velocity *= 1 - actor.BREAKWOOD_SLOWDOWN/speed;
-				game.add_score(GV.BREAKWOOD_SCORE);
+				actor.get_node("Stone").play();
+			else:
+				if speed > actor.BREAKWOOD_SPEED:
+					collider.set_cell(0, pos, -1);
+					actor.velocity *= 1 - actor.BREAKWOOD_SLOWDOWN/speed;
+					game.add_score(GV.BREAKWOOD_SCORE);
+					actor.get_node("BreakWood").play();
+				else:
+					actor.velocity = actor.velocity.bounce(collision_info.get_normal());
+					actor.get_node("Wood").play();
 		else: #bounce off wall
 			actor.velocity = actor.velocity.bounce(collision_info.get_normal());
 	#break

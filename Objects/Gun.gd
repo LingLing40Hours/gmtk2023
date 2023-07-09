@@ -7,7 +7,7 @@ enum States {IDLE, LOADED, FIRED, SOLIDIFIED};
 var MU_AIR:float = 0.01;
 var DAMAGE:float;
 var SPEED:float;
-var SPEED_MIN:float = 10;
+var SPEED_MIN:float = 24;
 var BREAKWOOD_SPEED:float;
 var BREAKWOOD_SLOWDOWN:float = 40;
 

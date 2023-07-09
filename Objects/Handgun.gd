@@ -9,4 +9,3 @@ func _ready():
 	BREAKWOOD_SPEED = 200;
 	durability = 60;
 	$FSM.setState($FSM.states.idle);
-

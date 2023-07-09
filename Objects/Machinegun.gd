@@ -9,9 +9,9 @@ var bulletDirection:Vector2 = Vector2()
 
 func _ready():
 	DAMAGE = 16;
-	SPEED = 660;
-	BREAKWOOD_SPEED = 280;
-	durability = 140;
+	SPEED = 980;
+	BREAKWOOD_SPEED = 180;
+	durability = 144;
 	$FSM.setState($FSM.states.idle);
 
 # very crude way of shooting

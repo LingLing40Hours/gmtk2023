@@ -7,9 +7,9 @@ extends Gun
 
 func _ready():
 	DAMAGE = 9;
-	SPEED = 500;
-	BREAKWOOD_SPEED = 100;
-	durability = 180;
+	SPEED = 840;
+	BREAKWOOD_SPEED = 170;
+	durability = 224;
 	$FSM.setState($FSM.states.idle);
 
 # very crude way of shooting

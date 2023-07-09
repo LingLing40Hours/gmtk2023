@@ -119,8 +119,9 @@ func grabAttack() -> void:
 		equipedGun = closeGun
 		isGunEquiped = true
 	if gunList.is_empty() and isPlayerInGrabRange:
-		pass
-	
+		player.get_parent().change_state("grabbed")
+		player.get_parent().call_deferred("transfer", self, player)
+	print(isPlayerInGrabRange)
 
 func _on_vision_cone_body_entered(body: Node2D) -> void:
 #	print(body)
@@ -140,8 +141,10 @@ func _on_grabbing_range_body_entered(body: Node2D) -> void:
 		isPlayerInGrabRange = true
 		if not body.guns.is_empty():
 			isGunInGrabRange = true
+#		print(body)
 
 func _on_grabbing_range_body_exited(body: Node2D) -> void:
 	if body.is_in_group("player"):
+#		print(body)
 		isPlayerInGrabRange = false
 		isGunInGrabRange = false

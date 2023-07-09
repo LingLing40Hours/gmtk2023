@@ -20,5 +20,6 @@ texture = ExtResource("2_64ci5")
 [resource]
 physics_layer_0/collision_layer = 3
 physics_layer_0/collision_mask = 3
+navigation_layer_0/layers = 1
 sources/0 = SubResource("TileSetAtlasSource_5lges")
 sources/1 = SubResource("TileSetAtlasSource_jufqx")

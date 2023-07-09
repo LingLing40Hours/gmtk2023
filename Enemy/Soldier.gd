@@ -27,7 +27,6 @@ var isPLayerInVizCone:bool = false
 var hasPlayerBeenSeen:bool = false
 var isPlayerInGrabRange:bool = false
 var isGunInGrabRange:bool = false
-var isHoldingGun:bool = false
 
 var version
 
@@ -50,9 +49,6 @@ func _enter_tree() -> void:
 
 func _physics_process(delta: float) -> void:
 	pointPlayerSight()
-	if hasPlayerBeenSeen and isGunEquiped:
-#		print(player.global_position)
-		equipedGun.look_at(player.global_position)
 
 func playAnimation(animationName: String) -> void:
 	var animationAppendix = "_%d" % version

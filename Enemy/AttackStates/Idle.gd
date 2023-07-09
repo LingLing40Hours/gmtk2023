@@ -18,6 +18,8 @@ func inProcess(delta):
 	pass
 
 func changeParentState():
+	if actor.isPlayerInRayCast and actor.isPLayerInVizCone and actor.isGunEquiped:
+		return states.Shoot
 	if actor.isPlayerInGrabRange or actor.isGunInGrabRange:
 		return states.Grab
 	return null

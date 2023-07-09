@@ -5,3 +5,5 @@
 [resource]
 default_font = ExtResource("1_ocsu4")
 default_font_size = 16
+HBoxContainer/constants/separation = 0
+VBoxContainer/constants/separation = 0

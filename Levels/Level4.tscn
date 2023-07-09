@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://Levels/TrackingCam.gd" id="2_vsjwq"]
 [ext_resource type="TileSet" uid="uid://c31esy5sp1u1d" path="res://Levels/main_tileset.tres" id="3_yrdw6"]
 [ext_resource type="PackedScene" uid="uid://c7ytsxqxq0nwg" path="res://Player/Bullet.tscn" id="4_uijej"]
-[ext_resource type="PackedScene" uid="uid://cj4go8rc3d4rf" path="res://Objects/Tank.tscn" id="5_niciv"]
+[ext_resource type="PackedScene" path="res://Objects/Tank.tscn" id="5_niciv"]
 
 [node name="Level4" type="Node2D"]
 script = ExtResource("1_36n1k")

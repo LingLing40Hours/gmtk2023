@@ -1,5 +1,7 @@
 extends Gun
 
+@export var round:PackedScene
+
 @onready var sound:AudioStreamPlayer2D = $Pistol;
 
 
@@ -9,3 +11,13 @@ func _ready():
 	BREAKWOOD_SPEED = 200;
 	durability = 60;
 	$FSM.setState($FSM.states.idle);
+
+# very crude way of shooting
+func shoot(direction: Vector2):
+	var round1 = round.instantiate()
+	
+	round1.bulletDirection(direction)
+	
+	add_child(round1)
+	
+	round1.global_position = $Muzzle.global_position

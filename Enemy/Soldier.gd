@@ -98,8 +98,9 @@ func pointPlayerSight() -> void:
 	
 	if $PlayerSight.is_colliding():
 			var collisonObject:Node2D = $PlayerSight.get_collider()
-			if collisonObject.is_in_group("player"):
-				isPlayerInRayCast = true
+			if collisonObject != null: # somehow an error
+				if collisonObject.is_in_group("player"):
+					isPlayerInRayCast = true
 			else:
 				isPlayerInRayCast = false
 	else:

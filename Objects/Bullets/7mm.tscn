@@ -1,6 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://cu400weafdet7"]
+[gd_scene load_steps=10 format=3 uid="uid://cu400weafdet7"]
 
 [ext_resource type="Texture2D" uid="uid://bbufr50hvmata" path="res://Sprites/7mm_sheet.png" id="1_5tprb"]
+[ext_resource type="Script" path="res://Objects/Bullets/bullet.gd" id="1_ofuwh"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vlloc"]
 atlas = ExtResource("1_5tprb")
@@ -52,13 +53,16 @@ animations = [{
 "speed": 18.0
 }]
 
-[node name="7mm" type="Area2D"]
+[node name="7mm" type="CharacterBody2D"]
+script = ExtResource("1_ofuwh")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+rotation = 1.5708
 sprite_frames = SubResource("SpriteFrames_afl3l")
 animation = &"spinning"
 frame = 1
 frame_progress = 0.205152
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+rotation = 1.5708
 polygon = PackedVector2Array(-2, -1, -1, -2, 0, -2, 1, -1, 1, 4, -2, 4)

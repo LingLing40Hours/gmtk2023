@@ -14,7 +14,6 @@ var BREAKWOOD_SLOWDOWN:float = 40;
 var durability:float;
 var left_loaded:bool;
 
-
 func fire():
 	change_state("fired");
 	
@@ -45,3 +44,6 @@ func get_state() -> String:
 
 func change_state(s:String):
 	$FSM.setState($FSM.states[s]);
+	
+func shoot(direction: Vector2):
+	pass

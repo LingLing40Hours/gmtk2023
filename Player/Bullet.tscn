@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=3 uid="uid://c7ytsxqxq0nwg"]
+[gd_scene load_steps=46 format=3 uid="uid://c7ytsxqxq0nwg"]
 
 [ext_resource type="Script" path="res://Player/Bullet.gd" id="1_x85wi"]
 [ext_resource type="Texture2D" uid="uid://bwivb2qg4q1jq" path="res://Sprites/bullet-Sheet.png" id="2_54q86"]
@@ -8,12 +8,16 @@
 [ext_resource type="AudioStream" uid="uid://dpqdlv0b8dimf" path="res://Sounds/roll_turn.wav" id="6_nnfv7"]
 [ext_resource type="AudioStream" uid="uid://shfvssadmb5t" path="res://Sounds/buildup.wav" id="7_j5lpr"]
 [ext_resource type="Script" path="res://Objects/FSM/FiniteStateMachine.gd" id="7_xnkt1"]
+[ext_resource type="AudioStream" uid="uid://chtofcyd5vgcs" path="res://Sounds/wood_break.wav" id="8_p2gbj"]
 [ext_resource type="Script" path="res://Player/States/idle.gd" id="8_vn43o"]
 [ext_resource type="Script" path="res://Player/States/rolling.gd" id="9_dfmdm"]
 [ext_resource type="Script" path="res://Player/States/arcing.gd" id="10_2ldx3"]
 [ext_resource type="Script" path="res://Player/States/shoot_left.gd" id="11_bxmjw"]
 [ext_resource type="Script" path="res://Player/States/shoot_right.gd" id="12_rovo4"]
 [ext_resource type="Script" path="res://Player/States/grabbed.gd" id="14_pj1iq"]
+[ext_resource type="Script" path="res://Player/States/loaded.gd" id="15_7s5e5"]
+[ext_resource type="Script" path="res://Player/States/fired.gd" id="16_hsgor"]
+[ext_resource type="Script" path="res://Player/States/flying.gd" id="18_yibmb"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_d8ywm"]
 atlas = ExtResource("2_54q86")
@@ -194,6 +198,43 @@ animations = [{
 "speed": 16.0
 }]
 
+[sub_resource type="Animation" id="Animation_cqe6q"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_8s1uw"]
+resource_name = "fade_out"
+length = 1.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_bwfuo"]
+_data = {
+"RESET": SubResource("Animation_cqe6q"),
+"fade_out": SubResource("Animation_8s1uw")
+}
+
 [node name="Bullet" type="CharacterBody2D" groups=["player"]]
 collision_layer = 3
 collision_mask = 3
@@ -201,7 +242,7 @@ motion_mode = 1
 script = ExtResource("1_x85wi")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(0, 16.2)
+position = Vector2(0, 17)
 rotation = -1.5708
 sprite_frames = SubResource("SpriteFrames_4vg8k")
 animation = &"roll"
@@ -210,23 +251,29 @@ frame = 6
 frame_progress = 0.15161
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
-position = Vector2(0, 16.2)
+position = Vector2(0, 17)
 polygon = PackedVector2Array(-1, -6, 0, -7, 1, -7, 2, -6, 2, -3, 3, -2, 3, 7, -2, 7, -2, -2, -1, -3)
 
+[node name="Fader" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_bwfuo")
+}
+
 [node name="Left" type="Area2D" parent="."]
-position = Vector2(0, 16.2)
+position = Vector2(0, 17)
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Left"]
 polygon = PackedVector2Array(0, -7, -1, -6, -1, -3, -2, -2, -2, 7, -3, 6, -3, -2, -2, -3, -2, -6, -1, -7)
 
 [node name="Right" type="Area2D" parent="."]
-position = Vector2(0, 16.2)
+position = Vector2(0, 17)
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Right"]
 polygon = PackedVector2Array(1, -7, 2, -7, 3, -6, 3, -3, 4, -2, 4, 6, 3, 7, 3, -2, 2, -3, 2, -6)
 
 [node name="RollStraight" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("5_4c5gj")
+volume_db = 0.5
 
 [node name="RollTurn" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("6_nnfv7")
@@ -234,6 +281,10 @@ stream = ExtResource("6_nnfv7")
 [node name="Buildup" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("7_j5lpr")
 volume_db = -2.0
+
+[node name="BreakWood" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("8_p2gbj")
+volume_db = -3.0
 
 [node name="FSM" type="Node" parent="."]
 script = ExtResource("7_xnkt1")
@@ -255,6 +306,15 @@ script = ExtResource("12_rovo4")
 
 [node name="grabbed" type="Node2D" parent="FSM"]
 script = ExtResource("14_pj1iq")
+
+[node name="loaded" type="Node2D" parent="FSM"]
+script = ExtResource("15_7s5e5")
+
+[node name="fired" type="Node2D" parent="FSM"]
+script = ExtResource("16_hsgor")
+
+[node name="flying" type="Node2D" parent="FSM"]
+script = ExtResource("18_yibmb")
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="body_entered" from="Left" to="." method="_on_left_body_entered"]

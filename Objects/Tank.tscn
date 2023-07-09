@@ -1,0 +1,48 @@
+[gd_scene load_steps=9 format=3 uid="uid://cj4go8rc3d4rf"]
+
+[ext_resource type="Script" path="res://Objects/Tank.gd" id="1_aa4js"]
+[ext_resource type="Texture2D" uid="uid://bc81xvbngd2ix" path="res://Sprites/tank.png" id="1_b5fmj"]
+[ext_resource type="AudioStream" uid="uid://cuk16sarwi1f5" path="res://Sounds/reload3.wav" id="3_t1mny"]
+[ext_resource type="AudioStream" uid="uid://dh1xt226otqn0" path="res://Sounds/reload4.wav" id="4_tx843"]
+[ext_resource type="AudioStream" uid="uid://coiivmymhd5j6" path="res://Sounds/tankgun3.wav" id="6_nm1ir"]
+[ext_resource type="AudioStream" uid="uid://4dmtrk0yw0o8" path="res://Sounds/tankgun4.wav" id="7_3teja"]
+[ext_resource type="AudioStream" uid="uid://bgba121qtgsxu" path="res://Sounds/tankgun5.wav" id="8_q22rg"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fcbgx"]
+size = Vector2(17, 3)
+
+[node name="Tank" type="StaticBody2D"]
+script = ExtResource("1_aa4js")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_b5fmj")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-56, -3, -37, -3, -37, -4, -30, -4, -30, -3, -12, -3, -11, -4, -2, -7, 0, -8, 4, -8, 4, 0, 21, 0, 21, -8, 24, -8, 26, -6, 31, -6, 32, -5, 33, -2, 33, 3, 32, 4, 25, 4, 25, 5, 33, 5, 33, 4, 34, 3, 45, 3, 45, 4, 47, 2, 53, 2, 56, 5, 56, 9, 55, 10, 55, 14, 52, 14, 39, 26, -4, 26, -17, 14, -19, 14, -19, 10, -18, 8, -16, 6, -14, 5, 2, 5, 2, 4, -1, 4, -5, 3, -7, 2, -8, 1, -12, 1, -12, 0, -56, 0)
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(12.5, -1.5)
+shape = SubResource("RectangleShape2D_fcbgx")
+
+[node name="Reloads" type="Node2D" parent="."]
+
+[node name="Reload3" type="AudioStreamPlayer2D" parent="Reloads"]
+stream = ExtResource("3_t1mny")
+
+[node name="Reload4" type="AudioStreamPlayer2D" parent="Reloads"]
+stream = ExtResource("4_tx843")
+
+[node name="Shots" type="Node2D" parent="."]
+
+[node name="Tankgun3" type="AudioStreamPlayer2D" parent="Shots"]
+stream = ExtResource("6_nm1ir")
+
+[node name="Tankgun4" type="AudioStreamPlayer2D" parent="Shots"]
+stream = ExtResource("7_3teja")
+
+[node name="Tankgun5" type="AudioStreamPlayer2D" parent="Shots"]
+stream = ExtResource("8_q22rg")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

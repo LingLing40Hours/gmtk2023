@@ -8,9 +8,17 @@ extends Node2D
 @onready var score_label:Label = $"GUI/ColorRect/HBoxContainer/VBoxContainer/ScoreLabel";
 var levels = [];
 var next_level_index:int;
+var player;
+const FIRST_LEVEL_ROW = 3;
+const BULLET_SPEED_HS = 1200;
+const BULLET_SPEED_REG = 720;
+
 
 func _ready():
-	#load levels
+	#bullet
+	player = load("res://Player/Bullet.tscn");
+	
+	#levels
 	for i in range(GV.LEVEL_COUNT):
 		levels.append(load("res://Levels/Level"+str(i)+".tscn"));
 	add_level(GV.current_level_index);
@@ -30,7 +38,7 @@ func change_level(n):
 	if (n >= GV.LEVEL_COUNT):
 		return;
 	current_level.queue_free();
-	GV.level_scores[GV.current_level_index] = 0; #reset level score
+	GV.current_level_score = 0;
 	
 	call_deferred("add_level", n);
 	GV.current_level_index = n;
@@ -46,6 +54,27 @@ func change_level_faded(n):
 	next_level_index = n;
 	fader.play("fade_in_black");
 
+#passed level, update high score
+func let_bullet_fly(from_level, hs):
+	#change level
+	change_level_faded(0);
+	await current_level.ready;
+	
+	#stick into wall if new high score, else bounce off
+	var bullet = player.instantiate();
+	bullet.rotation = -PI/2;
+	bullet.position = Vector2(GV.RESOLUTION.x, GV.TILE_WIDTH*(FIRST_LEVEL_ROW+0.5));
+	if hs:
+		bullet.high_scored = true;
+		bullet.velocity = Vector2(-BULLET_SPEED_HS, 0);
+		GV.level_high_scores[from_level] = GV.current_level_score;
+	else:
+		bullet.high_scored = false;
+		bullet.velocity = Vector2(-BULLET_SPEED_REG, 0);
+	bullet.change_state("flying");
+	add_child(bullet);
+	
+
 func _on_animation_player_animation_finished(anim_name):
 	if anim_name == "fade_in_black":
 		change_level(next_level_index);
@@ -58,6 +87,6 @@ func change_ammo(n):
 	ammo_label.text = "Ammo: " + str(n);
 
 func add_score(n):
-	GV.level_scores[GV.current_level_index] += n;
-	score_label.text = "Score: " + str(GV.level_scores[GV.current_level_index]);
+	GV.current_level_score += n;
+	score_label.text = "Score: " + str(GV.current_level_score);
 	

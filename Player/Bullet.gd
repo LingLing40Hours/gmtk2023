@@ -1,10 +1,11 @@
 extends CharacterBody2D
 
 @onready var game:Node2D = $"/root/Game";
-@export var initial_angle:float = 0;
+
 const SPEED_ROLL = 15.0
 const SPEED_YAW = 3;
 const MU_GROUND:float = 0.1;
+const MU_AIR:float = 0.005;
 const SPEED_MIN = 10;
 
 
@@ -13,10 +14,12 @@ var gun_colliders:Array[CollisionPolygon2D];
 var left_count = 0;
 var right_count = 0;
 
+
 @export var health:float = 20
+var high_scored = false; #determines bullet behavior when returning to lv0
+
 
 func _ready():
-	rotation_degrees = initial_angle;
 	change_state("idle");
 
 

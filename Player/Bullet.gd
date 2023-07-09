@@ -68,10 +68,13 @@ func transfer(soldier:CharacterBody2D, gun:CharacterBody2D):
 	new_collider.rotation = gun.rotation;
 	
 	#change parent
-	remove_child(gun);
-	soldier.add_child(gun);
 	var index = guns.rfind(gun);
+	soldier.add_child(gun);
+	
+	remove_child(gun);
 	guns.remove_at(index);
+	
+	remove_child(gun_colliders[index]);
 	gun_colliders.remove_at(index);
 	
 	#update ammo

@@ -7,7 +7,7 @@
 [ext_resource type="Script" path="res://Objects/Gun States/loaded.gd" id="5_hj8nj"]
 [ext_resource type="Script" path="res://Objects/Gun States/fired.gd" id="6_xdyup"]
 [ext_resource type="Script" path="res://Objects/Gun States/solidified.gd" id="7_quof7"]
-[ext_resource type="AudioStream" uid="uid://prp340hrlcw6" path="res://Sounds/Pistol1.mp3" id="8_lpye0"]
+[ext_resource type="AudioStream" uid="uid://cv5rgn5s360ar" path="res://Sounds/Pistol1.mp3" id="8_lpye0"]
 
 [node name="Handgun" type="CharacterBody2D"]
 motion_mode = 1

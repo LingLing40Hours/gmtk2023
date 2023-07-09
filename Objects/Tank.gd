@@ -2,8 +2,8 @@ extends StaticBody2D
 
 @onready var game:Node2D = $"/root/Game";
 
-const LOAD_TIME = 3.6;
-const FLY_TIME = 3.4;
+const LOAD_TIME = 3.5;
+const FLY_TIME = 3.2;
 const BULLET_DPOS:Vector2 = Vector2(-80, -1);
 const MUZZLE_VELOCITY_HS = 1500;
 const MUZZLE_VELOCITY_REG = 900;

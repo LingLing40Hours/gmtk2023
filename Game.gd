@@ -8,10 +8,12 @@ extends Node2D
 @onready var score_label:Label = $"GUI/ColorRect/HBoxContainer/VBoxContainer/ScoreLabel";
 var levels = [];
 var next_level_index:int;
+
+signal level_changed;
 var player;
 const FIRST_LEVEL_ROW = 3;
-const BULLET_SPEED_HS = 1200;
-const BULLET_SPEED_REG = 720;
+const BULLET_SPEED_HS = 56;
+const BULLET_SPEED_REG = 14.4;
 
 
 func _ready():
@@ -32,6 +34,8 @@ func add_level(n):
 	var level:Node2D = levels[n].instantiate();
 	add_child(level);
 	current_level = level;
+	
+	emit_signal("level_changed");
 
 #update current level and current level index
 func change_level(n):
@@ -58,10 +62,12 @@ func change_level_faded(n):
 func let_bullet_fly(from_level, hs):
 	#change level
 	change_level_faded(0);
-	await current_level.ready;
+	print("HERE");
+	await level_changed;
 	
 	#stick into wall if new high score, else bounce off
 	var bullet = player.instantiate();
+	current_level.add_child(bullet); print("ADD bullet");
 	bullet.rotation = -PI/2;
 	bullet.position = Vector2(GV.RESOLUTION.x, GV.TILE_WIDTH*(FIRST_LEVEL_ROW+0.5));
 	if hs:
@@ -72,7 +78,6 @@ func let_bullet_fly(from_level, hs):
 		bullet.high_scored = false;
 		bullet.velocity = Vector2(-BULLET_SPEED_REG, 0);
 	bullet.change_state("flying");
-	add_child(bullet);
 	
 
 func _on_animation_player_animation_finished(anim_name):

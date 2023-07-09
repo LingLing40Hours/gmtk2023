@@ -1,9 +1,8 @@
-[gd_scene load_steps=13 format=3 uid="uid://v4oxkvbsb542"]
+[gd_scene load_steps=12 format=3 uid="uid://v4oxkvbsb542"]
 
 [ext_resource type="Script" path="res://Objects/Machinegun.gd" id="1_7adkk"]
 [ext_resource type="Texture2D" uid="uid://cc28sc60rw13r" path="res://Sprites/gun3.png" id="1_b4lew"]
 [ext_resource type="Script" path="res://Objects/FSM/FiniteStateMachine.gd" id="2_emgph"]
-[ext_resource type="PackedScene" uid="uid://cu400weafdet7" path="res://Objects/Bullets/7mm.tscn" id="2_pv8a3"]
 [ext_resource type="Script" path="res://Objects/Gun States/idle.gd" id="3_d2wyv"]
 [ext_resource type="Script" path="res://Objects/Gun States/loaded.gd" id="4_wlcwl"]
 [ext_resource type="Script" path="res://Objects/Gun States/fired.gd" id="5_4s08j"]
@@ -15,7 +14,6 @@
 
 [node name="Machinegun" type="CharacterBody2D" groups=["gun", "machinegun"]]
 script = ExtResource("1_7adkk")
-round = ExtResource("2_pv8a3")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_b4lew")
@@ -38,12 +36,6 @@ script = ExtResource("5_4s08j")
 [node name="solidified" type="Node2D" parent="FSM"]
 script = ExtResource("6_e0hhw")
 
-[node name="Muzzle" type="Marker2D" parent="."]
-position = Vector2(12, -1)
-
-[node name="ShootTimer" type="Timer" parent="."]
-wait_time = 0.25
-
 [node name="Machinegun" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("7_p7k35")
 volume_db = -6.0
@@ -58,5 +50,3 @@ volume_db = -3.0
 
 [node name="Wood" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("11_v62rf")
-
-[connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer_timeout"]

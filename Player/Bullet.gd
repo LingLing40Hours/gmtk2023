@@ -21,7 +21,7 @@ var high_scored = false; #determines bullet behavior when returning to lv0
 
 func _ready():
 	change_state("idle");
-
+	
 
 func pickup(g:Node2D):
 	print("PICKUP");	

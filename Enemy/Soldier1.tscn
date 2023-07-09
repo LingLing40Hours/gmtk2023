@@ -1,4 +1,4 @@
-[gd_scene load_steps=55 format=3 uid="uid://dxqmqoc6up15h"]
+[gd_scene load_steps=54 format=3 uid="uid://dxqmqoc6up15h"]
 
 [ext_resource type="Texture2D" uid="uid://c57m2mw1g1dyl" path="res://Sprites/Soldier-idle-Sheet.png" id="1_7q4jw"]
 [ext_resource type="Script" path="res://Enemy/Soldier.gd" id="1_30qs2"]
@@ -19,7 +19,6 @@
 [ext_resource type="Script" path="res://Enemy/AttackStates/Idle.gd" id="13_jqrjo"]
 [ext_resource type="Script" path="res://Enemy/AttackStates/Grab.gd" id="14_er3e4"]
 [ext_resource type="Script" path="res://Enemy/AttackStates/Shoot.gd" id="15_3f5ki"]
-[ext_resource type="Script" path="res://Enemy/States/Dead.gd" id="16_husr6"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_x05he"]
 atlas = ExtResource("1_7q4jw")
@@ -354,13 +353,13 @@ target_position = Vector2(-10, 0)
 [node name="PlayerSight" type="RayCast2D" parent="."]
 
 [node name="VisionCone" type="Area2D" parent="."]
-monitorable = false
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="VisionCone"]
 polygon = PackedVector2Array(3, -8, 3, 8, 80, 42, 105, 20, 105, -20, 80, -42)
 
 [node name="GrabbingRange" type="Area2D" parent="."]
-monitorable = false
+collision_layer = 3
+collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GrabbingRange"]
 shape = SubResource("CircleShape2D_pfuul")
@@ -384,9 +383,6 @@ script = ExtResource("9_3e5t3")
 [node name="Search" type="Node" parent="FSM"]
 script = ExtResource("11_n17or")
 
-[node name="Dead" type="Node" parent="FSM"]
-script = ExtResource("16_husr6")
-
 [node name="AttackFSM" type="Node" parent="."]
 script = ExtResource("12_g6phb")
 
@@ -403,13 +399,9 @@ one_shot = true
 [node name="Shoot" type="Node" parent="AttackFSM"]
 script = ExtResource("15_3f5ki")
 
-[node name="ShootTimer" type="Timer" parent="AttackFSM/Shoot"]
-wait_time = 2.0
-
 [connection signal="body_entered" from="VisionCone" to="." method="_on_vision_cone_body_entered"]
 [connection signal="body_exited" from="VisionCone" to="." method="_on_vision_cone_body_exited"]
 [connection signal="body_entered" from="GrabbingRange" to="." method="_on_grabbing_range_body_entered"]
 [connection signal="body_exited" from="GrabbingRange" to="." method="_on_grabbing_range_body_exited"]
 [connection signal="timeout" from="FSM/Idle/PatrolTimer" to="FSM/Idle" method="_on_timer_timeout"]
 [connection signal="timeout" from="AttackFSM/Grab/GrabTimer" to="AttackFSM/Grab" method="_on_grab_timer_timeout"]
-[connection signal="timeout" from="AttackFSM/Shoot/ShootTimer" to="AttackFSM/Shoot" method="_on_shoot_timer_timeout"]

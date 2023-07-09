@@ -1,7 +1,76 @@
-[gd_scene format=3 uid="uid://bxgbki2tf1umq"]
+[gd_scene load_steps=12 format=3 uid="uid://bxgbki2tf1umq"]
+
+[ext_resource type="Texture2D" uid="uid://c1k1j1xblxft3" path="res://Sprites/milestone.png" id="1_8dx30"]
+[ext_resource type="AudioStream" uid="uid://bbi1klq5430pg" path="res://Sounds/hit1.wav" id="2_lf12f"]
+[ext_resource type="AudioStream" uid="uid://t4qjt5k064tc" path="res://Sounds/rock_crumble_shorter.wav" id="3_20dkp"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ao28i"]
+atlas = ExtResource("1_8dx30")
+region = Rect2(0, 0, 32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0nmko"]
+atlas = ExtResource("1_8dx30")
+region = Rect2(32, 0, 32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xqo58"]
+atlas = ExtResource("1_8dx30")
+region = Rect2(64, 0, 32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3ya7g"]
+atlas = ExtResource("1_8dx30")
+region = Rect2(96, 0, 32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0756m"]
+atlas = ExtResource("1_8dx30")
+region = Rect2(128, 0, 32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4tm4w"]
+atlas = ExtResource("1_8dx30")
+region = Rect2(160, 0, 32, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_upbrm"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ao28i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0nmko")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xqo58")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3ya7g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0756m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4tm4w")
+}],
+"loop": false,
+"name": &"shot",
+"speed": 12.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ue47w"]
+size = Vector2(16, 16)
 
 [node name="Milestone" type="StaticBody2D" groups=["milestone"]]
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(8, 0)
+sprite_frames = SubResource("SpriteFrames_upbrm")
+animation = &"shot"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_ue47w")
+
+[node name="Impact" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_lf12f")
+volume_db = -4.0
+
+[node name="Crumble" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_20dkp")
+volume_db = 2.0

@@ -38,5 +38,4 @@ func handleInput(event):
 func _on_grab_timer_timeout() -> void:
 	hasAttemptedGrab = true
 	actor.grabAttack()
-	print("yo")
 

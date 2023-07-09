@@ -195,6 +195,8 @@ animations = [{
 }]
 
 [node name="Bullet" type="CharacterBody2D" groups=["player"]]
+collision_layer = 3
+collision_mask = 3
 motion_mode = 1
 script = ExtResource("1_x85wi")
 

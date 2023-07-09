@@ -25,7 +25,7 @@ func _on_shoot_timer_timeout() -> void:
 	
 	round1.bulletDirection(bulletDirection)
 	
-	add_child(round1)
+	get_parent().add_child(round1)
 	
 	round1.global_position = $Muzzle.global_position
 	

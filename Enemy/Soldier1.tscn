@@ -360,8 +360,6 @@ monitorable = false
 polygon = PackedVector2Array(3, -8, 3, 8, 80, 42, 105, 20, 105, -20, 80, -42)
 
 [node name="GrabbingRange" type="Area2D" parent="."]
-collision_layer = 3
-collision_mask = 3
 monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GrabbingRange"]
@@ -406,7 +404,7 @@ one_shot = true
 script = ExtResource("15_3f5ki")
 
 [node name="ShootTimer" type="Timer" parent="AttackFSM/Shoot"]
-wait_time = 3.0
+wait_time = 2.0
 
 [connection signal="body_entered" from="VisionCone" to="." method="_on_vision_cone_body_entered"]
 [connection signal="body_exited" from="VisionCone" to="." method="_on_vision_cone_body_exited"]

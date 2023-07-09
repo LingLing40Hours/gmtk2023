@@ -106,7 +106,7 @@ func pointPlayerSight() -> void:
 
 func grabAttack() -> void:
 	var gunList:Array[Gun] = player.get_parent().guns
-	print(gunList)
+
 	if isGunInGrabRange and not gunList.is_empty():
 		var closeGun:Gun = null
 		var prevDistance = 1000000000000
@@ -121,7 +121,6 @@ func grabAttack() -> void:
 	if gunList.is_empty() and isPlayerInGrabRange:
 		player.get_parent().change_state("grabbed")
 		player.get_parent().call_deferred("transfer", self, player)
-	print(isPlayerInGrabRange)
 
 func _on_vision_cone_body_entered(body: Node2D) -> void:
 #	print(body)

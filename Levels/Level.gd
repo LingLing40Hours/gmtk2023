@@ -8,7 +8,13 @@ class_name Level
 @export var xmax = 576;
 @export var ymin = 0;
 @export var ymax = 320;
+var width:float;
+var height:float;
 
+
+func _ready():
+	width = xmax - xmin;
+	height = ymax - ymin;
 
 #home and restart level changing
 func _input(event):

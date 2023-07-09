@@ -1,0 +1,38 @@
+[gd_scene load_steps=9 format=3 uid="uid://v4oxkvbsb542"]
+
+[ext_resource type="Script" path="res://Objects/Machinegun.gd" id="1_7adkk"]
+[ext_resource type="Texture2D" uid="uid://cc28sc60rw13r" path="res://Sprites/gun3.png" id="1_b4lew"]
+[ext_resource type="Script" path="res://Objects/FSM/FiniteStateMachine.gd" id="2_emgph"]
+[ext_resource type="Script" path="res://Objects/Gun States/idle.gd" id="3_d2wyv"]
+[ext_resource type="Script" path="res://Objects/Gun States/loaded.gd" id="4_wlcwl"]
+[ext_resource type="Script" path="res://Objects/Gun States/fired.gd" id="5_4s08j"]
+[ext_resource type="Script" path="res://Objects/Gun States/solidified.gd" id="6_e0hhw"]
+[ext_resource type="AudioStream" uid="uid://cdhgga2ksxelr" path="res://Sounds/machinegun.wav" id="7_p7k35"]
+
+[node name="Machinegun" type="CharacterBody2D" groups=["gun", "machinegun"]]
+script = ExtResource("1_7adkk")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_b4lew")
+
+[node name="GunCollider" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-10, -2, -8, -2, -8, -4, 8, -4, 8, -2, 12, -2, 12, 0, 8, 0, 8, 2, 0, 2, 0, 6, -4, 6, -4, 4, -10, 4)
+
+[node name="FSM" type="Node" parent="."]
+script = ExtResource("2_emgph")
+
+[node name="idle" type="Node2D" parent="FSM"]
+script = ExtResource("3_d2wyv")
+
+[node name="loaded" type="Node2D" parent="FSM"]
+script = ExtResource("4_wlcwl")
+
+[node name="fired" type="Node2D" parent="FSM"]
+script = ExtResource("5_4s08j")
+
+[node name="solidified" type="Node2D" parent="FSM"]
+script = ExtResource("6_e0hhw")
+
+[node name="Machinegun" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_p7k35")
+volume_db = -6.0

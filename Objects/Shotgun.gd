@@ -4,9 +4,9 @@ extends Gun
 
 
 func _ready():
-	DAMAGE = 12;
+	DAMAGE = 9;
 	SPEED = 500;
 	BREAKWOOD_SPEED = 100;
-	durability = 72;
+	durability = 180;
 	$FSM.setState($FSM.states.idle);
 

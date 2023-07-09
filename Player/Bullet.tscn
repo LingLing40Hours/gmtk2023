@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://c7ytsxqxq0nwg"]
+[gd_scene load_steps=39 format=3 uid="uid://c7ytsxqxq0nwg"]
 
 [ext_resource type="Script" path="res://Player/Bullet.gd" id="1_x85wi"]
 [ext_resource type="Texture2D" uid="uid://bwivb2qg4q1jq" path="res://Sprites/bullet-Sheet.png" id="2_54q86"]
@@ -13,6 +13,7 @@
 [ext_resource type="Script" path="res://Player/States/arcing.gd" id="10_2ldx3"]
 [ext_resource type="Script" path="res://Player/States/shoot_left.gd" id="11_bxmjw"]
 [ext_resource type="Script" path="res://Player/States/shoot_right.gd" id="12_rovo4"]
+[ext_resource type="Script" path="res://Player/States/grabbed.gd" id="14_pj1iq"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_d8ywm"]
 atlas = ExtResource("2_54q86")
@@ -249,6 +250,9 @@ script = ExtResource("11_bxmjw")
 
 [node name="shoot_right" type="Node2D" parent="FSM"]
 script = ExtResource("12_rovo4")
+
+[node name="grabbed" type="Node2D" parent="FSM"]
+script = ExtResource("14_pj1iq")
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="body_entered" from="Left" to="." method="_on_left_body_entered"]

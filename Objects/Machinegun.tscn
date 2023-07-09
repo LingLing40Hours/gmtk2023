@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://v4oxkvbsb542"]
+[gd_scene load_steps=9 format=3 uid="uid://0js4sogoih1s"]
 
 [ext_resource type="Script" path="res://Objects/Machinegun.gd" id="1_7adkk"]
 [ext_resource type="Texture2D" uid="uid://cc28sc60rw13r" path="res://Sprites/gun3.png" id="1_b4lew"]
@@ -8,9 +8,6 @@
 [ext_resource type="Script" path="res://Objects/Gun States/fired.gd" id="5_4s08j"]
 [ext_resource type="Script" path="res://Objects/Gun States/solidified.gd" id="6_e0hhw"]
 [ext_resource type="AudioStream" uid="uid://cdhgga2ksxelr" path="res://Sounds/machinegun.wav" id="7_p7k35"]
-[ext_resource type="AudioStream" uid="uid://cdqufxxp0c8rp" path="res://Sounds/hit3.wav" id="9_ssk66"]
-[ext_resource type="AudioStream" uid="uid://chtofcyd5vgcs" path="res://Sounds/wood_break.wav" id="10_fcxh7"]
-[ext_resource type="AudioStream" uid="uid://dw2u8pttk5n4c" path="res://Sounds/wood_long.wav" id="11_v62rf"]
 
 [node name="Machinegun" type="CharacterBody2D" groups=["gun", "machinegun"]]
 script = ExtResource("1_7adkk")
@@ -39,14 +36,3 @@ script = ExtResource("6_e0hhw")
 [node name="Machinegun" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("7_p7k35")
 volume_db = -6.0
-
-[node name="Stone" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("9_ssk66")
-volume_db = -6.0
-
-[node name="BreakWood" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("10_fcxh7")
-volume_db = -3.0
-
-[node name="Wood" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("11_v62rf")

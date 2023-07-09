@@ -2,6 +2,7 @@ extends State
 
 # Called when the parent enters the state
 func enter():
+#	print("idle attack")
 	pass 
 
 # Called when parent leaves the state, most likely not necessary 
@@ -17,7 +18,7 @@ func inProcess(delta):
 	pass
 
 func changeParentState():
-	if true:
+	if actor.isPlayerInGrabRange or actor.isGunInGrabRange:
 		return states.Grab
 	return null
 

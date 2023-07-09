@@ -357,9 +357,11 @@ target_position = Vector2(-10, 0)
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="VisionCone"]
 polygon = PackedVector2Array(3, -8, 3, 8, 80, 42, 105, 20, 105, -20, 80, -42)
 
-[node name="Grabbing Range" type="Area2D" parent="."]
+[node name="GrabbingRange" type="Area2D" parent="."]
+collision_layer = 3
+collision_mask = 3
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Grabbing Range"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GrabbingRange"]
 shape = SubResource("CircleShape2D_pfuul")
 
 [node name="FSM" type="Node" parent="."]
@@ -399,5 +401,7 @@ script = ExtResource("15_3f5ki")
 
 [connection signal="body_entered" from="VisionCone" to="." method="_on_vision_cone_body_entered"]
 [connection signal="body_exited" from="VisionCone" to="." method="_on_vision_cone_body_exited"]
+[connection signal="body_entered" from="GrabbingRange" to="." method="_on_grabbing_range_body_entered"]
+[connection signal="body_exited" from="GrabbingRange" to="." method="_on_grabbing_range_body_exited"]
 [connection signal="timeout" from="FSM/Idle/PatrolTimer" to="FSM/Idle" method="_on_timer_timeout"]
 [connection signal="timeout" from="AttackFSM/Grab/GrabTimer" to="AttackFSM/Grab" method="_on_grab_timer_timeout"]

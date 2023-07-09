@@ -14,6 +14,7 @@ extends CharacterBody2D
 
 var player:Node2D
 var lastKnownPlayerPos:Vector2 = Vector2()
+var equipedGun:Gun = null
 
 var health:float = 12;
 var HARDNESS:float = 0.001; #reduces gun durability
@@ -24,6 +25,9 @@ var isPlayerSpotted:bool = false
 var isPlayerInRayCast:bool = false
 var isPLayerInVizCone:bool = false
 var hasPlayerBeenSeen:bool = false
+var isPlayerInGrabRange:bool = false
+var isGunInGrabRange:bool = false
+var isHoldingGun:bool = false
 
 var version
 
@@ -46,11 +50,14 @@ func _enter_tree() -> void:
 
 func _physics_process(delta: float) -> void:
 	pointPlayerSight()
+	if hasPlayerBeenSeen and isGunEquiped:
+#		print(player.global_position)
+		equipedGun.look_at(player.global_position)
 
 func playAnimation(animationName: String) -> void:
 	var animationAppendix = "_%d" % version
 	$AnimatedSprite2D.play(animationName + animationAppendix)
-	
+		
 func setMovementTarget(target: Vector2) -> void:
 	$NavigationAgent2D.target_position = target
 
@@ -100,8 +107,27 @@ func pointPlayerSight() -> void:
 				isPlayerInRayCast = false
 	else:
 		isPlayerInRayCast = false
+
+func grabAttack() -> void:
+	var gunList:Array[Gun] = player.get_parent().guns
+	print(gunList)
+	if isGunInGrabRange and not gunList.is_empty():
+		var closeGun:Gun = null
+		var prevDistance = 1000000000000
+		for gun in gunList:
+			var distance = (gun.global_position - global_position).length_squared()
+			if distance < prevDistance:
+				prevDistance = distance
+				closeGun = gun
+		player.get_parent().call_deferred("transfer", self, closeGun)
+		equipedGun = closeGun
+		isGunEquiped = true
+	if gunList.is_empty() and isPlayerInGrabRange:
+		pass
 	
+
 func _on_vision_cone_body_entered(body: Node2D) -> void:
+#	print(body)
 	if body.is_in_group("player"):
 		player = body.get_node("AnimatedSprite2D")
 		hasPlayerBeenSeen = true
@@ -111,3 +137,15 @@ func _on_vision_cone_body_entered(body: Node2D) -> void:
 func _on_vision_cone_body_exited(body: Node2D) -> void:
 	if body.is_in_group("player"):
 		isPLayerInVizCone = false
+
+func _on_grabbing_range_body_entered(body: Node2D) -> void:
+#	print(body)
+	if body.is_in_group("player"):
+		isPlayerInGrabRange = true
+		if not body.guns.is_empty():
+			isGunInGrabRange = true
+
+func _on_grabbing_range_body_exited(body: Node2D) -> void:
+	if body.is_in_group("player"):
+		isPlayerInGrabRange = false
+		isGunInGrabRange = false

@@ -7,8 +7,10 @@ var current_level_index:int = 0;
 var current_level_score:int = 0;
 var level_high_scores = [];
 
-var TILE_HARDNESSES:Array[float] = [0.0015, 0.0028];
-var BREAKWOOD_SCORE:int = 2;
+const TILE_HARDNESSES:Array[float] = [0.0015, 0.0028];
+const BREAKWOOD_SCORE:int = 1;
+const LOADTANK_SCORE:int = 50;
+const SOLDIER_SCORE:int = 6;
 var ammo:int = 0;
 
 var rng = RandomNumberGenerator.new();

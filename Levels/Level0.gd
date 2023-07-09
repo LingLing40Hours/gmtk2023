@@ -16,6 +16,7 @@ func _ready():
 	for i in range(1, GV.LEVEL_COUNT):
 		change_high_score(i, GV.level_high_scores[i]);
 
+
 func _input(event):
 	if event.is_action_pressed("home"):
 		pass;

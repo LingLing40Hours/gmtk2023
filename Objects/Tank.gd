@@ -17,6 +17,9 @@ func _on_area_2d_body_entered(body):
 		player.change_state("loaded");
 		player.get_node("Fader").play("fade_out");
 		
+		#add score
+		game.add_score(GV.LOADTANK_SCORE);
+		
 		#load bullet
 		var reload_index = GV.rng.randi_range(0, $Reloads.get_child_count()-1);
 		$Reloads.get_child(reload_index).play();

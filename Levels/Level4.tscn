@@ -1,6 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://cwn0x0c35owgs"]
+[gd_scene load_steps=14 format=3 uid="uid://cwn0x0c35owgs"]
 
 [ext_resource type="Script" path="res://Levels/Level4.gd" id="1_36n1k"]
+[ext_resource type="Script" path="res://Levels/BGM.gd" id="2_1r7ww"]
 [ext_resource type="Script" path="res://Levels/TrackingCam.gd" id="2_vsjwq"]
 [ext_resource type="TileSet" uid="uid://c31esy5sp1u1d" path="res://Levels/main_tileset.tres" id="3_yrdw6"]
 [ext_resource type="PackedScene" uid="uid://c7ytsxqxq0nwg" path="res://Player/Bullet.tscn" id="4_uijej"]
@@ -8,6 +9,58 @@
 [ext_resource type="PackedScene" uid="uid://hkt5mjqrsf6d" path="res://Objects/Handgun.tscn" id="6_38i6e"]
 [ext_resource type="PackedScene" uid="uid://v4oxkvbsb542" path="res://Objects/Machinegun.tscn" id="8_wlu5m"]
 [ext_resource type="PackedScene" uid="uid://d02nio18mb1sq" path="res://Objects/Shotgun.tscn" id="9_e3rto"]
+
+[sub_resource type="Animation" id="Animation_yd4o0"]
+resource_name = "fade_in"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:volume_db")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [-80.0, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_flxk7"]
+resource_name = "fade_out"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:volume_db")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, -80.0]
+}
+
+[sub_resource type="Animation" id="Animation_y2mux"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:volume_db")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_mdnin"]
+_data = {
+"RESET": SubResource("Animation_y2mux"),
+"fade_in": SubResource("Animation_yd4o0"),
+"fade_out": SubResource("Animation_flxk7")
+}
 
 [node name="Level4" type="Node2D"]
 script = ExtResource("1_36n1k")
@@ -18,6 +71,14 @@ ymax = 720
 offset_right = 1280.0
 offset_bottom = 720.0
 color = Color(0.729412, 0.729412, 0.729412, 1)
+
+[node name="BGM" type="AudioStreamPlayer2D" parent="."]
+script = ExtResource("2_1r7ww")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="BGM"]
+libraries = {
+"": SubResource("AnimationLibrary_mdnin")
+}
 
 [node name="Bullet" parent="." instance=ExtResource("4_uijej")]
 position = Vector2(56, 232)

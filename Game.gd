@@ -2,10 +2,12 @@ extends Node2D
 
 @onready var GV:Node = $"/root/GV";
 @onready var current_level:Node2D;
-@onready var fader:AnimationPlayer = $"GUI/AnimationPlayer";
+@onready var fader:AnimationPlayer = $AnimationPlayer;
 @onready var display:HBoxContainer = $"GUI/ColorRect/HBoxContainer";
 @onready var ammo_label:Label = $"GUI/ColorRect/HBoxContainer/VBoxContainer/AmmoLabel";
 @onready var score_label:Label = $"GUI/ColorRect/HBoxContainer/VBoxContainer/ScoreLabel";
+
+
 var levels = [];
 var next_level_index:int;
 
@@ -35,6 +37,12 @@ func add_level(n):
 	add_child(level);
 	current_level = level;
 	
+	#fade in music
+	if current_level.has_node("BGM"):
+		var bgm = current_level.get_node("BGM");
+		bgm.fade_in();
+		bgm.play();
+	
 	emit_signal("level_changed");
 
 #update current level and current level index
@@ -52,11 +60,16 @@ func change_level(n):
 	add_score(0);
 	display.visible = true if n else false;
 
+
 func change_level_faded(n):
 	if (n >= GV.LEVEL_COUNT):
 		return;
 	next_level_index = n;
+	
+	#fade out
 	fader.play("fade_in_black");
+	if current_level.has_node("BGM"):
+		current_level.get_node("BGM").fade_out();
 
 #passed level, update high score
 func let_bullet_fly(from_level, hs):

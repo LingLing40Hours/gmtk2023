@@ -1,6 +1,7 @@
-[gd_scene load_steps=14 format=3 uid="uid://ddl28c3m7xq2"]
+[gd_scene load_steps=19 format=3 uid="uid://ddl28c3m7xq2"]
 
 [ext_resource type="Script" path="res://Levels/Level3.gd" id="1_45dql"]
+[ext_resource type="Script" path="res://Levels/BGM.gd" id="2_bel57"]
 [ext_resource type="Script" path="res://Levels/TrackingCam.gd" id="2_xddgf"]
 [ext_resource type="TileSet" uid="uid://c31esy5sp1u1d" path="res://Levels/main_tileset.tres" id="3_xt1qd"]
 [ext_resource type="PackedScene" uid="uid://c7ytsxqxq0nwg" path="res://Player/Bullet.tscn" id="4_dtp0j"]
@@ -9,6 +10,58 @@
 [ext_resource type="PackedScene" uid="uid://d02nio18mb1sq" path="res://Objects/Shotgun.tscn" id="7_i1o7f"]
 [ext_resource type="PackedScene" uid="uid://dxqmqoc6up15h" path="res://Enemy/Soldier1.tscn" id="8_v2tbd"]
 [ext_resource type="PackedScene" uid="uid://cj4go8rc3d4rf" path="res://Objects/Tank.tscn" id="9_5cxv8"]
+
+[sub_resource type="Animation" id="Animation_yd4o0"]
+resource_name = "fade_in"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:volume_db")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [-80.0, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_flxk7"]
+resource_name = "fade_out"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:volume_db")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, -80.0]
+}
+
+[sub_resource type="Animation" id="Animation_y2mux"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:volume_db")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_mdnin"]
+_data = {
+"RESET": SubResource("Animation_y2mux"),
+"fade_in": SubResource("Animation_yd4o0"),
+"fade_out": SubResource("Animation_flxk7")
+}
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_2x4wt"]
 vertices = PackedVector2Array(16, 16, 144, 16, 144, 128, 16, 128)
@@ -37,6 +90,14 @@ script = ExtResource("1_45dql")
 offset_right = 576.0
 offset_bottom = 320.0
 color = Color(0.729412, 0.729412, 0.729412, 1)
+
+[node name="BGM" type="AudioStreamPlayer2D" parent="."]
+script = ExtResource("2_bel57")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="BGM"]
+libraries = {
+"": SubResource("AnimationLibrary_mdnin")
+}
 
 [node name="Camera2D" type="Camera2D" parent="."]
 rotation = 0.0642458

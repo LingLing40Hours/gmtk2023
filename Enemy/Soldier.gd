@@ -129,7 +129,7 @@ func reduceHealth(damage:float) -> void:
 	if health <= 0:
 		isDead = true
 		print("isDead")
-		$"/root/Game".add_score(10)
+		$"/root/Game".add_score(GV.SOLDIER_SCORE);
 
 func _on_vision_cone_body_entered(body: Node2D) -> void:
 #	print(body)

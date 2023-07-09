@@ -3,7 +3,6 @@ extends Node
 const TILE_WIDTH = 16;
 const RESOLUTION = Vector2(576, 320);
 const TILE_RESOLUTION = RESOLUTION/TILE_WIDTH;
-const SAFE_MARGIN:float = 0.2;
 
 const LEVEL_COUNT:int = 6;
 var current_level_index:int = 0;

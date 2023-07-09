@@ -128,6 +128,7 @@ func reduceHealth(damage:float) -> void:
 	health -= damage
 	if health <= 0:
 		isDead = true
+		print("isDead")
 		$"/root/Game".add_score(10)
 
 func _on_vision_cone_body_entered(body: Node2D) -> void:
@@ -143,12 +144,14 @@ func _on_vision_cone_body_exited(body: Node2D) -> void:
 		isPLayerInVizCone = false
 
 func _on_grabbing_range_body_entered(body: Node2D) -> void:
-#	print(body)
 	if body.is_in_group("player"):
 		isPlayerInGrabRange = true
 		if not body.guns.is_empty():
 			isGunInGrabRange = true
-#		print(body)
+	if body.is_in_group("gun"):
+		print("yo")
+		if !Vector2(0,0).is_equal_approx(body.velocity):
+			reduceHealth(health)
 
 func _on_grabbing_range_body_exited(body: Node2D) -> void:
 	if body.is_in_group("player"):

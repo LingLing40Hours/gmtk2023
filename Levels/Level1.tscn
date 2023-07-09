@@ -6,8 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://c7ytsxqxq0nwg" path="res://Player/Bullet.tscn" id="3_4sx4y"]
 [ext_resource type="PackedScene" uid="uid://hkt5mjqrsf6d" path="res://Objects/Handgun.tscn" id="4_2fpmr"]
 [ext_resource type="PackedScene" uid="uid://dxqmqoc6up15h" path="res://Enemy/Soldier1.tscn" id="5_wc0jh"]
-[ext_resource type="PackedScene" uid="uid://cdgrcgi8ouusq" path="res://Objects/Shotgun.tscn" id="6_m0wkk"]
-[ext_resource type="PackedScene" uid="uid://0js4sogoih1s" path="res://Objects/Machinegun.tscn" id="8_3yit4"]
+[ext_resource type="PackedScene" uid="uid://d02nio18mb1sq" path="res://Objects/Shotgun.tscn" id="6_m0wkk"]
+[ext_resource type="PackedScene" uid="uid://v4oxkvbsb542" path="res://Objects/Machinegun.tscn" id="8_3yit4"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_10jly"]
 vertices = PackedVector2Array(16, 16, 560, 16, 560, 304, 16, 304)

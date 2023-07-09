@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://hkt5mjqrsf6d"]
+[gd_scene load_steps=12 format=3 uid="uid://hkt5mjqrsf6d"]
 
 [ext_resource type="Script" path="res://Objects/Handgun.gd" id="1_0t60d"]
 [ext_resource type="Texture2D" uid="uid://cpoq48tsyi7kh" path="res://Sprites/gun1.png" id="2_nfnf2"]
@@ -7,9 +7,12 @@
 [ext_resource type="Script" path="res://Objects/Gun States/loaded.gd" id="5_hj8nj"]
 [ext_resource type="Script" path="res://Objects/Gun States/fired.gd" id="6_xdyup"]
 [ext_resource type="Script" path="res://Objects/Gun States/solidified.gd" id="7_quof7"]
-[ext_resource type="AudioStream" uid="uid://prp340hrlcw6" path="res://Sounds/Pistol1.mp3" id="8_lpye0"]
+[ext_resource type="AudioStream" uid="uid://cv5rgn5s360ar" path="res://Sounds/Pistol1.mp3" id="8_lpye0"]
+[ext_resource type="AudioStream" uid="uid://bbi1klq5430pg" path="res://Sounds/hit1.wav" id="9_aj2h3"]
+[ext_resource type="AudioStream" uid="uid://chtofcyd5vgcs" path="res://Sounds/wood_break.wav" id="10_qk7ru"]
+[ext_resource type="AudioStream" uid="uid://cnlksi40cov6l" path="res://Sounds/wood_short.wav" id="11_qfhx5"]
 
-[node name="Handgun" type="CharacterBody2D" groups=["gun"]]
+[node name="Handgun" type="CharacterBody2D" groups=["gun", "handgun"]]
 motion_mode = 1
 script = ExtResource("1_0t60d")
 
@@ -37,3 +40,14 @@ script = ExtResource("7_quof7")
 [node name="Pistol" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("8_lpye0")
 volume_db = -6.0
+
+[node name="Stone" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("9_aj2h3")
+volume_db = -10.0
+
+[node name="BreakWood" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("10_qk7ru")
+volume_db = -3.0
+
+[node name="Wood" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("11_qfhx5")

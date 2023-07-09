@@ -17,6 +17,8 @@ func inProcess(delta):
 	pass
 
 func changeParentState():
+	if true:
+		return states.Grab
 	return null
 
 func handleInput(event):

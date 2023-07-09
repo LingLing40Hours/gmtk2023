@@ -3,13 +3,14 @@ extends CharacterBody2D
 
 @export var pathErrorMargin:float = 5
 @export var targetErrorMargin:float = 1
-@export var movementSpeed:float = 5
+@export var movementSpeed:float = 40
 @export var wallComfortDistance:int = 10
-@export var patrolLength:int = 100
-@export var playerTrackingLength:int = 100
+@export var patrolLength:int = 250
+@export var playerTrackingLength:int = 105
 
 @onready var exclamation:Sprite2D = $Exclamation
 @onready var confusion:Sprite2D = $Confusion
+@onready var grabing:AnimatedSprite2D = $Grabing
 
 var player:Node2D
 var lastKnownPlayerPos:Vector2 = Vector2()
@@ -56,7 +57,7 @@ func setMovementTarget(target: Vector2) -> void:
 func setRelativeMovementTarget(target: Vector2) -> void:
 	$NavigationAgent2D.target_position = global_position + target
 
-# execute in physics process and returns if movement is complete 
+# execute in physics process and returns true if movement is complete 
 func moveToTargetPosition(delta:float) -> bool:
 	if $NavigationAgent2D.is_navigation_finished():
 		return true
@@ -73,9 +74,13 @@ func moveToTargetPosition(delta:float) -> bool:
 	if velocity.x > 0:
 		$AnimatedSprite2D.flip_h = false
 		$VisionCone.scale.x = 1
+		$Grabing.scale.x = 0.5
+		$Grabing.position.x = 12
 	else:
 		$AnimatedSprite2D.flip_h = true
 		$VisionCone.scale.x = -1
+		$Grabing.scale.x = -0.5
+		$Grabing.position.x = -12
 	
 	move_and_slide()
 	

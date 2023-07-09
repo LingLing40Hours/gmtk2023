@@ -2,11 +2,14 @@ extends State
 
 # Called when the parent enters the state
 func enter():
-	pass 
+	actor.grabing.show()
+	actor.grabing.play("default") 
+	$GrabTimer.start()
 
 # Called when parent leaves the state, most likely not necessary 
 func exit():
-	pass
+	actor.grabing.hide()
+	$GrabTimer.stop()
 
 # Called every physics frame. 'delta' is the elapsed time since the previous frame. Run in FSM _physics_process.
 func inPhysicsProcess(delta):
@@ -22,3 +25,5 @@ func changeParentState():
 func handleInput(event):
 	pass
 
+func _on_grab_timer_timeout() -> void:
+	pass # Replace with function body.

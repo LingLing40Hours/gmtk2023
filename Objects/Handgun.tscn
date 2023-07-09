@@ -9,7 +9,7 @@
 [ext_resource type="Script" path="res://Objects/Gun States/solidified.gd" id="7_quof7"]
 [ext_resource type="AudioStream" uid="uid://cv5rgn5s360ar" path="res://Sounds/Pistol1.mp3" id="8_lpye0"]
 
-[node name="Handgun" type="CharacterBody2D"]
+[node name="Handgun" type="CharacterBody2D" groups=["gun", "handgun"]]
 motion_mode = 1
 script = ExtResource("1_0t60d")
 

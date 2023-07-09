@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bmcauit2xfktf"
-path="res://.godot/imported/Soldier-ko-v2-sheet.png-ce29f42e020e43a11d0d5d9f08a4fddc.ctex"
+uid="uid://t2j0mbffeyg0"
+path="res://.godot/imported/pellet.png-098c7b53254a93fa478b5c7b2756de78.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/Soldier-ko-v2-sheet.png"
-dest_files=["res://.godot/imported/Soldier-ko-v2-sheet.png-ce29f42e020e43a11d0d5d9f08a4fddc.ctex"]
+source_file="res://Sprites/pellet.png"
+dest_files=["res://.godot/imported/pellet.png-098c7b53254a93fa478b5c7b2756de78.ctex"]
 
 [params]
 

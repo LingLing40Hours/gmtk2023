@@ -9,7 +9,7 @@
 [ext_resource type="Script" path="res://Objects/Gun States/solidified.gd" id="6_yp4jb"]
 [ext_resource type="AudioStream" uid="uid://qfkkyghlijiu" path="res://Sounds/Shotgun1.mp3" id="7_15atk"]
 
-[node name="Shotgun" type="CharacterBody2D"]
+[node name="Shotgun" type="CharacterBody2D" groups=["gun", "shotgun"]]
 script = ExtResource("1_1eenc")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

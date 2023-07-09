@@ -27,6 +27,7 @@ var isPLayerInVizCone:bool = false
 var hasPlayerBeenSeen:bool = false
 var isPlayerInGrabRange:bool = false
 var isGunInGrabRange:bool = false
+var isDead:bool = false
 
 var version
 
@@ -121,6 +122,11 @@ func grabAttack() -> void:
 	if gunList.is_empty() and isPlayerInGrabRange:
 		player.get_parent().change_state("grabbed")
 		player.get_parent().call_deferred("transfer", self, player)
+
+func reduceHealth(damage:float) -> void:
+	health -= damage
+	if health <= 0:
+		isDead = true
 
 func _on_vision_cone_body_entered(body: Node2D) -> void:
 #	print(body)

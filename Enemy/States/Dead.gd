@@ -2,8 +2,8 @@ extends State
 
 # Called when the parent enters the state
 func enter():
-	print("shooting")
-	pass 
+	actor.playAnimation("ko") 
+	actor.setRelativeMovementTarget(0,0)
 
 # Called when parent leaves the state, most likely not necessary 
 func exit():
@@ -11,16 +11,13 @@ func exit():
 
 # Called every physics frame. 'delta' is the elapsed time since the previous frame. Run in FSM _physics_process.
 func inPhysicsProcess(delta):
-	if actor.hasPlayerBeenSeen and actor.isGunEquiped:
-		actor.equipedGun.look_at(actor.player.global_position)
+	pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame. Run in FSM _process.
 func inProcess(delta):
 	pass
 
 func changeParentState():
-	if actor.get_node("FSM").curState != actor.get_node("FSM").states.Chase or actor.isDead:
-		return states.Idle
 	return null
 
 func handleInput(event):

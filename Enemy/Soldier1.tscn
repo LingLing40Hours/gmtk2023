@@ -1,4 +1,4 @@
-[gd_scene load_steps=54 format=3 uid="uid://dxqmqoc6up15h"]
+[gd_scene load_steps=55 format=3 uid="uid://dxqmqoc6up15h"]
 
 [ext_resource type="Texture2D" uid="uid://c57m2mw1g1dyl" path="res://Sprites/Soldier-idle-Sheet.png" id="1_7q4jw"]
 [ext_resource type="Script" path="res://Enemy/Soldier.gd" id="1_30qs2"]
@@ -19,6 +19,7 @@
 [ext_resource type="Script" path="res://Enemy/AttackStates/Idle.gd" id="13_jqrjo"]
 [ext_resource type="Script" path="res://Enemy/AttackStates/Grab.gd" id="14_er3e4"]
 [ext_resource type="Script" path="res://Enemy/AttackStates/Shoot.gd" id="15_3f5ki"]
+[ext_resource type="Script" path="res://Enemy/States/Dead.gd" id="16_husr6"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_x05he"]
 atlas = ExtResource("1_7q4jw")
@@ -382,6 +383,9 @@ script = ExtResource("9_3e5t3")
 
 [node name="Search" type="Node" parent="FSM"]
 script = ExtResource("11_n17or")
+
+[node name="Dead" type="Node" parent="FSM"]
+script = ExtResource("16_husr6")
 
 [node name="AttackFSM" type="Node" parent="."]
 script = ExtResource("12_g6phb")

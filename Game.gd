@@ -3,9 +3,9 @@ extends Node2D
 @onready var GV:Node = $"/root/GV";
 @onready var current_level:Node2D;
 @onready var fader:AnimationPlayer = $AnimationPlayer;
-@onready var display:HBoxContainer = $"GUI/ColorRect/HBoxContainer";
-@onready var ammo_label:Label = $"GUI/ColorRect/HBoxContainer/VBoxContainer/AmmoLabel";
-@onready var score_label:Label = $"GUI/ColorRect/HBoxContainer/VBoxContainer/ScoreLabel";
+@onready var display:HBoxContainer = $"GUI/HBoxContainer";
+@onready var ammo_label:Label = $"GUI/HBoxContainer/VBoxContainer/AmmoLabel";
+@onready var score_label:Label = $"GUI/HBoxContainer/VBoxContainer/ScoreLabel";
 
 signal level_changed;
 var levels = [];
@@ -23,7 +23,7 @@ func _ready():
 		levels.append(load("res://Levels/Level"+str(i)+".tscn"));
 	add_level(GV.current_level_index);
 	
-	#gui
+	#initialize display text
 	change_ammo(GV.ammo);
 	add_score(0);
 

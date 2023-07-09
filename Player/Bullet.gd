@@ -3,7 +3,7 @@ extends CharacterBody2D
 @onready var game:Node2D = $"/root/Game";
 
 const SPEED_ROLL = 15.0
-const SPEED_YAW = 3;
+const SPEED_YAW = 2.2;
 const MU_GROUND:float = 0.1;
 const MU_AIR:float = 0.005;
 const SPEED_MIN = 10;

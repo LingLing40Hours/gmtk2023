@@ -13,6 +13,7 @@ var gun_colliders:Array[CollisionPolygon2D];
 var left_count = 0;
 var right_count = 0;
 
+@export var health:float = 20
 
 func _ready():
 	rotation_degrees = initial_angle;
@@ -80,6 +81,11 @@ func transfer(soldier:CharacterBody2D, gun:CharacterBody2D):
 	
 	#update ammo
 	game.change_ammo(GV.ammo - 1);
+
+func reduceHealth(damage:float):
+	health -= damage
+	if health <= 0:
+		pass # put death code here
 
 func _on_left_body_entered(body):
 	if body is Gun and body.get_state() == "idle":

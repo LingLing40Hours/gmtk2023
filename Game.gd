@@ -60,6 +60,10 @@ func change_level_faded(n):
 
 #passed level, update high score
 func let_bullet_fly(from_level, hs):
+	#update high score
+	if hs:
+		GV.level_high_scores[from_level] = GV.current_level_score;
+	
 	#change level
 	change_level_faded(0);
 	await level_changed;
@@ -68,11 +72,10 @@ func let_bullet_fly(from_level, hs):
 	var bullet = player.instantiate();
 	current_level.add_child(bullet);
 	bullet.rotation = -PI/2;
-	bullet.position = Vector2(GV.RESOLUTION.x, GV.TILE_WIDTH*(FIRST_LEVEL_ROW+0.5));
+	bullet.position = Vector2(GV.RESOLUTION.x, GV.TILE_WIDTH*(FIRST_LEVEL_ROW + 2*from_level - 1.5));
 	if hs:
 		bullet.high_scored = true;
 		bullet.velocity = Vector2(-BULLET_SPEED_HS, 0);
-		GV.level_high_scores[from_level] = GV.current_level_score;
 	else:
 		bullet.high_scored = false;
 		bullet.velocity = Vector2(-BULLET_SPEED_REG, 0);

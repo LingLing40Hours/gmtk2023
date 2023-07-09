@@ -397,7 +397,7 @@ script = ExtResource("13_jqrjo")
 script = ExtResource("14_er3e4")
 
 [node name="GrabTimer" type="Timer" parent="AttackFSM/Grab"]
-wait_time = 3.0
+wait_time = 2.0
 one_shot = true
 
 [node name="Shoot" type="Node" parent="AttackFSM"]

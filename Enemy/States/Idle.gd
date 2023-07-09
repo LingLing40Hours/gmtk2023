@@ -21,6 +21,8 @@ func inProcess(delta):
 	pass
 
 func changeParentState():
+	if actor.isDead:
+		return states.Dead
 	if actor.isPlayerInRayCast and actor.isPLayerInVizCone:
 		return states.Chase
 	if not actor.isPlayerSpotted and isAllowedToPatrol:

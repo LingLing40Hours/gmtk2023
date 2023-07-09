@@ -3,7 +3,7 @@ extends State
 # Called when the parent enters the state
 func enter():
 	actor.playAnimation("ko") 
-	actor.setRelativeMovementTarget(0,0)
+	actor.setRelativeMovementTarget(Vector2(0,0))
 
 # Called when parent leaves the state, most likely not necessary 
 func exit():

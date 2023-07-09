@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://kygrnidve8n6"]
+[gd_scene load_steps=11 format=3 uid="uid://kygrnidve8n6"]
 
 [ext_resource type="Script" path="res://Levels/Level2.gd" id="1_qvhsb"]
 [ext_resource type="Script" path="res://Levels/TrackingCam.gd" id="2_le5kl"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://d02nio18mb1sq" path="res://Objects/Shotgun.tscn" id="6_rjdio"]
 [ext_resource type="PackedScene" uid="uid://v4oxkvbsb542" path="res://Objects/Machinegun.tscn" id="7_lm1yb"]
 [ext_resource type="PackedScene" uid="uid://hkt5mjqrsf6d" path="res://Objects/Handgun.tscn" id="8_8uhq8"]
+[ext_resource type="PackedScene" uid="uid://cj4go8rc3d4rf" path="res://Objects/Tank.tscn" id="9_xqd4p"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_l7q54"]
 vertices = PackedVector2Array(16, 16, 560, 16, 560, 304, 16, 304)
@@ -57,3 +58,6 @@ position = Vector2(184, 272)
 
 [node name="Handgun2" parent="." instance=ExtResource("8_8uhq8")]
 position = Vector2(136, 72)
+
+[node name="Tank" parent="." instance=ExtResource("9_xqd4p")]
+position = Vector2(500, 277)

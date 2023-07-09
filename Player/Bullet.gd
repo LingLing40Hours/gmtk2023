@@ -69,13 +69,14 @@ func transfer(soldier:CharacterBody2D, gun:CharacterBody2D):
 	
 	#change parent
 	var index = guns.rfind(gun);
-	soldier.add_child(gun);
 	
 	remove_child(gun);
 	guns.remove_at(index);
 	
 	remove_child(gun_colliders[index]);
 	gun_colliders.remove_at(index);
+	
+	soldier.add_child(gun);
 	
 	#update ammo
 	game.change_ammo(GV.ammo - 1);

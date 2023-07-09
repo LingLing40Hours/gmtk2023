@@ -4,7 +4,7 @@ extends StaticBody2D
 
 const LOAD_TIME = 3.5;
 const FLY_TIME = 3.2;
-const BULLET_DPOS:Vector2 = Vector2(-80, -1);
+const BULLET_DPOS:Vector2 = Vector2(-80 - GV.SAFE_MARGIN, -1);
 const MUZZLE_VELOCITY_HS = 1500;
 const MUZZLE_VELOCITY_REG = 900;
 var timer;

@@ -7,15 +7,11 @@ extends Node2D
 @onready var ammo_label:Label = $"GUI/ColorRect/HBoxContainer/VBoxContainer/AmmoLabel";
 @onready var score_label:Label = $"GUI/ColorRect/HBoxContainer/VBoxContainer/ScoreLabel";
 
-
+signal level_changed;
 var levels = [];
 var next_level_index:int;
 
-signal level_changed;
 var player;
-const FIRST_LEVEL_ROW = 3;
-const BULLET_SPEED_HS = 56;
-const BULLET_SPEED_REG = 14.4;
 
 
 func _ready():
@@ -77,21 +73,24 @@ func let_bullet_fly(from_level, hs):
 	if hs:
 		GV.level_high_scores[from_level] = GV.current_level_score;
 	
-	#change level
+	#change level (update high score before lv0 ready)
 	change_level_faded(0);
 	await level_changed;
+	
+	#break level stone
+	GV.level_stone_broken[from_level] = true;
 	
 	#stick into wall if new high score, else bounce off
 	var bullet = player.instantiate();
 	current_level.add_child(bullet);
 	bullet.rotation = -PI/2;
-	bullet.position = Vector2(GV.RESOLUTION.x, GV.TILE_WIDTH*(FIRST_LEVEL_ROW + 2*from_level - 1.5));
+	bullet.position = Vector2(GV.RESOLUTION.x, GV.TILE_WIDTH*(GV.FIRST_LEVEL_ROW + 2*from_level - 1.5));
 	if hs:
 		bullet.high_scored = true;
-		bullet.velocity = Vector2(-BULLET_SPEED_HS, 0);
+		bullet.velocity = Vector2(-GV.BULLET_SPEED_HS, 0);
 	else:
 		bullet.high_scored = false;
-		bullet.velocity = Vector2(-BULLET_SPEED_REG, 0);
+		bullet.velocity = Vector2(-GV.BULLET_SPEED_REG, 0);
 	bullet.change_state("flying");
 	
 

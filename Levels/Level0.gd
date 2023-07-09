@@ -7,14 +7,17 @@ const SCORE_CHAR_WIDTH:int = 3;
 
 
 func _ready():
-	#get buttons
-	for i in range(0, GV.LEVEL_COUNT):
-		var button = get_node("GUI/VBoxContainer/HBoxContainer/VBoxContainer/Button" + str(i+1));
+	for i in range(1, GV.LEVEL_COUNT):
+		#get buttons
+		var button = get_node("GUI/VBoxContainer/HBoxContainer/VBoxContainer/Button" + str(i));
 		buttons.push_back(button);
 		
-	#update score display
-	for i in range(1, GV.LEVEL_COUNT):
+		#update score display
 		change_high_score(i, GV.level_high_scores[i]);
+	
+		#update right wall stones
+		if GV.level_stone_broken[i]:
+			$TileMap.set_cell(0, Vector2i(GV.TILE_RESOLUTION.x - 1, GV.FIRST_LEVEL_ROW + 2*(i-1)), -1);
 
 
 func _input(event):

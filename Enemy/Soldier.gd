@@ -128,6 +128,7 @@ func reduceHealth(damage:float) -> void:
 	health -= damage
 	if health <= 0:
 		isDead = true
+		$"/root/Game".add_score(10)
 
 func _on_vision_cone_body_entered(body: Node2D) -> void:
 #	print(body)

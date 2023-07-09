@@ -8,6 +8,9 @@ extends CharacterBody2D
 @export var patrolLength:int = 100
 @export var playerTrackingLength:int = 100
 
+@onready var exclamation:Sprite2D = $Exclamation
+@onready var confusion:Sprite2D = $Confusion
+
 var player:Node2D
 var lastKnownPlayerPos:Vector2 = Vector2()
 
@@ -17,6 +20,7 @@ var HARMFUL_SPEED:float = 100; #take damage if gun is faster than this
 
 var isGunEquiped:bool = false
 var isPlayerSpotted:bool = false
+var isPlayerInRayCast:bool = false
 var isPLayerInVizCone:bool = false
 var hasPlayerBeenSeen:bool = false
 
@@ -86,19 +90,12 @@ func pointPlayerSight() -> void:
 	if $PlayerSight.is_colliding():
 			var collisonObject:Node2D = $PlayerSight.get_collider()
 			if collisonObject.is_in_group("player"):
-				$Exclamation.show()
-				if not isPlayerSpotted and not isPLayerInVizCone:
-					isPlayerSpotted = false
-				else:
-					isPlayerSpotted = true
+				isPlayerInRayCast = true
 			else:
-				isPlayerSpotted = false
+				isPlayerInRayCast = false
 	else:
-		isPlayerSpotted = false
+		isPlayerInRayCast = false
 	
-	if !isPlayerSpotted:
-		$Exclamation.hide()
-
 func _on_vision_cone_body_entered(body: Node2D) -> void:
 	if body.is_in_group("player"):
 		player = body.get_node("AnimatedSprite2D")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=3 uid="uid://dxqmqoc6up15h"]
+[gd_scene load_steps=49 format=3 uid="uid://dxqmqoc6up15h"]
 
 [ext_resource type="Texture2D" uid="uid://c57m2mw1g1dyl" path="res://Sprites/Soldier-idle-Sheet.png" id="1_7q4jw"]
 [ext_resource type="Script" path="res://Enemy/Soldier.gd" id="1_30qs2"]
@@ -12,6 +12,7 @@
 [ext_resource type="Script" path="res://Enemy/States/Idle.gd" id="7_83nyy"]
 [ext_resource type="Script" path="res://Enemy/States/Patrol.gd" id="8_wrjsi"]
 [ext_resource type="Script" path="res://Enemy/States/Chase.gd" id="9_3e5t3"]
+[ext_resource type="Texture2D" uid="uid://3f4xsvpw5eor" path="res://Aesprites/question.png" id="9_lqiek"]
 [ext_resource type="Script" path="res://Enemy/States/Search.gd" id="11_n17or"]
 [ext_resource type="Script" path="res://Enemy/AttackFSM.gd" id="12_g6phb"]
 [ext_resource type="Script" path="res://Enemy/AttackStates/Idle.gd" id="13_jqrjo"]
@@ -278,6 +279,7 @@ size = Vector2(10, 16)
 script = ExtResource("1_30qs2")
 movementSpeed = 40.0
 patrolLength = 250
+playerTrackingLength = 105
 metadata/_edit_group_ = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -290,15 +292,31 @@ position = Vector2(0, -13)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("6_ykuu6")
 
+[node name="Confusion" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(0, -12)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("9_lqiek")
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_65if5")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 
 [node name="FrontVision" type="RayCast2D" parent="."]
+position = Vector2(0, 8)
+target_position = Vector2(10, 0)
+
+[node name="FrontVision2" type="RayCast2D" parent="."]
+position = Vector2(0, -8)
 target_position = Vector2(10, 0)
 
 [node name="RearVision" type="RayCast2D" parent="."]
+position = Vector2(0, 8)
+target_position = Vector2(-10, 0)
+
+[node name="RearVision2" type="RayCast2D" parent="."]
+position = Vector2(0, -8)
 target_position = Vector2(-10, 0)
 
 [node name="PlayerSight" type="RayCast2D" parent="."]

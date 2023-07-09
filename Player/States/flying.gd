@@ -26,11 +26,9 @@ func inPhysicsProcess(delta):
 				actor.queue_free();
 			else: #bounce and increase friction
 				actor.velocity = actor.velocity.bounce(collision.get_normal());
-				print("BOUNCED", actor.position);
 		else:
 			collider.queue_free();
 
 	#delete
 	if actor.velocity.length() < actor.SPEED_MIN:
 		actor.queue_free();
-		print("FREED", actor.position);

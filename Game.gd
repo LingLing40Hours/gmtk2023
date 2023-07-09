@@ -62,12 +62,11 @@ func change_level_faded(n):
 func let_bullet_fly(from_level, hs):
 	#change level
 	change_level_faded(0);
-	print("HERE");
 	await level_changed;
 	
 	#stick into wall if new high score, else bounce off
 	var bullet = player.instantiate();
-	current_level.add_child(bullet); print("ADD bullet");
+	current_level.add_child(bullet);
 	bullet.rotation = -PI/2;
 	bullet.position = Vector2(GV.RESOLUTION.x, GV.TILE_WIDTH*(FIRST_LEVEL_ROW+0.5));
 	if hs:

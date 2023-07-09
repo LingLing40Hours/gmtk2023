@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://1ighxnj7p201" path="res://Sprites/Start 3.png" id="3_v8rt1"]
 [ext_resource type="Texture2D" uid="uid://5qxhfe18g2m0" path="res://Sprites/Start 2.png" id="4_7hifs"]
 [ext_resource type="TileSet" uid="uid://c31esy5sp1u1d" path="res://Levels/main_tileset.tres" id="5_wks8q"]
-[ext_resource type="PackedScene" path="res://Objects/Milestone.tscn" id="6_mffmn"]
+[ext_resource type="PackedScene" uid="uid://bxgbki2tf1umq" path="res://Objects/Milestone.tscn" id="6_mffmn"]
 
 [sub_resource type="InputEventKey" id="InputEventKey_71ego"]
 device = -1

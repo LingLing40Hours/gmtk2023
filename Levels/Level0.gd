@@ -14,7 +14,6 @@ func _ready():
 		
 	#update score display
 	for i in range(1, GV.LEVEL_COUNT):
-		print(i);
 		change_high_score(i, GV.level_high_scores[i]);
 
 func _input(event):

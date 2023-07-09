@@ -24,7 +24,7 @@ func _ready():
 	
 
 func pickup(g:Node2D):
-	print("PICKUP");	
+	#print("PICKUP");	
 	#steal gun from level
 	var dpos = g.position - position;
 	var l = dpos.length();
@@ -55,7 +55,7 @@ func pickup(g:Node2D):
 #calls to this function must be deferred, ex.
 #bullet.call_deferred("transfer", self, gun);
 func transfer(soldier:CharacterBody2D, gun:CharacterBody2D):
-	print("TRANSFER");
+	#print("TRANSFER");
 	#convert gun transform
 	var sb = position - soldier.position;
 	var bg_l = gun.position.length();

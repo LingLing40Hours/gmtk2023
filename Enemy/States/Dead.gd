@@ -2,6 +2,7 @@ extends State
 
 # Called when the parent enters the state
 func enter():
+	actor.get_node("CollisionShape2D").disabled = true;
 	actor.playAnimation("ko") 
 	actor.setRelativeMovementTarget(Vector2(0,0))
 

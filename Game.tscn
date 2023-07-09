@@ -59,6 +59,7 @@ _data = {
 script = ExtResource("1_dht7n")
 
 [node name="GUI" type="CanvasLayer" parent="."]
+layer = 2
 
 [node name="ColorRect" type="ColorRect" parent="GUI"]
 offset_right = 576.0

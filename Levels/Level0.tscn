@@ -1,6 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://dtwxv1vb8afir"]
+[gd_scene load_steps=10 format=3 uid="uid://dtwxv1vb8afir"]
 
 [ext_resource type="Script" path="res://Levels/Level0.gd" id="1_yfhcq"]
+[ext_resource type="Theme" uid="uid://j6wn5pu37w3i" path="res://Themes/main_theme.tres" id="2_0g0pu"]
 [ext_resource type="Texture2D" uid="uid://cjhvqxph6l5xo" path="res://Sprites/Start 1.png" id="2_ukvtr"]
 [ext_resource type="Texture2D" uid="uid://1ighxnj7p201" path="res://Sprites/Start 3.png" id="3_v8rt1"]
 [ext_resource type="Texture2D" uid="uid://5qxhfe18g2m0" path="res://Sprites/Start 2.png" id="4_7hifs"]
@@ -23,53 +24,86 @@ offset_right = 576.0
 offset_bottom = 320.0
 color = Color(0.729412, 0.729412, 0.729412, 1)
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Background"]
-layout_mode = 1
+[node name="GUI" type="CanvasLayer" parent="."]
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GUI"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("2_0g0pu")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Background/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="GUI/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
+theme = ExtResource("2_0g0pu")
 
-[node name="Control" type="Control" parent="Background/VBoxContainer/HBoxContainer"]
+[node name="Control" type="Control" parent="GUI/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(64, 206)
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Background/VBoxContainer/HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="GUI/VBoxContainer/HBoxContainer"]
 layout_mode = 2
+theme = ExtResource("2_0g0pu")
+theme_override_constants/separation = 16
 
-[node name="Control" type="Control" parent="Background/VBoxContainer/HBoxContainer/VBoxContainer"]
+[node name="Control" type="Control" parent="GUI/VBoxContainer/HBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
 
-[node name="Button" type="Button" parent="Background/VBoxContainer/HBoxContainer/VBoxContainer"]
+[node name="Button1" type="Button" parent="GUI/VBoxContainer/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(224, 16)
+layout_mode = 2
+theme = ExtResource("2_0g0pu")
+theme_override_font_sizes/font_size = 8
+
+[node name="Button2" type="Button" parent="GUI/VBoxContainer/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(224, 16)
+layout_mode = 2
+theme = ExtResource("2_0g0pu")
+theme_override_font_sizes/font_size = 8
+
+[node name="Button3" type="Button" parent="GUI/VBoxContainer/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(224, 16)
+layout_mode = 2
+theme = ExtResource("2_0g0pu")
+theme_override_font_sizes/font_size = 8
+
+[node name="Button4" type="Button" parent="GUI/VBoxContainer/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(224, 16)
+layout_mode = 2
+theme = ExtResource("2_0g0pu")
+theme_override_font_sizes/font_size = 8
+
+[node name="Button5" type="Button" parent="GUI/VBoxContainer/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(224, 16)
+layout_mode = 2
+theme = ExtResource("2_0g0pu")
+theme_override_font_sizes/font_size = 8
+
+[node name="Control2" type="Control" parent="GUI/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(32, 0)
 layout_mode = 2
 
-[node name="Button2" type="Button" parent="Background/VBoxContainer/HBoxContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="GUI/VBoxContainer/HBoxContainer"]
 layout_mode = 2
+theme = ExtResource("2_0g0pu")
+theme_override_colors/font_color = Color(0.270588, 0.270588, 0.270588, 1)
+theme_override_font_sizes/font_size = 10
+text = "Select a level to start"
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="Button3" type="Button" parent="Background/VBoxContainer/HBoxContainer/VBoxContainer"]
-layout_mode = 2
-
-[node name="Button4" type="Button" parent="Background/VBoxContainer/HBoxContainer/VBoxContainer"]
-layout_mode = 2
-
-[node name="Button5" type="Button" parent="Background/VBoxContainer/HBoxContainer/VBoxContainer"]
-layout_mode = 2
-
-[node name="HBoxContainer2" type="HBoxContainer" parent="Background/VBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="GUI/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
 
-[node name="Control" type="Control" parent="Background/VBoxContainer/HBoxContainer2"]
+[node name="Control" type="Control" parent="GUI/VBoxContainer/HBoxContainer2"]
 custom_minimum_size = Vector2(136, 0)
 layout_mode = 2
 
-[node name="TextureButton" type="TextureButton" parent="Background/VBoxContainer/HBoxContainer2"]
+[node name="TextureButton" type="TextureButton" parent="GUI/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
 shortcut = SubResource("Shortcut_n7iy3")
 texture_normal = ExtResource("2_ukvtr")
@@ -96,4 +130,9 @@ position = Vector2(8, 152)
 [node name="Milestone5" parent="." instance=ExtResource("6_mffmn")]
 position = Vector2(8, 184)
 
-[connection signal="pressed" from="Background/VBoxContainer/HBoxContainer2/TextureButton" to="." method="_on_texture_button_pressed"]
+[connection signal="pressed" from="GUI/VBoxContainer/HBoxContainer/VBoxContainer/Button1" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="GUI/VBoxContainer/HBoxContainer/VBoxContainer/Button2" to="." method="_on_button_2_pressed"]
+[connection signal="pressed" from="GUI/VBoxContainer/HBoxContainer/VBoxContainer/Button3" to="." method="_on_button_3_pressed"]
+[connection signal="pressed" from="GUI/VBoxContainer/HBoxContainer/VBoxContainer/Button4" to="." method="_on_button_4_pressed"]
+[connection signal="pressed" from="GUI/VBoxContainer/HBoxContainer/VBoxContainer/Button5" to="." method="_on_button_5_pressed"]
+[connection signal="pressed" from="GUI/VBoxContainer/HBoxContainer2/TextureButton" to="." method="_on_texture_button_pressed"]

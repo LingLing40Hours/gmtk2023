@@ -107,22 +107,23 @@ func pointPlayerSight() -> void:
 		isPlayerInRayCast = false
 
 func grabAttack() -> void:
-	var gunList:Array[Gun] = player.get_parent().guns
+	if hasPlayerBeenSeen:
+		var gunList:Array[Gun] = player.get_parent().guns
 
-	if isGunInGrabRange and not gunList.is_empty():
-		var closeGun:Gun = null
-		var prevDistance = 1000000000000
-		for gun in gunList:
-			var distance = (gun.global_position - global_position).length_squared()
-			if distance < prevDistance:
-				prevDistance = distance
-				closeGun = gun
-		player.get_parent().call_deferred("transfer", self, closeGun)
-		equipedGun = closeGun
-		isGunEquiped = true
-	if gunList.is_empty() and isPlayerInGrabRange and player.get_parent().get_state() != "loaded":
-		player.get_parent().change_state("grabbed")
-		player.get_parent().call_deferred("transfer", self, player)
+		if isGunInGrabRange and not gunList.is_empty():
+			var closeGun:Gun = null
+			var prevDistance = 1000000000000
+			for gun in gunList:
+				var distance = (gun.global_position - global_position).length_squared()
+				if distance < prevDistance:
+					prevDistance = distance
+					closeGun = gun
+			player.get_parent().call_deferred("transfer", self, closeGun)
+			equipedGun = closeGun
+			isGunEquiped = true
+		if gunList.is_empty() and isPlayerInGrabRange and player.get_parent().get_state() != "loaded":
+			player.get_parent().change_state("grabbed")
+			player.get_parent().call_deferred("transfer", self, player)
 
 func reduceHealth(damage:float) -> void:
 	health -= damage

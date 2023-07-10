@@ -4,7 +4,6 @@ extends Gun
 
 @onready var sound:AudioStreamPlayer2D = $Shotgun;
 
-
 func _ready():
 	DAMAGE = 9;
 	SPEED = 840;
@@ -22,9 +21,9 @@ func shoot(direction: Vector2):
 	pellet2.bulletDirection(direction + Vector2(0.5, 0.5))
 	pellet3.bulletDirection(direction + Vector2(-0.5, -0.5))
 	
-	get_parent().add_child(pellet1)
-	get_parent().add_child(pellet2)
-	get_parent().add_child(pellet3)
+	curLevel.add_child(pellet1)
+	curLevel.add_child(pellet2)
+	curLevel.add_child(pellet3)
 	
 	pellet1.global_position = $Muzzle.global_position
 	pellet2.global_position = $Muzzle.global_position + Vector2(0, 0.5)

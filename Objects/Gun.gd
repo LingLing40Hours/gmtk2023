@@ -14,6 +14,11 @@ var BREAKWOOD_SLOWDOWN:float = 40;
 var durability:float;
 var left_loaded:bool;
 
+var curLevel:Level
+
+func _enter_tree() -> void:
+	curLevel = $"/root/Game".current_level
+
 func fire():
 	change_state("fired");
 	

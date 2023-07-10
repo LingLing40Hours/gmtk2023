@@ -1,13 +1,14 @@
-[gd_scene load_steps=12 format=3 uid="uid://hkt5mjqrsf6d"]
+[gd_scene load_steps=13 format=3 uid="uid://hkt5mjqrsf6d"]
 
 [ext_resource type="Script" path="res://Objects/Handgun.gd" id="1_0t60d"]
+[ext_resource type="PackedScene" uid="uid://dyu2su5h00cj3" path="res://Objects/Bullets/Pellet.tscn" id="2_8cldw"]
 [ext_resource type="Texture2D" uid="uid://cpoq48tsyi7kh" path="res://Sprites/gun1.png" id="2_nfnf2"]
 [ext_resource type="Script" path="res://Objects/FSM/FiniteStateMachine.gd" id="3_qqqy2"]
 [ext_resource type="Script" path="res://Objects/Gun States/idle.gd" id="4_fipyu"]
 [ext_resource type="Script" path="res://Objects/Gun States/loaded.gd" id="5_hj8nj"]
 [ext_resource type="Script" path="res://Objects/Gun States/fired.gd" id="6_xdyup"]
 [ext_resource type="Script" path="res://Objects/Gun States/solidified.gd" id="7_quof7"]
-[ext_resource type="AudioStream" uid="uid://cv5rgn5s360ar" path="res://Sounds/Pistol1.mp3" id="8_lpye0"]
+[ext_resource type="AudioStream" uid="uid://prp340hrlcw6" path="res://Sounds/Pistol1.mp3" id="8_lpye0"]
 [ext_resource type="AudioStream" uid="uid://bbi1klq5430pg" path="res://Sounds/hit1.wav" id="9_aj2h3"]
 [ext_resource type="AudioStream" uid="uid://chtofcyd5vgcs" path="res://Sounds/wood_break.wav" id="10_qk7ru"]
 [ext_resource type="AudioStream" uid="uid://cnlksi40cov6l" path="res://Sounds/wood_short.wav" id="11_qfhx5"]
@@ -15,6 +16,7 @@
 [node name="Handgun" type="CharacterBody2D" groups=["gun", "handgun"]]
 motion_mode = 1
 script = ExtResource("1_0t60d")
+round = ExtResource("2_8cldw")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_nfnf2")
@@ -36,6 +38,9 @@ script = ExtResource("6_xdyup")
 
 [node name="solidified" type="Node2D" parent="FSM"]
 script = ExtResource("7_quof7")
+
+[node name="Muzzle" type="Marker2D" parent="."]
+position = Vector2(3, -1.5)
 
 [node name="Pistol" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("8_lpye0")

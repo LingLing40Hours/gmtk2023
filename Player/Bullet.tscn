@@ -236,8 +236,8 @@ _data = {
 }
 
 [node name="Bullet" type="CharacterBody2D" groups=["player"]]
-collision_layer = 3
-collision_mask = 3
+collision_layer = 11
+collision_mask = 11
 motion_mode = 1
 script = ExtResource("1_x85wi")
 

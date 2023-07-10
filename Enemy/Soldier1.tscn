@@ -303,6 +303,8 @@ size = Vector2(10, 16)
 radius = 16.0
 
 [node name="Soldier1" type="CharacterBody2D" groups=["enemy"]]
+motion_mode = 1
+slide_on_ceiling = false
 script = ExtResource("1_30qs2")
 metadata/_edit_group_ = true
 
@@ -352,6 +354,7 @@ position = Vector2(0, -8)
 target_position = Vector2(-10, 0)
 
 [node name="PlayerSight" type="RayCast2D" parent="."]
+collision_mask = 8
 
 [node name="VisionCone" type="Area2D" parent="."]
 monitorable = false

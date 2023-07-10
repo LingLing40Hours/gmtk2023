@@ -28,6 +28,7 @@ var hasPlayerBeenSeen:bool = false
 var isPlayerInGrabRange:bool = false
 var isGunInGrabRange:bool = false
 var isDead:bool = false
+var isChasingPlayer:bool = false
 
 var version
 
@@ -101,10 +102,9 @@ func pointPlayerSight() -> void:
 			if collisonObject != null: # somehow an error
 				if collisonObject.is_in_group("player"):
 					isPlayerInRayCast = true
-			else:
-				isPlayerInRayCast = false
-	else:
-		isPlayerInRayCast = false
+					return
+	isPlayerInRayCast = false
+
 
 func grabAttack() -> void:
 	if hasPlayerBeenSeen:

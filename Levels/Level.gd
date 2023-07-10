@@ -3,6 +3,7 @@ class_name Level
 
 @onready var GV:Node = $"/root/GV";
 @onready var game:Node2D = $"/root/Game";
+@onready var tracking_cam:Camera2D = $Camera2D;
 
 @export var xmin = 0;
 @export var xmax = 576;

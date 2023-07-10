@@ -9,7 +9,7 @@ func _ready():
 	DAMAGE = 4;
 	SPEED = 1200;
 	BREAKWOOD_SPEED = 280;
-	durability = 66;
+	durability = 60;
 	$FSM.setState($FSM.states.idle);
 
 # very crude way of shooting

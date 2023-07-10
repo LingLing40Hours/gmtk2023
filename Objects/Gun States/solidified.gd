@@ -33,7 +33,7 @@ func inPhysicsProcess(delta):
 			if id == 0:
 				actor.velocity = actor.velocity.bounce(collision_info.get_normal());
 				actor.get_node("Stone").play();
-			else:
+			elif id == 1:
 				if speed > actor.BREAKWOOD_SPEED:
 					weardown *= GV.TILE_HARDNESS_BREAK_FACTORS[id];
 					collider.set_cell(0, pos, -1);

@@ -1,7 +1,8 @@
-[gd_scene load_steps=14 format=3 uid="uid://cwn0x0c35owgs"]
+[gd_scene load_steps=17 format=3 uid="uid://cwn0x0c35owgs"]
 
 [ext_resource type="Script" path="res://Levels/Level4.gd" id="1_36n1k"]
 [ext_resource type="Script" path="res://Levels/BGM.gd" id="2_1r7ww"]
+[ext_resource type="Theme" uid="uid://j6wn5pu37w3i" path="res://Themes/main_theme.tres" id="2_qmb70"]
 [ext_resource type="Script" path="res://Levels/TrackingCam.gd" id="2_vsjwq"]
 [ext_resource type="TileSet" uid="uid://c31esy5sp1u1d" path="res://Levels/main_tileset.tres" id="3_yrdw6"]
 [ext_resource type="PackedScene" uid="uid://c7ytsxqxq0nwg" path="res://Player/Bullet.tscn" id="4_uijej"]
@@ -9,6 +10,12 @@
 [ext_resource type="PackedScene" uid="uid://hkt5mjqrsf6d" path="res://Objects/Handgun.tscn" id="6_38i6e"]
 [ext_resource type="PackedScene" uid="uid://v4oxkvbsb542" path="res://Objects/Machinegun.tscn" id="8_wlu5m"]
 [ext_resource type="PackedScene" uid="uid://d02nio18mb1sq" path="res://Objects/Shotgun.tscn" id="9_e3rto"]
+[ext_resource type="PackedScene" uid="uid://dxqmqoc6up15h" path="res://Enemy/Soldier1.tscn" id="11_xix71"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_c4q4s"]
+vertices = PackedVector2Array(16, 16, 144, 16, 144, 128, 16, 128)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(16, 16, 144, 16, 144, 128, 16, 128)])
 
 [sub_resource type="Animation" id="Animation_y2mux"]
 length = 0.001
@@ -67,11 +74,29 @@ script = ExtResource("1_36n1k")
 xmax = 1280
 ymax = 720
 
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+navigation_polygon = SubResource("NavigationPolygon_c4q4s")
+
 [node name="Background" type="ColorRect" parent="."]
 z_index = -10
 offset_right = 1280.0
 offset_bottom = 720.0
 color = Color(0.729412, 0.729412, 0.729412, 1)
+
+[node name="Label" type="Label" parent="Background"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 220.0
+offset_top = 35.0
+offset_right = 400.0
+offset_bottom = 56.0
+grow_vertical = 2
+theme = ExtResource("2_qmb70")
+theme_override_colors/font_color = Color(0.270588, 0.270588, 0.270588, 1)
+theme_override_font_sizes/font_size = 10
+text = "movement practice"
 
 [node name="BGM" type="AudioStreamPlayer2D" parent="."]
 script = ExtResource("2_1r7ww")
@@ -124,3 +149,36 @@ position = Vector2(48, 48)
 
 [node name="Machinegun3" parent="." instance=ExtResource("8_wlu5m")]
 position = Vector2(226, 256)
+
+[node name="Soldier1" parent="." instance=ExtResource("11_xix71")]
+position = Vector2(432, 687)
+
+[node name="Soldier2" parent="." instance=ExtResource("11_xix71")]
+position = Vector2(432, 601)
+
+[node name="Soldier3" parent="." instance=ExtResource("11_xix71")]
+position = Vector2(432, 515)
+
+[node name="Soldier4" parent="." instance=ExtResource("11_xix71")]
+position = Vector2(432, 431)
+
+[node name="Soldier5" parent="." instance=ExtResource("11_xix71")]
+position = Vector2(431, 354)
+
+[node name="Soldier6" parent="." instance=ExtResource("11_xix71")]
+position = Vector2(348, 352)
+
+[node name="Soldier7" parent="." instance=ExtResource("11_xix71")]
+position = Vector2(265, 352)
+
+[node name="Soldier8" parent="." instance=ExtResource("11_xix71")]
+position = Vector2(177, 353)
+
+[node name="Soldier9" parent="." instance=ExtResource("11_xix71")]
+position = Vector2(177, 422)
+
+[node name="Soldier10" parent="." instance=ExtResource("11_xix71")]
+position = Vector2(176, 494)
+
+[node name="Soldier11" parent="." instance=ExtResource("11_xix71")]
+position = Vector2(224, 544)

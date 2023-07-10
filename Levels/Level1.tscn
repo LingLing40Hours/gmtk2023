@@ -11,10 +11,10 @@
 [ext_resource type="PackedScene" uid="uid://cj4go8rc3d4rf" path="res://Objects/Tank.tscn" id="9_voolf"]
 [ext_resource type="PackedScene" uid="uid://v4oxkvbsb542" path="res://Objects/Machinegun.tscn" id="11_evskb"]
 
-[sub_resource type="NavigationPolygon" id="NavigationPolygon_10jly"]
-vertices = PackedVector2Array(16, 16, 560, 16, 560, 304, 16, 304)
-polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(16, 16, 560, 16, 560, 304, 16, 304)])
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_xqgct"]
+vertices = PackedVector2Array(448, 240, 560, 304, 432, 256, 432, 240, 16, 304, 416, 256, 560, 16, 448, 224, 16, 16, 432, 224, 416, 240)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(2, 1, 4, 5), PackedInt32Array(6, 1, 0, 7), PackedInt32Array(8, 6, 7, 9), PackedInt32Array(4, 8, 9, 10), PackedInt32Array(10, 5, 4), PackedInt32Array(10, 9, 3), PackedInt32Array(10, 3, 2), PackedInt32Array(10, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(16, 16, 560, 16, 560, 304, 16, 304), PackedVector2Array(432, 240, 432, 224, 448, 224, 448, 240), PackedVector2Array(416, 256, 416, 240, 432, 240, 432, 256), PackedVector2Array(400, 304, 400, 256, 416, 256, 416, 304)])
 
 [sub_resource type="Animation" id="Animation_y2mux"]
 length = 0.001
@@ -72,7 +72,8 @@ _data = {
 script = ExtResource("1_agrjr")
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
-navigation_polygon = SubResource("NavigationPolygon_10jly")
+visible = false
+navigation_polygon = SubResource("NavigationPolygon_xqgct")
 
 [node name="Background" type="ColorRect" parent="."]
 z_index = -10

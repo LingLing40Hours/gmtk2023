@@ -17,7 +17,7 @@ var lastKnownPlayerPos:Vector2 = Vector2()
 var equipedGun:Gun = null
 
 var health:float = 12;
-var HARDNESS:float = 0.001; #reduces gun durability
+var HARDNESS:float = 0.11#0.001; #reduces gun durability
 var HARMFUL_SPEED:float = 100; #take damage if gun is faster than this
 
 var isGunEquiped:bool = false

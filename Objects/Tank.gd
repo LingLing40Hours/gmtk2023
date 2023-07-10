@@ -33,6 +33,7 @@ func _on_area_2d_body_entered(body):
 		player.get_node("Fader").stop();
 		player.modulate.a = 1;
 		player.rotation = -PI/2;
+		player.set_collision_mask_value(3, true); #to collide with dead soldiers
 		
 		var shot_index = GV.rng.randi_range(0, $Shots.get_child_count()-1);
 		$Shots.get_child(shot_index).play();

@@ -2,7 +2,12 @@ extends State
 
 # Called when the parent enters the state
 func enter():
-	actor.get_node("CollisionShape2D").disabled = true;
+	#change layer to avoid obstructing player
+	actor.set_collision_layer_value(1, false);
+	actor.set_collision_mask_value(1, false);
+	actor.set_collision_layer_value(3, true);
+	
+	actor.z_index -= 1;
 	actor.playAnimation("ko") 
 	actor.setRelativeMovementTarget(Vector2(0,0))
 

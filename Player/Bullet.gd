@@ -26,11 +26,13 @@ func _input(event):
 	if event.is_action_pressed("drop_left"):
 		for i in range(guns.size()):
 			if guns[i].left_loaded and guns[i].get_state() == "loaded":
-				call_deferred("drop", i, true, "idle");
+				guns[i].change_state("dropping");
+				call_deferred("drop", i, true, "solidified");
 	if event.is_action_pressed("drop_right"):
 		for i in range(guns.size()):
 			if not guns[i].left_loaded and guns[i].get_state() == "loaded":
-				call_deferred("drop", i, true, "idle");
+				guns[i].change_state("dropping");
+				call_deferred("drop", i, true, "solidified");
 	if event.is_action_released("drop_left"):
 		for g in $Left.get_overlapping_bodies():
 			_on_left_body_entered(g);
@@ -41,6 +43,7 @@ func _input(event):
 #calls to this function must be deferred
 	#transforms gun coordinates,
 	#transfers ownership from self to current level
+#check gun state is loaded before calling, set to dropping
 func drop(gun_index, enable_collider, new_gun_state):
 	var gun = guns[gun_index];
 	
@@ -48,6 +51,7 @@ func drop(gun_index, enable_collider, new_gun_state):
 	var br = gun.position.angle() + rotation;
 	gun.position = position + gun.position.length() * Vector2(cos(br), sin(br));
 	gun.rotation += rotation;
+	gun.velocity += velocity;
 	
 	#remove gun
 	remove_child(gun);
@@ -59,40 +63,40 @@ func drop(gun_index, enable_collider, new_gun_state):
 	#add gun to current level
 	if enable_collider:
 		gun.get_node("GunCollider").disabled = false;
-	gun.change_state(new_gun_state);
 	game.current_level.add_child(gun);
 	
 	#update ammo
 	game.change_ammo(GV.ammo - 1);
 	
 	#update state
-	gun.change_state("solidified");
+	gun.change_state(new_gun_state);
 
 #calls to this function must be deferred
 #check gun state is idle before calling, set to loading
-func pickup(g:Node2D):
+func pickup(gun:Node2D):
 	print("PICKUP");	
 	#steal gun from level
-	var dpos = g.position - position;
+	var dpos = gun.position - position;
 	var l = dpos.length();
 	var r = dpos.angle() - rotation;
-	g.position = l * Vector2(cos(r), sin(r));
-	g.rotation -= rotation;
+	gun.position = l * Vector2(cos(r), sin(r));
+	gun.rotation -= rotation;
 	
 	#steal collider from gun
-	var col_shape = g.get_node("GunCollider");
+	var col_shape = gun.get_node("GunCollider");
 	var temp_col_shape = col_shape.duplicate();
-	temp_col_shape.position = g.position;
-	temp_col_shape.rotation = g.rotation;
-	temp_col_shape.scale = g.scale;
+	temp_col_shape.position = gun.position;
+	temp_col_shape.rotation = gun.rotation;
+	temp_col_shape.scale = gun.scale;
 	
 	#remove gun from level
 	col_shape.disabled = true;
-	g.get_parent().remove_child(g);
+	gun.get_parent().remove_child(gun);
 	
 	#add gun
-	guns.append(g);
-	add_child(g);
+	gun.index = guns.size();
+	guns.append(gun);
+	add_child(gun);
 
 	#add collider
 	gun_colliders.append(temp_col_shape);
@@ -102,7 +106,7 @@ func pickup(g:Node2D):
 	game.change_ammo(GV.ammo + 1);
 	
 	#update state
-	g.change_state("loaded");
+	gun.change_state("loaded");
 
 
 #calls to this function must be deferred, ex. bullet.call_deferred("transfer", self, gun);
@@ -130,6 +134,7 @@ func transfer(soldier:CharacterBody2D, gun:CharacterBody2D):
 	guns.remove_at(gun.index);
 	remove_child(gun_colliders[gun.index]);
 	gun_colliders.remove_at(gun.index);
+	gun.index = -1;
 	
 	#add gun to soldier
 	soldier.add_child(gun);
@@ -139,7 +144,7 @@ func transfer(soldier:CharacterBody2D, gun:CharacterBody2D):
 	game.change_ammo(GV.ammo - 1);
 	
 	#update state
-	gun.change_state("transferring");
+	gun.change_state("grabbed");
 
 
 func reduceHealth(damage:float):
@@ -151,18 +156,18 @@ func _on_left_body_entered(body):
 	if Input.is_action_pressed("drop_left"):
 		return;
 	if body is Gun and body.get_state() == "idle":
-		body.change_state("loaded");
 		body.left_loaded = true;
 		left_count += 1;
+		body.change_state("loading");
 		call_deferred("pickup", body);
 		
 func _on_right_body_entered(body):
 	if Input.is_action_pressed("drop_right"):
 		return;
 	if body is Gun and body.get_state() == "idle":
-		body.change_state("loaded");
 		body.left_loaded = false;
 		right_count += 1;
+		body.change_state("loading");
 		call_deferred("pickup", body);
 
 
@@ -170,14 +175,16 @@ func _on_animated_sprite_2d_animation_finished():
 	match $AnimatedSprite2D.animation:
 		"shoot_left":
 			for i in range(guns.size()-1, -1, -1):
-				if guns[i].left_loaded:
+				if guns[i].left_loaded and guns[i].get_state() == "loaded":
+					guns[i].change_state("firing");
 					guns[i].call_deferred("fire");
 			left_count = 0;
 			$AnimatedSprite2D.stop();
 			$AnimatedSprite2D.play("roll");
 		"shoot_right":
 			for i in range(guns.size()-1, -1, -1):
-				if not guns[i].left_loaded:
+				if not guns[i].left_loaded and guns[i].get_state() == "loaded":
+					guns[i].change_state("firing");
 					guns[i].call_deferred("fire");
 			right_count = 0;
 			$AnimatedSprite2D.stop();

@@ -115,15 +115,14 @@ func grabAttack() -> void:
 			var closeGun:Gun = null
 			var prevDistance = 1000000000000
 			for gun in gunList:
-				if gun.index == GV.SOLDIER_GUN: #don't grab a taken gun
-					break;
-				var distance = (gun.global_position - global_position).length_squared()
-				if distance < prevDistance:
-					prevDistance = distance
-					closeGun = gun
+				if gun.get_state() == "loaded":
+					var distance = (gun.global_position - global_position).length_squared()
+					if distance < prevDistance:
+						prevDistance = distance
+						closeGun = gun
 
 			if closeGun != null:
-				closeGun.index = GV.SOLDIER_GUN; #mark gun as taken
+				closeGun.change_state("transferring");
 				player.get_parent().call_deferred("transfer", self, closeGun)
 				equipedGun = closeGun
 				isGunEquiped = true

@@ -22,14 +22,15 @@ func _enter_tree() -> void:
 
 #calls to this function must be deferred (bc of drop())
 func fire():
-	#parent might change between call to fire(), so check is necessary
-	if get_parent().is_in_group("player"):
-		#set firing velocity
+	print("FIRE");
+	if get_state() == "firing":
+		#add firing velocity
 		velocity += SPEED * fire_dir();
-		
+		#detach from player
 		get_parent().drop(index, false, "fired");
-	
 
+	
+#when calling, parent must be player, otherwise returns (0, 0)
 func fire_dir() -> Vector2:
 	if not get_parent().is_in_group("player"):
 		return Vector2.ZERO;

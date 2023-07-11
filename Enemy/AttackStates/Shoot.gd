@@ -21,6 +21,8 @@ func inProcess(delta):
 func changeParentState():
 	if actor.get_node("FSM").curState != actor.get_node("FSM").states.Chase or actor.isDead:
 		return states.Idle
+	if actor.isPlayerInGrabRange and actor.isChasingPlayer:
+		return states.Grab
 	return null
 
 func handleInput(event):

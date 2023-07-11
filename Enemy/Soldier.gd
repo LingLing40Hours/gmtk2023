@@ -121,6 +121,7 @@ func grabAttack() -> void:
 			player.get_parent().call_deferred("transfer", self, closeGun)
 			equipedGun = closeGun
 			isGunEquiped = true
+			print("Gun Equiped")
 		if gunList.is_empty() and isPlayerInGrabRange and player.get_parent().get_state() != "loaded":
 			player.get_parent().change_state("grabbed")
 			player.get_parent().call_deferred("transfer", self, player)

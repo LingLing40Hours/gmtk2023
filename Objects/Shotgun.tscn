@@ -7,7 +7,7 @@
 [ext_resource type="Script" path="res://Objects/Gun States/loaded.gd" id="4_x64x2"]
 [ext_resource type="Script" path="res://Objects/Gun States/fired.gd" id="5_ruerp"]
 [ext_resource type="Script" path="res://Objects/Gun States/solidified.gd" id="6_yp4jb"]
-[ext_resource type="AudioStream" uid="uid://qfkkyghlijiu" path="res://Sounds/Shotgun1.mp3" id="7_15atk"]
+[ext_resource type="AudioStream" uid="uid://gbo04lkx0suk" path="res://Sounds/Shotgun1.mp3" id="7_15atk"]
 [ext_resource type="AudioStream" uid="uid://c4bq1bmwsaxgv" path="res://Sounds/hit2.wav" id="9_ykf4q"]
 [ext_resource type="AudioStream" uid="uid://chtofcyd5vgcs" path="res://Sounds/wood_break.wav" id="10_xcrn4"]
 [ext_resource type="AudioStream" uid="uid://dw2u8pttk5n4c" path="res://Sounds/wood_long.wav" id="11_r4gmb"]

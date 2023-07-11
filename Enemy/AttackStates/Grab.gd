@@ -26,7 +26,7 @@ func inProcess(delta):
 	pass
 
 func changeParentState():
-	if actor.get_node("FSM").curState == actor.get_node("FSM").states.Chase and actor.isGunEquiped:
+	if actor.get_node("FSM").curState == actor.get_node("FSM").states.Chase and actor.isGunEquiped and not actor.isPlayerInGrabRange: 
 		return states.Shoot
 	if hasAttemptedGrab or !actor.isPlayerInGrabRange or actor.isDead:
 		return states.Idle

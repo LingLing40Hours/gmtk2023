@@ -13,26 +13,20 @@ var BREAKWOOD_SLOWDOWN:float = 40;
 
 var durability:float;
 var left_loaded:bool;
+var index = -1; #in bullet's gun array
 
 var curLevel:Level
 
 func _enter_tree() -> void:
 	curLevel = $"/root/Game".current_level
 
-func fire():
-	change_state("fired");
-	
+#calls to this function must be deferred (bc of drop())
+func fire():	
 	#set firing velocity
 	velocity += SPEED * fire_dir();
 	
-	#convert to global transform
-	var br = get_parent().rotation + 90;
-	position = get_parent().position + position.length() * Vector2(cos(br), sin(br));
-	rotation += br - 90;
-	
-	#change parent
-	get_parent().remove_child(self);
-	game.current_level.add_child(self);
+	change_state("fired");
+	get_parent().drop(index, false);
 	
 
 func fire_dir() -> Vector2:

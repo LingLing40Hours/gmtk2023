@@ -106,3 +106,26 @@ func _physics_process(delta):
 	if actor.durability <= 0:
 		actor.queue_free();
 '''
+
+'''on bullet's shoot animation finished
+					guns.remove_at(i);
+					call_deferred("remove_child", gun_colliders[i]);
+					gun_colliders.remove_at(i);
+'''
+
+'''
+func fire():
+	change_state("fired");
+	
+	#set firing velocity
+	velocity += SPEED * fire_dir();
+	
+	#convert to global transform
+	var br = get_parent().rotation + 90;
+	position = get_parent().position + position.length() * Vector2(cos(br), sin(br));
+	rotation += br - 90;
+	
+	#change parent
+	get_parent().remove_child(self);
+	game.current_level.add_child(self);
+'''

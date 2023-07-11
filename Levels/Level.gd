@@ -3,7 +3,6 @@ class_name Level
 
 @onready var GV:Node = $"/root/GV";
 @onready var game:Node2D = $"/root/Game";
-@onready var tracking_cam:Camera2D = $Camera2D;
 
 @export var xmin = 0;
 @export var xmax = 576;
@@ -19,8 +18,8 @@ var center:Vector2;
 func _ready():
 	width = xmax - xmin;
 	height = ymax - ymin;
-	xmid = (xmin + xmax)/2;
-	ymid = (ymin + ymax)/2;
+	xmid = (xmin + xmax)/2.0;
+	ymid = (ymin + ymax)/2.0;
 	center = Vector2(xmid, ymid);
 
 #home and restart level changing

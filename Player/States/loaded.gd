@@ -4,4 +4,4 @@ extends State
 
 
 func enter():
-	game.current_level.tracking_cam.tracking = false;
+	game.current_level.get_node("Camera2D").tracking = false;

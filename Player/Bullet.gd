@@ -26,16 +26,16 @@ func _input(event):
 	if event.is_action_pressed("drop_left"):
 		for i in range(guns.size()):
 			if guns[i].left_loaded:
-				call_deferred("drop", i, true);
+				call_deferred("drop", i, true, "idle");
 	elif event.is_action_pressed("drop_right"):
 		for i in range(guns.size()):
 			if not guns[i].left_loaded:
-				call_deferred("drop", i, true);
+				call_deferred("drop", i, true, "idle");
 
 #calls to this function must be deferred
 #transforms gun coordinates, and
 #transfers ownership from self to current level
-func drop(gun_index, enable_collider):
+func drop(gun_index, enable_collider, new_gun_state):
 	var gun = guns[gun_index];
 	
 	#convert gun transform to global
@@ -53,6 +53,7 @@ func drop(gun_index, enable_collider):
 	#add gun to current level
 	if enable_collider:
 		gun.get_node("GunCollider").disabled = false;
+	gun.change_state(new_gun_state);
 	game.current_level.add_child(gun);
 
 #calls to this function must be deferred

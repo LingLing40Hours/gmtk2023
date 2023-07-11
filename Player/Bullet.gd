@@ -70,8 +70,7 @@ func pickup(g:Node2D):
 	var temp_col_shape = col_shape.duplicate();
 	temp_col_shape.position = g.position;
 	temp_col_shape.rotation = g.rotation;
-	print(temp_col_shape.scale);
-	#temp_col_shape.scale = g.scale;
+	temp_col_shape.scale = g.scale;
 	
 	#remove gun from level
 	col_shape.disabled = true;

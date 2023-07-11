@@ -1,28 +1,24 @@
-[gd_scene load_steps=13 format=3 uid="uid://d02nio18mb1sq"]
+[gd_scene load_steps=12 format=3 uid="uid://d02nio18mb1sq"]
 
 [ext_resource type="Script" path="res://Objects/Shotgun.gd" id="1_1eenc"]
 [ext_resource type="Texture2D" uid="uid://cqoqyblvmirmp" path="res://Sprites/gun2.png" id="1_8j5uu"]
 [ext_resource type="Script" path="res://Objects/FSM/FiniteStateMachine.gd" id="2_d2tix"]
-[ext_resource type="PackedScene" uid="uid://dyu2su5h00cj3" path="res://Objects/Bullets/Pellet.tscn" id="2_tj4wg"]
 [ext_resource type="Script" path="res://Objects/Gun States/idle.gd" id="3_v88je"]
 [ext_resource type="Script" path="res://Objects/Gun States/loaded.gd" id="4_x64x2"]
 [ext_resource type="Script" path="res://Objects/Gun States/fired.gd" id="5_ruerp"]
 [ext_resource type="Script" path="res://Objects/Gun States/solidified.gd" id="6_yp4jb"]
-[ext_resource type="AudioStream" uid="uid://gbo04lkx0suk" path="res://Sounds/Shotgun1.mp3" id="7_15atk"]
+[ext_resource type="AudioStream" uid="uid://qfkkyghlijiu" path="res://Sounds/Shotgun1.mp3" id="7_15atk"]
 [ext_resource type="AudioStream" uid="uid://c4bq1bmwsaxgv" path="res://Sounds/hit2.wav" id="9_ykf4q"]
 [ext_resource type="AudioStream" uid="uid://chtofcyd5vgcs" path="res://Sounds/wood_break.wav" id="10_xcrn4"]
 [ext_resource type="AudioStream" uid="uid://dw2u8pttk5n4c" path="res://Sounds/wood_long.wav" id="11_r4gmb"]
 
 [node name="Shotgun" type="CharacterBody2D" groups=["gun", "shotgun"]]
 script = ExtResource("1_1eenc")
-pellet = ExtResource("2_tj4wg")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_8j5uu")
-flip_h = true
 
 [node name="GunCollider" type="CollisionPolygon2D" parent="."]
-scale = Vector2(-1, 1)
 polygon = PackedVector2Array(-12, -1, 0, -1, 0, 0, 2, 0, 4, 1, 5, 2, 5, 4, 0, 4, -1, 3, -1, 2, -9, 2, -9, 1, -12, 1)
 
 [node name="FSM" type="Node" parent="."]
@@ -39,9 +35,6 @@ script = ExtResource("5_ruerp")
 
 [node name="solidified" type="Node2D" parent="FSM"]
 script = ExtResource("6_yp4jb")
-
-[node name="Muzzle" type="Marker2D" parent="."]
-position = Vector2(12, 0)
 
 [node name="Shotgun" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("7_15atk")

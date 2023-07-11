@@ -21,8 +21,40 @@ var high_scored = false; #determines bullet behavior when returning to lv0
 
 func _ready():
 	change_state("idle");
-	
 
+func _input(event):
+	if event.is_action_pressed("drop_left"):
+		for i in range(guns.size()):
+			if guns[i].left_loaded:
+				call_deferred("drop", i);
+	elif event.is_action_pressed("drop_right"):
+		for i in range(guns.size()):
+			if not guns[i].left_loaded:
+				call_deferred("drop", i);
+
+#calls to this function must be deferred
+#transforms gun coordinates, and
+#transfers ownership from self to current level
+func drop(gun_index):
+	var gun = guns[gun_index];
+	
+	#convert gun transform to global
+	var br = rotation + 90;
+	gun.position = position + gun.position.length() * Vector2(cos(br), sin(br));
+	gun.rotation += br - 90;
+	
+	#remove gun
+	gun.index = -1;
+	remove_child(gun);
+	guns.remove_at(gun_index);
+	remove_child(gun_colliders[gun_index]);
+	gun_colliders.remove_at(gun_index);
+	
+	#add gun to current level
+	gun.get_node("GunCollider").disabled = false;
+	game.current_level.add_child(gun);
+
+#calls to this function must be deferred
 func pickup(g:Node2D):
 	#print("PICKUP");	
 	#steal gun from level
@@ -35,18 +67,24 @@ func pickup(g:Node2D):
 	#steal collider from gun
 	var col_shape = g.get_node("GunCollider");
 	var temp_col_shape = col_shape.duplicate();
-	col_shape.disabled = true;
 	temp_col_shape.position = g.position;
 	temp_col_shape.rotation = g.rotation;
+	temp_col_shape.scale = Vector2(-1, 1);
+	print(temp_col_shape.scale);
+	#temp_col_shape.scale = g.scale;
+	
+	#remove gun from level
+	col_shape.disabled = true;
+	g.get_parent().remove_child(g);
 	
 	#add gun
-	g.get_parent().remove_child(g);
-	add_child(g);
+	g.index = guns.size();
 	guns.append(g);
+	add_child(g);
 
 	#add collider
-	add_child(temp_col_shape);
 	gun_colliders.append(temp_col_shape);
+	add_child(temp_col_shape);
 	
 	#update ammo
 	game.change_ammo(GV.ammo+1);
@@ -64,23 +102,24 @@ func transfer(soldier:CharacterBody2D, gun:CharacterBody2D):
 	gun.position = sb + bg;
 	gun.rotation += rotation;
 	
-	#duplicate collider to soldier
+	#duplicate and transform collider
 	var collider = gun.get_node("GunCollider");
 	var new_collider = collider.duplicate();
 	collider.disabled = true;
 	new_collider.position = gun.position;
 	new_collider.rotation = gun.rotation;
+	new_collider.scale = gun.scale;
 	
-	#change parent
-	var index = guns.rfind(gun);
-	
+	#remove gun
+	gun.index = -1;
 	remove_child(gun);
-	guns.remove_at(index);
+	guns.remove_at(gun.index);
+	remove_child(gun_colliders[gun.index]);
+	gun_colliders.remove_at(gun.index);
 	
-	remove_child(gun_colliders[index]);
-	gun_colliders.remove_at(index);
-	
+	#add gun to soldier
 	soldier.add_child(gun);
+	soldier.add_child(new_collider);
 	
 	#update ammo
 	game.change_ammo(GV.ammo - 1);
@@ -91,6 +130,8 @@ func reduceHealth(damage:float):
 		pass # put death code here
 
 func _on_left_body_entered(body):
+	if Input.is_action_pressed("drop_left"):
+		return;
 	if body is Gun and body.get_state() == "idle":
 		body.change_state("loaded");
 		body.left_loaded = true;
@@ -98,12 +139,13 @@ func _on_left_body_entered(body):
 		call_deferred("pickup", body);
 		
 func _on_right_body_entered(body):
+	if Input.is_action_pressed("drop_right"):
+		return;
 	if body is Gun and body.get_state() == "idle":
 		body.change_state("loaded");
 		body.left_loaded = false;
 		right_count += 1;
 		call_deferred("pickup", body);
-
 
 
 func _on_animated_sprite_2d_animation_finished():
@@ -112,9 +154,6 @@ func _on_animated_sprite_2d_animation_finished():
 			for i in range(guns.size()-1, -1, -1):
 				if guns[i].left_loaded:
 					guns[i].call_deferred("fire");
-					guns.remove_at(i);
-					call_deferred("remove_child", gun_colliders[i]);
-					gun_colliders.remove_at(i);
 			game.change_ammo(GV.ammo - left_count);
 			left_count = 0;
 			$AnimatedSprite2D.stop();
@@ -123,9 +162,6 @@ func _on_animated_sprite_2d_animation_finished():
 			for i in range(guns.size()-1, -1, -1):
 				if not guns[i].left_loaded:
 					guns[i].call_deferred("fire");
-					guns.remove_at(i);
-					call_deferred("remove_child", gun_colliders[i]);
-					gun_colliders.remove_at(i);
 			game.change_ammo(GV.ammo - right_count);
 			right_count = 0;
 			$AnimatedSprite2D.stop();

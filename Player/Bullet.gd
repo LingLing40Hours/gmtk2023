@@ -25,16 +25,22 @@ func _ready():
 func _input(event):
 	if event.is_action_pressed("drop_left"):
 		for i in range(guns.size()):
-			if guns[i].left_loaded:
+			if guns[i].left_loaded and guns[i].get_state() == "loaded":
 				call_deferred("drop", i, true, "idle");
-	elif event.is_action_pressed("drop_right"):
+	if event.is_action_pressed("drop_right"):
 		for i in range(guns.size()):
-			if not guns[i].left_loaded:
+			if not guns[i].left_loaded and guns[i].get_state() == "loaded":
 				call_deferred("drop", i, true, "idle");
+	if event.is_action_released("drop_left"):
+		for g in $Left.get_overlapping_bodies():
+			_on_left_body_entered(g);
+	if event.is_action_released("drop_right"):
+		for g in $Right.get_overlapping_bodies():
+			_on_right_body_entered(g);
 
 #calls to this function must be deferred
-#transforms gun coordinates, and
-#transfers ownership from self to current level
+	#transforms gun coordinates,
+	#transfers ownership from self to current level
 func drop(gun_index, enable_collider, new_gun_state):
 	var gun = guns[gun_index];
 	
@@ -55,10 +61,17 @@ func drop(gun_index, enable_collider, new_gun_state):
 		gun.get_node("GunCollider").disabled = false;
 	gun.change_state(new_gun_state);
 	game.current_level.add_child(gun);
+	
+	#update ammo
+	game.change_ammo(GV.ammo - 1);
+	
+	#update state
+	gun.change_state("solidified");
 
 #calls to this function must be deferred
+#check gun state is idle before calling, set to loading
 func pickup(g:Node2D):
-	#print("PICKUP");	
+	print("PICKUP");	
 	#steal gun from level
 	var dpos = g.position - position;
 	var l = dpos.length();
@@ -78,7 +91,6 @@ func pickup(g:Node2D):
 	g.get_parent().remove_child(g);
 	
 	#add gun
-	g.index = guns.size();
 	guns.append(g);
 	add_child(g);
 
@@ -87,13 +99,16 @@ func pickup(g:Node2D):
 	add_child(temp_col_shape);
 	
 	#update ammo
-	game.change_ammo(GV.ammo+1);
+	game.change_ammo(GV.ammo + 1);
+	
+	#update state
+	g.change_state("loaded");
 
 
-#calls to this function must be deferred, ex.
-#bullet.call_deferred("transfer", self, gun);
+#calls to this function must be deferred, ex. bullet.call_deferred("transfer", self, gun);
+#check state is loaded before calling, set to transferring
 func transfer(soldier:CharacterBody2D, gun:CharacterBody2D):
-	#print("TRANSFER");
+	print("TRANSFER");
 	#convert gun transform
 	var sb = position - soldier.position;
 	var bg_l = gun.position.length();
@@ -115,7 +130,6 @@ func transfer(soldier:CharacterBody2D, gun:CharacterBody2D):
 	guns.remove_at(gun.index);
 	remove_child(gun_colliders[gun.index]);
 	gun_colliders.remove_at(gun.index);
-	gun.index = -1;
 	
 	#add gun to soldier
 	soldier.add_child(gun);
@@ -123,6 +137,10 @@ func transfer(soldier:CharacterBody2D, gun:CharacterBody2D):
 	
 	#update ammo
 	game.change_ammo(GV.ammo - 1);
+	
+	#update state
+	gun.change_state("transferring");
+
 
 func reduceHealth(damage:float):
 	health -= damage
@@ -154,7 +172,6 @@ func _on_animated_sprite_2d_animation_finished():
 			for i in range(guns.size()-1, -1, -1):
 				if guns[i].left_loaded:
 					guns[i].call_deferred("fire");
-			game.change_ammo(GV.ammo - left_count);
 			left_count = 0;
 			$AnimatedSprite2D.stop();
 			$AnimatedSprite2D.play("roll");
@@ -162,7 +179,6 @@ func _on_animated_sprite_2d_animation_finished():
 			for i in range(guns.size()-1, -1, -1):
 				if not guns[i].left_loaded:
 					guns[i].call_deferred("fire");
-			game.change_ammo(GV.ammo - right_count);
 			right_count = 0;
 			$AnimatedSprite2D.stop();
 			$AnimatedSprite2D.play("roll");

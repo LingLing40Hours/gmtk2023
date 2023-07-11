@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://v4oxkvbsb542"]
+[gd_scene load_steps=17 format=3 uid="uid://v4oxkvbsb542"]
 
 [ext_resource type="Script" path="res://Objects/Machinegun.gd" id="1_7adkk"]
 [ext_resource type="Texture2D" uid="uid://cc28sc60rw13r" path="res://Sprites/gun3.png" id="1_b4lew"]
@@ -8,9 +8,14 @@
 [ext_resource type="Script" path="res://Objects/Gun States/fired.gd" id="5_4s08j"]
 [ext_resource type="Script" path="res://Objects/Gun States/solidified.gd" id="6_e0hhw"]
 [ext_resource type="AudioStream" uid="uid://cdhgga2ksxelr" path="res://Sounds/machinegun.wav" id="7_p7k35"]
+[ext_resource type="Script" path="res://Objects/Gun States/dropping.gd" id="8_jy18d"]
+[ext_resource type="Script" path="res://Objects/Gun States/firing.gd" id="9_4wry2"]
 [ext_resource type="AudioStream" uid="uid://cdqufxxp0c8rp" path="res://Sounds/hit3.wav" id="9_ssk66"]
 [ext_resource type="AudioStream" uid="uid://chtofcyd5vgcs" path="res://Sounds/wood_break.wav" id="10_fcxh7"]
+[ext_resource type="Script" path="res://Objects/Gun States/transferring.gd" id="10_u0sn1"]
+[ext_resource type="Script" path="res://Objects/Gun States/grabbed.gd" id="11_1d63c"]
 [ext_resource type="AudioStream" uid="uid://dw2u8pttk5n4c" path="res://Sounds/wood_long.wav" id="11_v62rf"]
+[ext_resource type="Script" path="res://Objects/Gun States/loading.gd" id="12_ohbqr"]
 
 [node name="Machinegun" type="CharacterBody2D" groups=["gun", "machinegun"]]
 script = ExtResource("1_7adkk")
@@ -35,6 +40,21 @@ script = ExtResource("5_4s08j")
 
 [node name="solidified" type="Node2D" parent="FSM"]
 script = ExtResource("6_e0hhw")
+
+[node name="dropping" type="Node2D" parent="FSM"]
+script = ExtResource("8_jy18d")
+
+[node name="firing" type="Node2D" parent="FSM"]
+script = ExtResource("9_4wry2")
+
+[node name="transferring" type="Node2D" parent="FSM"]
+script = ExtResource("10_u0sn1")
+
+[node name="grabbed" type="Node2D" parent="FSM"]
+script = ExtResource("11_1d63c")
+
+[node name="loading" type="Node2D" parent="FSM"]
+script = ExtResource("12_ohbqr")
 
 [node name="Muzzle" type="Marker2D" parent="."]
 position = Vector2(12, -1)

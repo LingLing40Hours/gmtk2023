@@ -109,19 +109,25 @@ func pointPlayerSight() -> void:
 func grabAttack() -> void:
 	if hasPlayerBeenSeen:
 		var gunList:Array[Gun] = player.get_parent().guns
-
+		
 		if isGunInGrabRange and not gunList.is_empty():
+			#find closest gun
 			var closeGun:Gun = null
 			var prevDistance = 1000000000000
 			for gun in gunList:
+				if gun.index == GV.SOLDIER_GUN: #don't grab a taken gun
+					break;
 				var distance = (gun.global_position - global_position).length_squared()
 				if distance < prevDistance:
 					prevDistance = distance
 					closeGun = gun
-			player.get_parent().call_deferred("transfer", self, closeGun)
-			equipedGun = closeGun
-			isGunEquiped = true
-			print("Gun Equiped")
+
+			if closeGun != null:
+				closeGun.index = GV.SOLDIER_GUN; #mark gun as taken
+				player.get_parent().call_deferred("transfer", self, closeGun)
+				equipedGun = closeGun
+				isGunEquiped = true
+				print("Gun Equiped")
 		if gunList.is_empty() and isPlayerInGrabRange and player.get_parent().get_state() != "loaded":
 			player.get_parent().change_state("grabbed")
 			player.get_parent().call_deferred("transfer", self, player)

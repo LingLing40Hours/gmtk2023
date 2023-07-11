@@ -8,7 +8,8 @@ const LEVEL_COUNT:int = 6;
 var current_level_index:int = 0;
 var current_level_score:int = 0;
 var level_high_scores = [];
-var level_stone_broken = []
+var level_stone_broken = [];
+
 
 const TILE_HARDNESSES:Array[float] = [0.06, 0.248]#[0.0015, 0.0028];
 const TILE_HARDNESS_BREAK_FACTORS:Array[float] = [3.7, 1];

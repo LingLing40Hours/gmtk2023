@@ -104,7 +104,6 @@ libraries = {
 script = ExtResource("2_le5kl")
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
-visible = false
 navigation_polygon = SubResource("NavigationPolygon_l7q54")
 
 [node name="TileMap" type="TileMap" parent="."]

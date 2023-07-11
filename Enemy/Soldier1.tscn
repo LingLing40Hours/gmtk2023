@@ -334,6 +334,8 @@ frame_progress = 1.0
 shape = SubResource("RectangleShape2D_65if5")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+path_postprocessing = 1
+debug_enabled = true
 
 [node name="FrontVision" type="RayCast2D" parent="."]
 position = Vector2(0, 8)

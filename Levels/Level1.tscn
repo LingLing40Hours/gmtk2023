@@ -72,7 +72,6 @@ _data = {
 script = ExtResource("1_agrjr")
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
-visible = false
 navigation_polygon = SubResource("NavigationPolygon_xqgct")
 
 [node name="Background" type="ColorRect" parent="."]

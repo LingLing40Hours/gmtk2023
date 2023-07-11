@@ -44,11 +44,11 @@ func drop(gun_index, enable_collider, new_gun_state):
 	gun.rotation += rotation;
 	
 	#remove gun
-	gun.index = -1;
 	remove_child(gun);
 	guns.remove_at(gun_index);
 	remove_child(gun_colliders[gun_index]);
 	gun_colliders.remove_at(gun_index);
+	gun.index = -1;
 	
 	#add gun to current level
 	if enable_collider:
@@ -111,11 +111,11 @@ func transfer(soldier:CharacterBody2D, gun:CharacterBody2D):
 	new_collider.scale = gun.scale;
 	
 	#remove gun
-	gun.index = -1;
 	remove_child(gun);
 	guns.remove_at(gun.index);
 	remove_child(gun_colliders[gun.index]);
 	gun_colliders.remove_at(gun.index);
+	gun.index = -1;
 	
 	#add gun to soldier
 	soldier.add_child(gun);

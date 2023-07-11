@@ -39,9 +39,9 @@ func drop(gun_index, enable_collider):
 	var gun = guns[gun_index];
 	
 	#convert gun transform to global
-	var br = rotation + 90;
+	var br = gun.position.angle() + rotation;
 	gun.position = position + gun.position.length() * Vector2(cos(br), sin(br));
-	gun.rotation += br - 90;
+	gun.rotation += rotation;
 	
 	#remove gun
 	gun.index = -1;

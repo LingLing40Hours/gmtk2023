@@ -11,6 +11,7 @@ func _ready():
 	durability = 224;
 	$FSM.setState($FSM.states.idle);
 
+
 # very crude way of shooting
 func shoot(direction: Vector2):
 	var pellet1 = pellet.instantiate()

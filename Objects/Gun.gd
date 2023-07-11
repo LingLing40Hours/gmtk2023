@@ -7,13 +7,13 @@ enum States {IDLE, LOADED, FIRED, SOLIDIFIED};
 var MU_AIR:float = 0.01;
 var DAMAGE:float;
 var SPEED:float;
-var SPEED_MIN:float = 24;
+var SPEED_MIN:float = 28;
 var BREAKWOOD_SPEED:float;
 var BREAKWOOD_SLOWDOWN:float = 40;
 
 var durability:float;
 var left_loaded:bool;
-var index = -1; #in bullet's gun array
+var index = -1; #index in player's gun array
 
 var curLevel:Level
 
@@ -22,14 +22,15 @@ func _enter_tree() -> void:
 
 #calls to this function must be deferred (bc of drop())
 func fire():
-	#parent might change between call to fire() and end of frame, so check is necessary
-	if get_parent().is_in_group("player"):
-		#set firing velocity
+	print("FIRE");
+	if get_state() == "firing":
+		#add firing velocity
 		velocity += SPEED * fire_dir();
-		
+		#detach from player
 		get_parent().drop(index, false, "fired");
-	
 
+	
+#when calling, parent must be player, otherwise returns (0, 0)
 func fire_dir() -> Vector2:
 	if not get_parent().is_in_group("player"):
 		return Vector2.ZERO;

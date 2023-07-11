@@ -13,7 +13,6 @@ var BREAKWOOD_SLOWDOWN:float = 40;
 
 var durability:float;
 var left_loaded:bool;
-var index = -1; #index in player's gun array
 
 var curLevel:Level
 
@@ -27,7 +26,7 @@ func fire():
 		#add firing velocity
 		velocity += SPEED * fire_dir();
 		#detach from player
-		get_parent().drop(index, false, "fired");
+		get_parent().drop(self, false, "fired");
 
 	
 #when calling, parent must be player, otherwise returns (0, 0)

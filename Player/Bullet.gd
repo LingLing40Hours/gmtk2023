@@ -22,6 +22,7 @@ var high_scored = false; #determines bullet behavior when returning to lv0
 func _ready():
 	change_state("idle");
 
+
 func _input(event):
 	if event.is_action_pressed("drop_left"):
 		for i in range(guns.size()):
@@ -44,8 +45,8 @@ func _input(event):
 	#transforms gun coordinates,
 	#transfers ownership from self to current level
 #check gun state is loaded before calling, set to dropping
-func drop(gun_index, enable_collider, new_gun_state):
-	var gun = guns[gun_index];
+func drop(gun:Node2D, enable_collider, new_gun_state):
+	var gun_index = guns.rfind(gun);
 	
 	#convert gun transform to global
 	var br = gun.position.angle() + rotation;
@@ -58,7 +59,6 @@ func drop(gun_index, enable_collider, new_gun_state):
 	guns.remove_at(gun_index);
 	remove_child(gun_colliders[gun_index]);
 	gun_colliders.remove_at(gun_index);
-	gun.index = -1;
 	
 	#add gun to current level
 	if enable_collider:
@@ -94,7 +94,6 @@ func pickup(gun:Node2D):
 	gun.get_parent().remove_child(gun);
 	
 	#add gun
-	gun.index = guns.size();
 	guns.append(gun);
 	add_child(gun);
 
@@ -113,6 +112,7 @@ func pickup(gun:Node2D):
 #check state is loaded before calling, set to transferring
 func transfer(soldier:CharacterBody2D, gun:CharacterBody2D):
 	print("TRANSFER");
+	var gun_index = guns.rfind(gun);
 	#convert gun transform
 	var sb = position - soldier.position;
 	var bg_l = gun.position.length();
@@ -131,10 +131,9 @@ func transfer(soldier:CharacterBody2D, gun:CharacterBody2D):
 	
 	#remove gun
 	remove_child(gun);
-	guns.remove_at(gun.index);
-	remove_child(gun_colliders[gun.index]);
-	gun_colliders.remove_at(gun.index);
-	gun.index = -1;
+	guns.remove_at(gun_index);
+	remove_child(gun_colliders[gun_index]);
+	gun_colliders.remove_at(gun_index);
 	
 	#add gun to soldier
 	soldier.add_child(gun);

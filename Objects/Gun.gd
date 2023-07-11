@@ -26,7 +26,7 @@ func fire():
 	velocity += SPEED * fire_dir();
 	
 	change_state("fired");
-	get_parent().drop(index);
+	get_parent().drop(index, false);
 	
 
 func fire_dir() -> Vector2:

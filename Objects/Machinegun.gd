@@ -1,6 +1,6 @@
 extends Gun
 
-@export var round:PackedScene
+@export var round:PackedScene = preload("res://Objects/Bullets/7mm.tscn");
 
 @onready var sound:AudioStreamPlayer2D = $Machinegun;
 
@@ -10,8 +10,8 @@ var bulletDirection:Vector2 = Vector2()
 func _ready():
 	DAMAGE = 16;
 	SPEED = 980;
-	BREAKWOOD_SPEED = 140;
-	durability = 144;
+	BREAKWOOD_SPEED = 130;
+	durability = 176;
 	$FSM.setState($FSM.states.idle);
 
 # very crude way of shooting

@@ -1,13 +1,13 @@
 extends Gun
 
-@export var pellet:PackedScene
+@export var pellet:PackedScene = preload("res://Objects/Bullets/Pellet.tscn");
 
 @onready var sound:AudioStreamPlayer2D = $Shotgun;
 
 func _ready():
 	DAMAGE = 9;
 	SPEED = 840;
-	BREAKWOOD_SPEED = 130;
+	BREAKWOOD_SPEED = 120;
 	durability = 224;
 	$FSM.setState($FSM.states.idle);
 

@@ -21,11 +21,13 @@ func _enter_tree() -> void:
 	curLevel = $"/root/Game".current_level
 
 #calls to this function must be deferred (bc of drop())
-func fire():	
-	#set firing velocity
-	velocity += SPEED * fire_dir();
-	
-	get_parent().drop(index, false, "fired");
+func fire():
+	#parent might change between call to fire() and end of frame, so check is necessary
+	if get_parent().is_in_group("player"):
+		#set firing velocity
+		velocity += SPEED * fire_dir();
+		
+		get_parent().drop(index, false, "fired");
 	
 
 func fire_dir() -> Vector2:

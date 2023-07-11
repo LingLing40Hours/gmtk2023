@@ -4,7 +4,9 @@ extends StaticBody2D
 
 const LOAD_TIME = 3.5;
 const FLY_TIME = 3.2;
-const BULLET_DPOS:Vector2 = Vector2(-80, -1); #just touching mouth of barrel
+const BULLET_DPOS:Vector2 = Vector2(-3, -1); #center of turret
+#Vector2(-80, -1); #just touching mouth of barrel
+
 const MUZZLE_VELOCITY_HS = 1500;
 const MUZZLE_VELOCITY_REG = 900;
 var timer;
@@ -29,7 +31,7 @@ func _on_area_2d_body_entered(body):
 		await timer.timeout;
 		
 		#fire bullet
-		$CollisionPolygon2D.disabled = true; #disable collider in case transformed player overlaps
+		$CollisionPolygon2D.disabled = true; #disable collision with player
 		player.get_node("Fader").stop();
 		player.modulate.a = 1;
 		player.rotation = -PI/2;

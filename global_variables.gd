@@ -27,7 +27,9 @@ var achievements = {
 	"pacifist" : false, #pass 3 levels without killing a single soldier
 	"all clear" : false, #destroy all wooden crates in any level
 	"on a roll" : false, #pass 3 levels in a row without being captured
-	"rest in revolver" : false, #kill 6+ soldiers in one shot, with a single gun
+	"revolver" : false, #have 6+ guns loaded simultaneously
+	"rest in revolver" : false, #kill 6+ soldiers by firing either left or right
+	"when the stars align" : false, #kill 6+ soldiers by firing a single gun
 };
 
 

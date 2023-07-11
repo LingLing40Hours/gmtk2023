@@ -130,7 +130,7 @@ func reduceHealth(damage:float) -> void:
 	health -= damage
 	if health <= 0:
 		isDead = true
-		print("isDead")
+#		print("isDead")
 		$"/root/Game".add_score(GV.SOLDIER_SCORE);
 
 func _on_vision_cone_body_entered(body: Node2D) -> void:
@@ -150,13 +150,14 @@ func _on_grabbing_range_body_entered(body: Node2D) -> void:
 		isPlayerInGrabRange = true
 		if not body.guns.is_empty():
 			isGunInGrabRange = true
-	if body.is_in_group("gun"):
-		print("yo")
-		if !Vector2(0,0).is_equal_approx(body.velocity):
-			reduceHealth(health)
 
 func _on_grabbing_range_body_exited(body: Node2D) -> void:
 	if body.is_in_group("player"):
 #		print(body)
 		isPlayerInGrabRange = false
 		isGunInGrabRange = false
+
+func _on_death_area_body_entered(body: Node2D) -> void:
+	if body.is_in_group("gun"):
+		if !Vector2(0,0).is_equal_approx(body.velocity):
+			reduceHealth(health)

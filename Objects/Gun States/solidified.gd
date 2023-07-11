@@ -37,6 +37,8 @@ func inPhysicsProcess(delta):
 				if speed > actor.BREAKWOOD_SPEED:
 					weardown *= GV.TILE_HARDNESS_BREAK_FACTORS[id];
 					collider.set_cell(0, pos, -1);
+					if collider.has_method("updateNavRegion"):
+						collider.updateNavRegion(pos)
 					actor.velocity *= 1 - actor.BREAKWOOD_SLOWDOWN/speed;
 					game.add_score(GV.BREAKWOOD_SCORE);
 					actor.get_node("BreakWood").play();

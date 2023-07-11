@@ -26,14 +26,16 @@ func _ready():
 func _input(event):
 	if event.is_action_pressed("drop_left"):
 		for i in range(guns.size()):
-			if guns[i].left_loaded and guns[i].get_state() == "loaded":
-				guns[i].change_state("dropping");
-				call_deferred("drop", i, true, "solidified");
+			var gun = guns[i];
+			if gun.left_loaded and gun.get_state() == "loaded":
+				gun.change_state("dropping");
+				call_deferred("drop", gun, true, "solidified");
 	if event.is_action_pressed("drop_right"):
 		for i in range(guns.size()):
-			if not guns[i].left_loaded and guns[i].get_state() == "loaded":
-				guns[i].change_state("dropping");
-				call_deferred("drop", i, true, "solidified");
+			var gun = guns[i];
+			if not gun.left_loaded and gun.get_state() == "loaded":
+				gun.change_state("dropping");
+				call_deferred("drop", gun, true, "solidified");
 	if event.is_action_released("drop_left"):
 		for g in $Left.get_overlapping_bodies():
 			_on_left_body_entered(g);

@@ -4,14 +4,15 @@ func enter():
 	actor.get_node("Buildup").play();
 	actor.get_node("AnimatedSprite2D").speed_scale = 1;
 	actor.get_node("AnimatedSprite2D").play("shoot_left");
-			
+
 func inPhysicsProcess(delta): #allow movement
-	#arc
+	#arc/roll
 	var direction = Input.get_axis("ui_left", "ui_right");
-	actor.rotation_degrees -= actor.SPEED_YAW * direction;
-	
-	#roll
-	actor.velocity += direction * actor.SPEED_ROLL * Vector2(cos(actor.rotation), sin(actor.rotation));
+	if direction:
+		if Input.is_action_pressed("arc"):
+			actor.rotation_degrees -= actor.SPEED_YAW * direction;
+		else:
+			actor.velocity += direction * actor.SPEED_ROLL * Vector2(cos(actor.rotation), sin(actor.rotation));
 	
 	#friction
 	actor.velocity *= 1 - actor.MU_GROUND;

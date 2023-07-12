@@ -1,8 +1,8 @@
 extends Gun
 
 @export var pellet:PackedScene = preload("res://Objects/Bullets/Pellet.tscn");
-
 @onready var sound:AudioStreamPlayer2D = $Shotgun;
+
 
 func _ready():
 	DAMAGE = 9;

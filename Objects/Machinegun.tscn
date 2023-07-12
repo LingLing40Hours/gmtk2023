@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://v4oxkvbsb542"]
+[gd_scene load_steps=18 format=3 uid="uid://v4oxkvbsb542"]
 
 [ext_resource type="Script" path="res://Objects/Machinegun.gd" id="1_7adkk"]
 [ext_resource type="Texture2D" uid="uid://cc28sc60rw13r" path="res://Sprites/gun3.png" id="1_b4lew"]
@@ -16,6 +16,7 @@
 [ext_resource type="Script" path="res://Objects/Gun States/grabbed.gd" id="11_1d63c"]
 [ext_resource type="AudioStream" uid="uid://dw2u8pttk5n4c" path="res://Sounds/wood_long.wav" id="11_v62rf"]
 [ext_resource type="Script" path="res://Objects/Gun States/loading.gd" id="12_ohbqr"]
+[ext_resource type="Script" path="res://Objects/Gun States/dropped.gd" id="13_p0g5g"]
 
 [node name="Machinegun" type="CharacterBody2D" groups=["gun", "machinegun"]]
 script = ExtResource("1_7adkk")
@@ -55,6 +56,9 @@ script = ExtResource("11_1d63c")
 
 [node name="loading" type="Node2D" parent="FSM"]
 script = ExtResource("12_ohbqr")
+
+[node name="dropped" type="Node2D" parent="FSM"]
+script = ExtResource("13_p0g5g")
 
 [node name="Muzzle" type="Marker2D" parent="."]
 position = Vector2(12, -1)

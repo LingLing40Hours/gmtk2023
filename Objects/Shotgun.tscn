@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://d02nio18mb1sq"]
+[gd_scene load_steps=18 format=3 uid="uid://d02nio18mb1sq"]
 
 [ext_resource type="Script" path="res://Objects/Shotgun.gd" id="1_1eenc"]
 [ext_resource type="Texture2D" uid="uid://cqoqyblvmirmp" path="res://Sprites/gun2.png" id="1_8j5uu"]
@@ -16,6 +16,7 @@
 [ext_resource type="Script" path="res://Objects/Gun States/grabbed.gd" id="11_8ql70"]
 [ext_resource type="AudioStream" uid="uid://dw2u8pttk5n4c" path="res://Sounds/wood_long.wav" id="11_r4gmb"]
 [ext_resource type="Script" path="res://Objects/Gun States/loading.gd" id="12_k4jpe"]
+[ext_resource type="Script" path="res://Objects/Gun States/dropped.gd" id="13_t8i36"]
 
 [node name="Shotgun" type="CharacterBody2D" groups=["gun", "shotgun"]]
 script = ExtResource("1_1eenc")
@@ -58,6 +59,9 @@ script = ExtResource("11_8ql70")
 
 [node name="loading" type="Node2D" parent="FSM"]
 script = ExtResource("12_k4jpe")
+
+[node name="dropped" type="Node2D" parent="FSM"]
+script = ExtResource("13_t8i36")
 
 [node name="Shotgun" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("7_15atk")

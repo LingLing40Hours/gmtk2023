@@ -54,7 +54,15 @@ func drop(gun:Node2D, enable_collider, new_gun_state):
 	var br = gun.position.angle() + rotation;
 	gun.position = position + gun.position.length() * Vector2(cos(br), sin(br));
 	gun.rotation += rotation;
-	gun.velocity += velocity;
+	
+	#inherit bullet velocity if velocity is in direction away from bullet
+	var out_dir = Vector2(cos(rotation), sin(rotation));
+	if gun.left_loaded:
+		out_dir *= -1;
+
+	if within_rad_apart_inclusive(velocity.angle(), out_dir.angle(), PI/2):
+		gun.velocity += velocity;
+	
 	
 	#remove gun
 	remove_child(gun);
@@ -205,3 +213,9 @@ func _on_roll_straight_finished():
 func _on_roll_turn_finished():
 	if get_state() == "arcing":
 		$RollTurn.play();
+
+func within_rad_apart_inclusive(angle1, angle2, dr) -> bool:
+	var sep = fposmod(abs(angle1 - angle2), 2*PI);
+	if sep <= dr:
+		return true;
+	return false;

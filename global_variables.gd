@@ -41,3 +41,4 @@ func _ready():
 	level_stone_broken.fill(false);
 	
 	rng.randomize();
+

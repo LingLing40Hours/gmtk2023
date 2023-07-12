@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://hkt5mjqrsf6d"]
+[gd_scene load_steps=19 format=3 uid="uid://hkt5mjqrsf6d"]
 
 [ext_resource type="Script" path="res://Objects/Handgun.gd" id="1_0t60d"]
 [ext_resource type="PackedScene" uid="uid://dyu2su5h00cj3" path="res://Objects/Bullets/Pellet.tscn" id="2_8cldw"]
@@ -17,6 +17,7 @@
 [ext_resource type="AudioStream" uid="uid://cnlksi40cov6l" path="res://Sounds/wood_short.wav" id="11_qfhx5"]
 [ext_resource type="Script" path="res://Objects/Gun States/grabbed.gd" id="12_q02ab"]
 [ext_resource type="Script" path="res://Objects/Gun States/loading.gd" id="13_vnf7q"]
+[ext_resource type="Script" path="res://Objects/Gun States/dropped.gd" id="14_q1qoy"]
 
 [node name="Handgun" type="CharacterBody2D" groups=["gun", "handgun"]]
 motion_mode = 1
@@ -58,6 +59,9 @@ script = ExtResource("12_q02ab")
 
 [node name="loading" type="Node2D" parent="FSM"]
 script = ExtResource("13_vnf7q")
+
+[node name="dropped" type="Node2D" parent="FSM"]
+script = ExtResource("14_q1qoy")
 
 [node name="Muzzle" type="Marker2D" parent="."]
 position = Vector2(3, -1.5)
